@@ -1,0 +1,89 @@
+<div class="scrollbar row">
+	
+	<div style="width: 80%;margin-left: 10%" >
+		<input type="text" name="search-table" #searchText (keyup)="filter(searchText.value)">
+		<table class="table table-striped ">
+			<thead>
+				<div *ngIf="this.subActivity[0].id_beneficiario == null;  then ok1 else bad1" ></div>
+				<ng-template #ok1>
+					<th>{{this.subActivity[0].nom_act.split(' ')[0].toUpperCase()}}</th>
+					<th>DUEÑO / ASIGNADO</th>
+					<th>ACCIONES</th>
+				</ng-template>
+				<ng-template #bad1>
+					<th>IDENTIFICACION</th>
+					<th>BENEFICIARIO</th>
+					<th>ACCIONES</th>
+				</ng-template>
+				
+			</thead>
+			<tbody>
+				<div *ngIf="this.subActivity[0].id_beneficiario == null ; then ok2 else bad2"></div>
+				<ng-template #ok2>
+					<tr *ngFor="let subActividad of this.subActivity">
+						<td>
+							{{subActividad.nom_act}}	
+						</td>
+						<td>
+							{{subActividad.usr_nom}} {{subActividad.usr_ape}}
+						</td>
+						<td >
+							<div class="form-inline">
+								<button  class="btn btn-primary" (click)="entrarAct(subActividad)" class="btn btn-warning">	Entrar </button>
+
+
+							</div>
+						</td>
+					</tr> 
+				</ng-template>
+				<ng-template #bad2>
+					<tr *ngFor="let subActividad of this.subActivity">
+						<td>
+							{{subActividad.tipo_identificacion}}	{{subActividad.cedula}}	
+						</td>
+						<td>
+							{{subActividad.nombre}} 
+						</td>
+						<td>
+							<div>
+								<button  class="btn btn-primary" (click)="entrarAct(subActividad)" class="btn btn-warning">	Entrar </button>
+
+								<div>
+									<div *ngIf="
+									subActividad.usuario_asignado != this.serviciog.usuario.id_usuario && this.serviciog.usuario.tipo_usuario == 'sup' &&
+									subActividad.id_beneficiario != null; 
+									then thenBlock1 "  
+									class="btn btn-succes" ></div>
+
+									<ng-template #thenBlock1>
+										<!--*ngIf="this.serviciog.usuario.id_usuario != subActividad.usuario_asignado"  -->
+										<button (click)="asignarUsuario(subActividad)" 
+										class="btn btn-danger"> asignarmelo </button>
+									</ng-template >
+								</div>
+								<div>
+									<div *ngIf="
+									this.serviciog.usuario.tipo_usuario !== this.typeUser; 
+									then thenBlock2 "  
+									class="btn btn-succes" ></div>
+
+									<ng-template #thenBlock2 >
+										<!--*ngIf="this.serviciog.usuario.id_usuario != subActividad.usuario_asignado"  -->
+										<button (click)="getUsers()"  data-toggle="modal" [attr.data-target]="'#' + subActividad.keym+'-'+subActividad.id_caracteristica+'-'+subActividad.id_usuario" class="btn btn-success"
+										>  Asignar. </button>
+										<app-assign-user 
+										[usuarios]="this.axUsers"
+										[act]="subActividad">	</app-assign-user>
+
+									</ng-template >
+
+								</div>
+							</div>
+						</td>
+					</tr>
+				</ng-template>
+			</tbody>		
+		</table>
+	</div>
+</div>
+
