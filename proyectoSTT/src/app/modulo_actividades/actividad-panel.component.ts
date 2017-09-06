@@ -60,11 +60,11 @@ export class ActividadPanel implements OnInit{
 
 	actualizarActividad(actividad){
 		var isUpdatePercentage = false;
-		
+
 		////se comprueba si ubieron cambios en el porcentaje ejecutado
 		if(this.porcentaje_ejecutado != actividad.porcentaje_cumplido){
 			this.porcentaje_ejecutado = actividad.porcentaje_cumplido - this.porcentaje_ejecutado;
-			this.porcentaje_ejecutado = this.porcentaje_ejecutado * (actividad.porcentaje/100);
+			//this.porcentaje_ejecutado = this.porcentaje_ejecutado * (actividad.porcentaje/100);
 			this.isEditar = !this.isEditar;
 			isUpdatePercentage = true;
 			alert(this.porcentaje_ejecutado);
@@ -189,6 +189,8 @@ export class ActividadPanel implements OnInit{
 	}
 
 	regresar(){		
+		alert(JSON.stringify(this.serviGloAct.lastActividad) + "----" +this.serviciog.isSubActivity)
+		
 		if(this.serviGloAct.lastActividad != this.serviciog.isSubActivity && this.serviGloAct.lastActividad){
 			this.subActivity = [];
 			this.serviciog.actividades = [];
