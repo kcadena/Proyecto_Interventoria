@@ -23,6 +23,8 @@ export class ActividadPanel implements OnInit{
 	subActivity:any = 0;
 	usuarios:any = [];
 	flg : boolean = true;
+	porcentaje_ejecutado:number;
+
 
 	constructor(
 		private serviciog:ServiciosGlobales,
@@ -57,17 +59,32 @@ export class ActividadPanel implements OnInit{
 	}
 
 	actualizarActividad(actividad){
-		this.isEditar = !this.isEditar;
+		var isUpdatePercentage = false;
+		
+		////se comprueba si ubieron cambios en el porcentaje ejecutado
+		if(this.porcentaje_ejecutado != actividad.porcentaje_cumplido){
+			this.porcentaje_ejecutado = actividad.porcentaje_cumplido - this.porcentaje_ejecutado;
+			this.porcentaje_ejecutado = this.porcentaje_ejecutado * (actividad.porcentaje/100);
+			this.isEditar = !this.isEditar;
+			isUpdatePercentage = true;
+			alert(this.porcentaje_ejecutado);
+		}
+		
 		var formData = new FormData();
 		formData.append("actividad",JSON.stringify(actividad));
+		formData.append("porcentaje_cumplido",JSON.stringify(this.porcentaje_ejecutado));
+		formData.append("isUpdatePercentage",JSON.stringify(isUpdatePercentage));
+
+		this.porcentaje_ejecutado = 0;
 		this.servicios.updateCaracteristica(formData)
 		.then(message=>{
 			alert(JSON.stringify(message));
 		});
 	}
 
-	editarClick(){
-		this.isEditar = !this.isEditar;
+	editarClick(actividad){
+		this.isEditar = !this.isEditar;		
+		this.porcentaje_ejecutado = actividad.porcentaje_cumplido;
 	}
 
 	onSelectActivity(activity){
@@ -197,7 +214,7 @@ export class ActividadPanel implements OnInit{
 
 	getUsers(){
 		if(this.serviciog.usuario.tipo_usuario!== 'sup')		
-		this.servicios.getUserList(null)
+			this.servicios.getUserList(null)
 		.then(usuarios => {
 			if(usuarios){				
 				this.usuarios = usuarios;
@@ -280,28 +297,25 @@ export class ActividadPanel implements OnInit{
 	}
 
 	c5(){		
-		this.serviGloAct.actOpt = 5;
-		var formData = new FormData();
-		if(this.serviciog.isSelAct){			
-			formData.append("caracteristica",JSON.stringify(this.serviciog.actividad))
-		}
-		else{			
-			formData.append("caracteristica",JSON.stringify(this.serviciog.proyecto))
-		}
-
-		this.servicios.getPercentage(formData)
-		.then(message=>{
-			var numSi = Number(message);
-			var numNo = 100 - Number(message)	
+		this.serviGloAct.actOpt = 5;		
+		
+		if(this.serviciog.isSelAct){
+			var numSi = this.serviciog.actividad.porcentaje_cumplido;
+			var numNo = 100 - numSi	
 			this.doughnutChartData = [
 			numSi,
 			numNo
-
-			]		
-
-		})
-
-
+			]			
+			
+		}
+		else{
+			var numSi = this.serviciog.proyecto.porcentaje_cumplido;
+			var numNo = 100 - numSi	
+			this.doughnutChartData = [
+			numSi,
+			numNo
+			]
+		}
 	}
 	c6(){		
 		this.serviGloAct.actOpt = 6;
