@@ -39,7 +39,6 @@ export class SubActividadPanel implements OnInit{
 	}
 
 	entrarAct(subActividad){
-		alert(JSON.stringify(this.serviciog.actividad));
 	    this.subActivity = [];
 	    this.serviciog.actividades = [];
 		this.serviciog.actividad = subActividad;

@@ -21,7 +21,8 @@ export class ActividadPanel implements OnInit{
 	isEditar:boolean=false;
 	isSubActivity:any = [];
 	subActivity:any = 0;
-	usuarios:any = []
+	usuarios:any = [];
+	flg : boolean = true;
 
 	constructor(
 		private serviciog:ServiciosGlobales,
@@ -31,6 +32,9 @@ export class ActividadPanel implements OnInit{
 		){ };
 
 	ngOnInit():void {
+		if(this.serviciog.usuario.tipo_usuario === 'sup') 
+			this.flg = false;
+
 		this.serviciog.actividades = [];
 		if(this.serviciog.proyecto){
 			this.serviciog.titulo = this.serviciog.proyecto.nombre;
@@ -191,7 +195,8 @@ export class ActividadPanel implements OnInit{
 		}
 	}
 
-	getUsers(){		
+	getUsers(){
+		if(this.serviciog.usuario.tipo_usuario!== 'sup')		
 		this.servicios.getUserList(null)
 		.then(usuarios => {
 			if(usuarios){				

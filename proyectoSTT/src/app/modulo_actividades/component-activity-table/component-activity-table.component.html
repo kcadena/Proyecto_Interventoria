@@ -1,7 +1,7 @@
 <div class="scrollbar row">
 	
 	<div style="width: 80%;margin-left: 10%" >
-		<input type="text" name="search-table" #searchText (keyup)="filter(searchText.value)">
+		<input type="text" class="form-control" style="width: 80%;margin: auto;" placeholder="BUSCAR...." name="search-table" #searchText (keyup)="filter(searchText.value)">
 		<table class="table table-striped ">
 			<thead>
 				<div *ngIf="this.subActivity[0].id_beneficiario == null;  then ok1 else bad1" ></div>
