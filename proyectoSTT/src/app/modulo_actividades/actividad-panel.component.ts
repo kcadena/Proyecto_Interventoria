@@ -164,8 +164,7 @@ export class ActividadPanel implements OnInit{
 	}
 
 	entrarACtividad(actividad){
-
-		this.serviGloAct.lastActividad = this.serviciog.isSubActivity;
+		this.serviGloAct.lastActividad.push(this.serviciog.isSubActivity);
 
 
 		this.subActivity = [];
@@ -189,18 +188,19 @@ export class ActividadPanel implements OnInit{
 	}
 
 	regresar(){		
-		alert(JSON.stringify(this.serviGloAct.lastActividad) + "----" +this.serviciog.isSubActivity)
 		
-		if(this.serviGloAct.lastActividad != this.serviciog.isSubActivity && this.serviGloAct.lastActividad){
+		var lastActividad = this.serviGloAct.lastActividad.pop();
+		
+		if(lastActividad!= this.serviciog.isSubActivity && lastActividad){
 			this.subActivity = [];
 			this.serviciog.actividades = [];
-			this.serviciog.actividad = this.serviGloAct.lastActividad;
-			this.serviciog.isSubActivity = this.serviGloAct.lastActividad;
-			var keym = this.serviGloAct.lastActividad.keym;
-			var id_usuario = this.serviGloAct.lastActividad.id_usuario;
-			var id_caracteristica = this.serviGloAct.lastActividad.id_caracteristica;
+			this.serviciog.actividad = lastActividad;
+			this.serviciog.isSubActivity = lastActividad;
+			var keym = lastActividad.keym;
+			var id_usuario = lastActividad.id_usuario;
+			var id_caracteristica = lastActividad.id_caracteristica;
 
-			this.serviciog.titulo = this.serviGloAct.lastActividad.nom_act;
+			this.serviciog.titulo = lastActividad.nom_act;
 			this.serviGloAct.actOpt= 1;
 
 			this.servicios.getActividad(keym,id_usuario,id_caracteristica)

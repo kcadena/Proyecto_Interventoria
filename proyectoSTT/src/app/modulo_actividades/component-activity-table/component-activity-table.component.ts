@@ -45,7 +45,7 @@ export class ActivityTableComponent implements OnInit{
 	}
 
 	entrarAct(subActividad){
-		this.serviGloAct.lastActividad  = this.serviciog.actividad;
+		this.serviGloAct.lastActividad.push(this.serviciog.actividad);
 		this.subActivity = [];
 		this.serviciog.actividades = [];
 		this.serviciog.actividad = subActividad;
