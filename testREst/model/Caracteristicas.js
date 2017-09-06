@@ -346,7 +346,7 @@ module.exports.updateCharacteristic = function (data,isUpdatePercentage,porcenta
 
     if(flg){
       var sequelize = sqlCon.configConnection();
-      var query1 = `select updatePercent(`+data.keym+`,`+data.id_caracteristica+`,`+data.id_usuario+`,`+data.porcentaje_cumplido+`)`;
+      var query1 = `select updatePercent(`+data.keym+`,`+data.id_caracteristica+`,`+data.id_usuario+`,`+porcentaje_cumplido+`)`;
 
       sequelize.query(query1, { type: sequelize.QueryTypes.SELECT })
           .then(x => {
