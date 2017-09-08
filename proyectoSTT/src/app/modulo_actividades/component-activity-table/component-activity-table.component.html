@@ -4,17 +4,13 @@
 		<input type="text" class="form-control" style="width: 80%;margin: auto;" placeholder="BUSCAR...." name="search-table" #searchText (keyup)="filter(searchText.value)">
 		<table class="table table-striped ">
 			<thead>
-				<div *ngIf="this.subActivity[0].id_beneficiario == null;  then ok1 else bad1" ></div>
-				<ng-template #ok1>
-					<th>{{this.subActivity[0].nom_act.split(' ')[0].toUpperCase()}}</th>
-					<th>DUEÑO / ASIGNADO</th>
-					<th>ACCIONES</th>
-				</ng-template>
-				<ng-template #bad1>
-					<th>IDENTIFICACION</th>
-					<th>BENEFICIARIO</th>
-					<th>ACCIONES</th>
-				</ng-template>
+				<th *ngIf="this.subActivity[0].id_beneficiario != null">CEDULA</th>
+
+				<th style="text-transform: uppercase;">{{this.serviGloAct.tipo}}</th>
+
+				<th>USUARIO DUEÑO / ASIGNADO</th>
+				<th>ACCIONES</th>
+				
 				
 			</thead>
 			<tbody>
@@ -31,7 +27,6 @@
 							<div class="form-inline">
 								<button  class="btn btn-primary" (click)="entrarAct(subActividad)" class="btn btn-warning">	Entrar </button>
 
-
 							</div>
 						</td>
 					</tr> 
@@ -43,6 +38,9 @@
 						</td>
 						<td>
 							{{subActividad.nombre}} 
+						</td>
+						<td>
+							{{subActividad.usr_nom}} {{subActividad.usr_ape}}
 						</td>
 						<td>
 							<div>
@@ -58,12 +56,12 @@
 									<ng-template #thenBlock1>
 										<!--*ngIf="this.serviciog.usuario.id_usuario != subActividad.usuario_asignado"  -->
 										<button (click)="asignarUsuario(subActividad)" 
-										class="btn btn-danger"> asignarmelo </button>
+										class="btn btn-danger"> Asignar </button>
 									</ng-template >
 								</div>
 								<div>
 									<div *ngIf="
-									this.serviciog.usuario.tipo_usuario !== this.typeUser; 
+									this.serviciog.usuario.tipo_usuario === null; 
 									then thenBlock2 "  
 									class="btn btn-succes" ></div>
 

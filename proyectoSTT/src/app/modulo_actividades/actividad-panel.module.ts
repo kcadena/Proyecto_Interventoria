@@ -16,7 +16,9 @@ import { AgmCoreModule } from '@agm/core';
 
 import { ServiciosGlobalesActividades} from './servicios-globales-actividades';
 import { ActivityTableComponent } from './component-activity-table/component-activity-table.component';
-import { AssignUserComponent } from './assign-user/assign-user.component'
+import { AssignUserComponent } from './assign-user/assign-user.component';
+import { RemarksComponent } from './remarks/remarks.component';
+import { ReportComponent } from './report/report.component'
 
 
 
@@ -37,7 +39,9 @@ import { AssignUserComponent } from './assign-user/assign-user.component'
     Mapa,
     SubActividadPanel,
     ActivityTableComponent,
-    AssignUserComponent
+    AssignUserComponent,
+    RemarksComponent,
+    ReportComponent
   ],
   providers: [ ServiciosGlobalesActividades ]
 })

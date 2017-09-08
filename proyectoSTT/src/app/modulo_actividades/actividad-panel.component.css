@@ -2,6 +2,10 @@
 	background-color: rgba(0,0,0,0.2);
 }
 
+.listaActividades{
+	overflow-y:auto; 
+	height: 73vh;
+}
 .listaActividades ul {
 	list-style: none;
 	margin-right: 0px;
@@ -12,7 +16,22 @@
 	text-decoration: none;
 	padding: 10px 10px;
 	color: white;
-	//background-color: rgb(153,191,78);
+}
+.listaActividades::-webkit-scrollbar-track
+{
+	-webkit-box-shadow: inset 0 0 6px rgba(0,0,0,0.3);
+	background-color: #F5F5F5;
+}
+
+.listaActividades::-webkit-scrollbar
+{
+	width: 6px;
+	background-color: #F5F5F5;
+}
+
+.listaActividades::-webkit-scrollbar-thumb
+{
+	background-color: #000000;
 }
 
 .listaActividades a:hover{

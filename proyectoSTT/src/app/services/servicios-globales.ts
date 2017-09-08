@@ -18,6 +18,8 @@ export class ServiciosGlobales {
 	tipo:string = 'img';
 	axActividades : any;
 
+	tipos_act = ['Proyecto','Proyecto','Provincia','Municipio','Resguardo','Beneficiario','Capitulo','Actividad'];
+
 	constructor(private persistenceService:PersistenceService){}
 
 	getUserSession(usuario:Usuario){

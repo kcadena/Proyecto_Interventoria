@@ -170,4 +170,17 @@ export class Servicios {
 		.catch(err => false)
 	}
 
+	getRemarks(formData:FormData) : Promise<any>{
+		return this.http.post(this.url +"getRemarks",formData)
+		.toPromise()
+		.then(response => response.json())
+		.catch(err => false)
+	}
+	regRemarks(formData:FormData) : Promise<any>{
+		return this.http.post(this.url +"regRemarks",formData)
+		.toPromise()
+		.then(response => response.json())
+		.catch(err => false)
+	}
+
 } 

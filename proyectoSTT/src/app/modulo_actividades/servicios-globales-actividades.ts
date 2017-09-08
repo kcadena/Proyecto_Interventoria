@@ -9,6 +9,9 @@ export class ServiciosGlobalesActividades {
 	actOpt:number = 0;
 	subActividades:any = [];
 	lastActividad:any = [];
+	remarks:any=[];
+	tipo :string = '';
+	
 	constructor(private persistenceService:PersistenceService){}
 }
 

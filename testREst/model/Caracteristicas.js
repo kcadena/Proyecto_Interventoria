@@ -422,6 +422,65 @@ module.exports.updateCharacteristic = function (data,isUpdatePercentage,porcenta
 
 }
 
+module.exports.getRemarks = function (data){
+  console.log(JSON.stringify(data));
+  return new Promise((resolve, reject) => {
+      var sequelize = sqlCon.configConnection();
+      var query1 = `
+            select u.nombre||' '||u.apellido as usuario,o.observacion from caracteristicas c natural join observaciones o join usuarios u
+            on o.usu_observacion = u.id_usuario
+            where c.keym = `+data.keym+` and c.id_caracteristica = `+data.id_caracteristica+` and c.id_usuario = `+data.id_usuario+`;
+      `;
+
+      sequelize.query(query1, { type: sequelize.QueryTypes.SELECT })
+          .then(x => {
+              console.log('YAY get remarsk   =>   ' + JSON.stringify(x[0].func));
+              resolve(x);
+          }).catch(x => {
+              console.log('Error al Obtener remarks' + x);
+              reject(false);
+          }).done(x => {
+              sequelize.close();
+              console.log('Se ha cerrado sesion de la conexion a la base de datos');
+          });
+  });
+}
+
+
+
+module.exports.regRemarks = function (data){
+  console.log(JSON.stringify(data));
+  return new Promise((resolve, reject) => {
+      var sequelize = sqlCon.configConnection();
+      var query1 = `
+
+        insert into observaciones (keym,id_caracteristica,id_usuario,usu_observacion,observacion) values
+        (
+          `+data.keym+`,
+          `+data.id_caracteristica+`,
+          `+data.id_usuario+`,
+
+          `+data.usu_observacion+`,
+
+          '`+data.observacion+`'
+        );
+
+      `;
+
+      sequelize.query(query1, { type: sequelize.QueryTypes.INSERT })
+          .then(x => {
+              console.log('YAY reg remarsk   =>   ' + JSON.stringify(x));
+              resolve(true);
+          }).catch(x => {
+              console.log('Error al Obtener remarks' + x);
+              reject(false);
+          }).done(x => {
+              sequelize.close();
+              console.log('Se ha cerrado sesion de la conexion a la base de datos');
+          });
+  });
+}
+
 function getIdCharacteristic(keym, id_usuario, id_caracteristica, type_char) {
     var query1;
     if (type_char === 'A') {

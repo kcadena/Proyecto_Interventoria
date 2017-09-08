@@ -94,10 +94,11 @@ module.exports.getActivityList = function (data) {
 				c.id_usuario,
 
         c.usuario_asignado,
-
+        c.tipo,
 				c.keym_padre,
 				c.id_caracteristica_padre,
-				c.id_usuario_padre,
+        c.id_usuario_padre,
+        c.tipo,
 
 				c.estado,
 				c.porcentaje_asignado,
@@ -115,7 +116,8 @@ module.exports.getActivityList = function (data) {
 				u.nombre as usr_nom,
 				u.apellido as usr_ape,
         u.e_mail as e_mail,
-        u.cargo as cargo
+        u.cargo as cargo,
+        u.tipo_usuario
 
 				from actividades a join caracteristicas c
  				on 	a.keym_car = c.keym
@@ -171,6 +173,7 @@ function getRecursiveActivity(keym, car, usu, sequelize, element, i) {
 				c.keym,
 				c.id_caracteristica,
 				c.id_usuario,
+        c.tipo,
 
 				c.keym_padre,
 				c.id_caracteristica_padre,

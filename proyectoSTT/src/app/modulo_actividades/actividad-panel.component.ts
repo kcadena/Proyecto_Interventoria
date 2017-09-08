@@ -14,7 +14,9 @@ import { ServiciosGlobalesActividades} from './servicios-globales-actividades'
 	styleUrls: [ './actividad-panel.component.css' ]
 })
 
-export class ActividadPanel implements OnInit{	
+export class ActividadPanel implements OnInit{
+	
+
 	miPorcentaje:number = 100;
 	porcentajeAsignado:number = 0;
 	flag:boolean=true;
@@ -30,11 +32,11 @@ export class ActividadPanel implements OnInit{
 		private serviciog:ServiciosGlobales,
 		private serviGloAct:ServiciosGlobalesActividades,
 		private router:Router,
-		private servicios: Servicios	  
+		private servicios: Servicios
 		){ };
 
 	ngOnInit():void {
-		if(this.serviciog.usuario.tipo_usuario === 'sup') 
+		if(this.serviciog.usuario.tipo_usuario === 'sup')
 			this.flg = false;
 
 		this.serviciog.actividades = [];
@@ -42,15 +44,19 @@ export class ActividadPanel implements OnInit{
 			this.serviciog.titulo = this.serviciog.proyecto.nombre;
 			var keym = this.serviciog.proyecto.keym;
 			var id_usuario = this.serviciog.proyecto.id_usuario;
-			var id_caracteristica = this.serviciog.proyecto.id_caracteristica;		
+			var id_caracteristica = this.serviciog.proyecto.id_caracteristica;
 
 			this.servicios.getActividad(keym,id_usuario,id_caracteristica)
-			.then(actividades =>{				
+			.then(actividades =>{
 				if(actividades){
-					this.serviciog.actividades = actividades;					
+					this.serviciog.actividades = actividades;
 					this.calculateValue(this.serviciog.actividades);
+					var num =this.serviciog.tipos_act.indexOf(actividades[0].tipo);
+					this.serviGloAct.tipo = this.serviciog.tipos_act[num + 1];
+					//alert(JSON.stringify(this.serviciog.actividades));
+					//alert('2 '+this.serviGloAct.tipo);
 				}
-			});	
+			});
 		}else{
 			let link = ['administrador'];
 			this.router.navigate(link);
@@ -67,9 +73,9 @@ export class ActividadPanel implements OnInit{
 			//this.porcentaje_ejecutado = this.porcentaje_ejecutado * (actividad.porcentaje/100);
 			this.isEditar = !this.isEditar;
 			isUpdatePercentage = true;
-			alert(this.porcentaje_ejecutado);
+			//alert(this.porcentaje_ejecutado);
 		}
-		
+
 		var formData = new FormData();
 		formData.append("actividad",JSON.stringify(actividad));
 		formData.append("porcentaje_cumplido",JSON.stringify(this.porcentaje_ejecutado));
@@ -83,7 +89,7 @@ export class ActividadPanel implements OnInit{
 	}
 
 	editarClick(actividad){
-		this.isEditar = !this.isEditar;		
+		this.isEditar = !this.isEditar;
 		this.porcentaje_ejecutado = actividad.porcentaje_cumplido;
 	}
 
@@ -91,19 +97,22 @@ export class ActividadPanel implements OnInit{
 		this.miPorcentaje = 100;
 		this.porcentajeAsignado =0;
 		this.serviciog.actividad = activity;
-		this.serviciog.isSelAct = true;		
+		this.serviciog.isSelAct = true;
 		this.serviGloAct.actOpt = 1;
 		this.serviGloAct.subActividades = [];
-		
+
 		var keym = activity.keym;
 		var id_usuario = activity.id_usuario;
-		var id_caracteristica = activity.id_caracteristica;		
+		var id_caracteristica = activity.id_caracteristica;
 
 		this.servicios.getActividad(keym,id_usuario,id_caracteristica)
-		.then(actividades =>{				
+		.then(actividades =>{
 			if(actividades){
 				this.serviGloAct.subActividades = actividades;
-				this.calculateValue(actividades);												
+				var num =this.serviciog.tipos_act.indexOf(this.serviGloAct.subActividades[0].tipo);
+				this.serviGloAct.tipo = this.serviciog.tipos_act[num];
+
+				this.calculateValue(actividades);
 			}
 		});
 
@@ -111,39 +120,43 @@ export class ActividadPanel implements OnInit{
 
 	valPor(flag,i){
 		if(flag){
-			if(this.serviciog.actividades[i].porcentaje < 0){				
+			if(this.serviciog.actividades[i].porcentaje < 0){
 				this.serviciog.actividades[i].porcentaje = 0;
 				this.calculateValue(this.serviciog.actividades);
-			}else if(this.serviciog.actividades[i].porcentaje > 100){				
+			}else if(this.serviciog.actividades[i].porcentaje > 100){
 				this.serviciog.actividades[i].porcentaje = 100;
-				this.calculateValue(this.serviciog.actividades);				
-			}else{				
+				this.calculateValue(this.serviciog.actividades);
+			}else{
 				this.calculateValue(this.serviciog.actividades);
 			}
-		}else{			
+		}else{
 			this.calculateValue(this.serviGloAct.subActividades);
-		}		
+		}
 	}
 
 	tituloClick(){
+		var num =this.serviciog.tipos_act.indexOf(this.serviciog.actividades[0].tipo);
+		this.serviGloAct.tipo = this.serviciog.tipos_act[num];
+		//alert('ok  '+num+'   '+this.serviGloAct.tipo);
+
 		if(!this.serviciog.isSubActivity){
 			this.serviciog.isSelAct = false;
 			this.serviGloAct.actOpt = 0;
 		}else{
 			this.serviciog.actividad = this.serviciog.isSubActivity;
-		}		
+		}
 	}
 
 	sendPercentage()
-	{		
+	{
 		var formData = new FormData();
-		if(!this.serviciog.isSelAct){			
+		if(!this.serviciog.isSelAct){
 			formData.append("actividades",JSON.stringify(this.serviciog.actividades))
 		}
 		else{
 			formData.append("actividades",JSON.stringify(this.serviGloAct.subActividades))
 		}
-		
+
 		this.servicios.updatePercentage(formData)
 		.then(message => {
 			alert(JSON.stringify(message));
@@ -155,7 +168,7 @@ export class ActividadPanel implements OnInit{
 		this.serviciog.titulo = this.serviciog.proyecto.nombre;
 		var keym = this.serviciog.proyecto.keym;
 		var id_usuario = this.serviciog.proyecto.id_usuario;
-		var id_caracteristica = this.serviciog.proyecto.id_caracteristica;		
+		var id_caracteristica = this.serviciog.proyecto.id_caracteristica;
 		this.serviciog.isSubActivity = null;
 		this.serviciog.isSelAct = false;
 		this.serviGloAct.actOpt = 0;
@@ -174,23 +187,26 @@ export class ActividadPanel implements OnInit{
 		var keym = actividad.keym;
 		var id_usuario = actividad.id_usuario;
 		var id_caracteristica = actividad.id_caracteristica;
-		
+
 		this.serviciog.titulo = actividad.nom_act;
 		this.serviGloAct.actOpt= 1;
-		
+
 
 		this.servicios.getActividad(keym,id_usuario,id_caracteristica)
-		.then(actividad => { 
+		.then(actividad => {
 			if(actividad){
 				this.serviciog.actividades = actividad;
-			}		
+				var num =this.serviciog.tipos_act.indexOf(this.serviciog.actividades[0].tipo);
+				this.serviGloAct.tipo = this.serviciog.tipos_act[num + 1];
+				//alert('1 '+this.serviGloAct.tipo);
+			}
 		});
 	}
 
-	regresar(){		
-		
+	regresar(){
+
 		var lastActividad = this.serviGloAct.lastActividad.pop();
-		
+
 		if(lastActividad!= this.serviciog.isSubActivity && lastActividad){
 			this.subActivity = [];
 			this.serviciog.actividades = [];
@@ -204,23 +220,26 @@ export class ActividadPanel implements OnInit{
 			this.serviGloAct.actOpt= 1;
 
 			this.servicios.getActividad(keym,id_usuario,id_caracteristica)
-			.then(actividad => { 
+			.then(actividad => {
 				if(actividad){
 					this.serviciog.actividades = actividad;
-				}		
+					var num =this.serviciog.tipos_act.indexOf(actividad[0].tipo);
+					this.serviGloAct.tipo = this.serviciog.tipos_act[num];
+
+				}
 			});
-		}else{			
+		}else{
 			this.inicio();
 		}
 	}
 
 	getUsers(){
-		if(this.serviciog.usuario.tipo_usuario!== 'sup')		
+		if(this.serviciog.usuario.tipo_usuario!== 'sup')
 			this.servicios.getUserList(null)
 		.then(usuarios => {
-			if(usuarios){				
+			if(usuarios){
 				this.usuarios = usuarios;
-			}			
+			}
 		})
 	}
 
@@ -228,11 +247,12 @@ export class ActividadPanel implements OnInit{
 		this.serviciog.actividad.usr_nom = usuario.nombre;
 		this.serviciog.actividad.usr_ape = usuario.apellido;
 		this.serviciog.actividad.e_mail = usuario.e_mail;
-		alert(JSON.stringify(usuario))
+		//alert(JSON.stringify(usuario))
 		var formData = new FormData();
 		formData.append("keym","0");
 		formData.append("usuario",JSON.stringify(usuario));
 		formData.append("caracteristica",JSON.stringify(this.serviciog.actividad));
+		//alert(formData.toString());
 		this.servicios.assignActivityToUser(formData)
 		.then(message =>{
 			alert(JSON.stringify(message));
@@ -256,9 +276,9 @@ export class ActividadPanel implements OnInit{
 
 	public barColor:any[] = [
 	{backgroundColor: 'rgba(9,128,1,.8)'},
-	{backgroundColor: 'rgba(255,255,1,.8)'}, 
+	{backgroundColor: 'rgba(255,255,1,.8)'},
 	{backgroundColor: 'rgba(254,0,0,.8)'},
-	{backgroundColor: '#4d86dc'}, 
+	{backgroundColor: '#4d86dc'},
 	{backgroundColor: '#f3af37'}
 	];
 
@@ -267,17 +287,17 @@ export class ActividadPanel implements OnInit{
 	public doughnutChartType:string = 'doughnut';
 
 	// events
-	public chartClicked(e:any):void {		
+	public chartClicked(e:any):void {
 		console.log(e);
 	}
 
 	public chartHovered(e:any):void {
-		alert("HOver")
+		//alert("HOver")
 		console.log(e);
 	}
 
 
-	c0(){		
+	c0(){
 		this.serviGloAct.actOpt = 0;
 
 	}
@@ -286,48 +306,65 @@ export class ActividadPanel implements OnInit{
 		this.serviGloAct.actOpt = 1;
 	}
 
-	c2(){		
+	c2(){
 		this.serviGloAct.actOpt = 2;
 	}
 
-	c3(){		
+	c3(){
 		this.serviGloAct.actOpt = 3;
 	}
 
-	c4(){		
+	c4(){
 		this.serviGloAct.actOpt = 4;
 	}
 
-	c5(){		
-		this.serviGloAct.actOpt = 5;		
-		
+	c5(){
+		this.serviGloAct.actOpt = 5;
+
 		if(this.serviciog.isSelAct){
 			var numSi = this.serviciog.actividad.porcentaje_cumplido;
-			var numNo = 100 - numSi	
+			var numNo = 100 - numSi
 			this.doughnutChartData = [
 			numSi,
 			numNo
-			]			
-			
+			]
+
 		}
 		else{
 			var numSi = this.serviciog.proyecto.porcentaje_cumplido;
-			var numNo = 100 - numSi	
+			var numNo = 100 - numSi
 			this.doughnutChartData = [
 			numSi,
 			numNo
 			]
 		}
 	}
-	c6(){		
+	c6(){
 		this.serviGloAct.actOpt = 6;
 	}
-	c7(){		
+	c7(){
 		this.serviGloAct.actOpt = 7;
 	}
-	c8(){		
+	c8(){
 		this.serviGloAct.actOpt = 8;
 
+	}
+	c9(){
+		this.serviGloAct.actOpt = 9;
+		var dat = {
+			keym:this.serviciog.actividad.keym,
+			id_caracteristica:this.serviciog.actividad.id_caracteristica,
+			id_usuario:this.serviciog.actividad.id_usuario
+		};
+
+		var formData = new FormData();
+		formData.append("caracteristica",JSON.stringify(dat));
+
+		this.servicios.getRemarks(formData)
+		.then(message =>{
+			//alert(JSON.stringify(message));
+			this.serviGloAct.remarks = message;
+		})
 	}
 
 
@@ -338,7 +375,7 @@ export class ActividadPanel implements OnInit{
 		}
 		this.porcentajeAsignado = percent;
 		this.miPorcentaje = 100 - this.porcentajeAsignado;
-	}	
+	}
 }
 
 

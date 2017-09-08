@@ -566,4 +566,42 @@ router.post("/insertCapitulos", (req, res, next) => {
     });
 });
 
+
+
+//Obtiene las observaciones de una caracteristica
+router.post('/getRemarks',(req,res,next)=>{
+  console.log(' <=====    Get Remarks      ==== >   ' + JSON.stringify(req.body));
+
+      var car = Characteritic.getRemarks(JSON.parse(req.body.caracteristica));
+      car.then(x => {
+        console.log('!!!!!!!!!!!!!Se ha creado exitosamente el proyecto!!!!!!!!!!!');
+        console.log('\n\n\nREMARKS\n'+JSON.stringify(x));
+        res.header("Access-Control-Allow-Origin", "*");
+        res.json(x);
+
+      }).catch(x => {
+        console.log('ERROR al actualizar el porcentaje  =>  ' + x)
+        res.header("Access-Control-Allow-Origin", "*");
+        res.json(false);
+      });
+});
+
+router.post('/regRemarks',(req,res,next)=>{
+  console.log(' <=====    reg Remarks      ==== >   ' + JSON.stringify(req.body));
+
+      var car = Characteritic.regRemarks(JSON.parse(req.body.remark));
+      car.then(x => {
+        console.log('!!!!!!!!!!!!!Se ha creado exitosamente el proyecto!!!!!!!!!!!');
+        console.log('\n\n\nREMARKS\n'+JSON.stringify(x));
+        res.header("Access-Control-Allow-Origin", "*");
+        res.json(x);
+
+      }).catch(x => {
+        console.log('ERROR al actualizar el porcentaje  =>  ' + x)
+        res.header("Access-Control-Allow-Origin", "*");
+        res.json(false);
+      });
+});
+
+
 module.exports = router;

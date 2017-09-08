@@ -14,7 +14,39 @@
 		</div>
 		<div class="col-md-3"></div>
 	</div>
-	<div class="scrollbar row">	
+
+	<div style="overflow-y: auto; height: 75vh" class="scroll">
+		<table  class="table table-striped">
+			<thead>
+				<tr>
+					<th style="width: 40%">Nombre</th>
+					<th style="width: 30%">Lider de Proyecto</th>
+					<th style="width: 10%">Progreso</th>
+					<th style="width: 10%">Entrar</th>
+				</tr>
+			</thead>
+			<tbody>
+				<tr *ngFor="let proyect of this.serviciog.proyecto" style="height: 80px">
+					<td>{{proyect.nombre}}</td>
+					<td></td>
+					<td>{{proyect.porcentaje}}%</td>
+					<td>
+						<button  class="btn btn-primary" (click)="entrar(proyect)" style=" background-color: orange">
+							Entrar
+						</button>
+					</td>
+				</tr>
+			</tbody>		
+		</table>		
+	</div>
+	
+	<button class="btn btn-primary" style="display: block; margin-left: auto; margin-right: auto; margin-bottom: 10px;"	data-toggle="modal" data-target="#mod-reg-pro">
+		NUEVO PROYECTO
+	</button>
+
+
+
+	<div class="scrollbar row" style="display: none;">	
 		<div class=" col-md-6" *ngFor="let proyect of this.serviciog.proyecto">
 			<div class="row projectCard" style="margin: 10px">		
 				<div class="col-md-3">
@@ -45,18 +77,17 @@
 						</div>
 					</div>				
 
-					<button  class="btn btn-primary" (click)="entrar(proyect)" style="float:right; background-color: orange">
-						Entrar
-					</button>
+
 				</div>	
 			</div>			
-		</div>		
+		</div>	
+		<button class="btn btn-primary" 
+	style="display: block; margin-left: auto; margin-right: auto; margin-bottom: 10px;"
+	data-toggle="modal" 
+	data-target="#mod-reg-pro">
+	NUEVO PROYECTO
+</button>	
 	</div>
-	<button class="btn btn-primary" 
-			style="display: block; margin-left: auto; margin-right: auto; margin-bottom: 10px;"
-			data-toggle="modal" 
-			data-target="#mod-reg-pro">
-			NUEVO PROYECTO
-	</button>
+	
 </div>
 <registro-proyecto></registro-proyecto>

@@ -30,6 +30,7 @@ export class ActivityTableComponent implements OnInit{
 		){ };
 
 	ngOnInit():void {
+		//alert(JSON.stringify(this.serviciog.usuario.tipo_usuario ));
 		this.subActivity = [];
 		var keym = this.serviciog.actividad.keym;
 		var id_usuario = this.serviciog.actividad.id_usuario;
@@ -39,6 +40,7 @@ export class ActivityTableComponent implements OnInit{
 		.then(actividad =>{				
 			if(actividad){
 				this.subActivity = actividad;
+				//alert(JSON.stringify(actividad));
 				this.serviciog.axActividades = actividad;
 			}
 		});
