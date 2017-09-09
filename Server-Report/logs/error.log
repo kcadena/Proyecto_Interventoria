@@ -1,0 +1,186 @@
+2017-03-09T19:42:16.349Z - error: Error when processing render request Error during rendering report: Unauthorized Error: Unauthorized
+    at EmbeddedCollection.<anonymous> (/home/juan/grado/serverReport/node_modules/jsreport-public-templates/lib/main.js:249:19)
+    at /home/juan/grado/serverReport/node_modules/listener-collection/lib/listenerCollection.js:171:33
+    at /home/juan/grado/serverReport/node_modules/listener-collection/lib/listenerCollection.js:151:16
+    at tryCatcher (/home/juan/grado/serverReport/node_modules/bluebird/js/release/util.js:16:23)
+    at Promise._settlePromiseFromHandler (/home/juan/grado/serverReport/node_modules/bluebird/js/release/promise.js:510:31)
+    at Promise._settlePromise (/home/juan/grado/serverReport/node_modules/bluebird/js/release/promise.js:567:18)
+    at Promise._settlePromise0 (/home/juan/grado/serverReport/node_modules/bluebird/js/release/promise.js:612:10)
+    at Promise._settlePromises (/home/juan/grado/serverReport/node_modules/bluebird/js/release/promise.js:691:18)
+    at Async._drainQueue (/home/juan/grado/serverReport/node_modules/bluebird/js/release/async.js:133:16)
+    at Async._drainQueues (/home/juan/grado/serverReport/node_modules/bluebird/js/release/async.js:143:10)
+    at Immediate.Async.drainQueues (/home/juan/grado/serverReport/node_modules/bluebird/js/release/async.js:17:14)
+    at runCallback (timers.js:651:20)
+    at tryOnImmediate (timers.js:624:5)
+    at processImmediate [as _immediateCallback] (timers.js:596:5) requestId=1
+2017-03-17T21:55:17.846Z - error: Error during processing request: http://localhost:5488/api/report details: Could not parse report template, aren't you missing content type? undefined
+2017-03-17T21:57:53.837Z - error: Error when processing render request Error during rendering report: Unauthorized Error: Unauthorized
+    at EmbeddedCollection.<anonymous> (/home/juan/grado/serverReport/node_modules/jsreport-public-templates/lib/main.js:249:19)
+    at /home/juan/grado/serverReport/node_modules/listener-collection/lib/listenerCollection.js:171:33
+    at /home/juan/grado/serverReport/node_modules/listener-collection/lib/listenerCollection.js:151:16
+    at tryCatcher (/home/juan/grado/serverReport/node_modules/bluebird/js/release/util.js:16:23)
+    at Promise._settlePromiseFromHandler (/home/juan/grado/serverReport/node_modules/bluebird/js/release/promise.js:510:31)
+    at Promise._settlePromise (/home/juan/grado/serverReport/node_modules/bluebird/js/release/promise.js:567:18)
+    at Promise._settlePromise0 (/home/juan/grado/serverReport/node_modules/bluebird/js/release/promise.js:612:10)
+    at Promise._settlePromises (/home/juan/grado/serverReport/node_modules/bluebird/js/release/promise.js:691:18)
+    at Async._drainQueue (/home/juan/grado/serverReport/node_modules/bluebird/js/release/async.js:133:16)
+    at Async._drainQueues (/home/juan/grado/serverReport/node_modules/bluebird/js/release/async.js:143:10)
+    at Immediate.Async.drainQueues (/home/juan/grado/serverReport/node_modules/bluebird/js/release/async.js:17:14)
+    at runCallback (timers.js:651:20)
+    at tryOnImmediate (timers.js:624:5)
+    at processImmediate [as _immediateCallback] (timers.js:596:5) requestId=1
+2017-03-17T21:58:17.948Z - error: Error when processing render request Error during rendering report: Unauthorized Error: Unauthorized
+    at EmbeddedCollection.<anonymous> (/home/juan/grado/serverReport/node_modules/jsreport-public-templates/lib/main.js:249:19)
+    at /home/juan/grado/serverReport/node_modules/listener-collection/lib/listenerCollection.js:171:33
+    at /home/juan/grado/serverReport/node_modules/listener-collection/lib/listenerCollection.js:151:16
+    at tryCatcher (/home/juan/grado/serverReport/node_modules/bluebird/js/release/util.js:16:23)
+    at Promise._settlePromiseFromHandler (/home/juan/grado/serverReport/node_modules/bluebird/js/release/promise.js:510:31)
+    at Promise._settlePromise (/home/juan/grado/serverReport/node_modules/bluebird/js/release/promise.js:567:18)
+    at Promise._settlePromise0 (/home/juan/grado/serverReport/node_modules/bluebird/js/release/promise.js:612:10)
+    at Promise._settlePromises (/home/juan/grado/serverReport/node_modules/bluebird/js/release/promise.js:691:18)
+    at Async._drainQueue (/home/juan/grado/serverReport/node_modules/bluebird/js/release/async.js:133:16)
+    at Async._drainQueues (/home/juan/grado/serverReport/node_modules/bluebird/js/release/async.js:143:10)
+    at Immediate.Async.drainQueues (/home/juan/grado/serverReport/node_modules/bluebird/js/release/async.js:17:14)
+    at runCallback (timers.js:651:20)
+    at tryOnImmediate (timers.js:624:5)
+    at processImmediate [as _immediateCallback] (timers.js:596:5) requestId=2
+2017-03-17T21:58:19.273Z - error: Error when processing render request Error during rendering report: Unauthorized Error: Unauthorized
+    at EmbeddedCollection.<anonymous> (/home/juan/grado/serverReport/node_modules/jsreport-public-templates/lib/main.js:249:19)
+    at /home/juan/grado/serverReport/node_modules/listener-collection/lib/listenerCollection.js:171:33
+    at /home/juan/grado/serverReport/node_modules/listener-collection/lib/listenerCollection.js:151:16
+    at tryCatcher (/home/juan/grado/serverReport/node_modules/bluebird/js/release/util.js:16:23)
+    at Promise._settlePromiseFromHandler (/home/juan/grado/serverReport/node_modules/bluebird/js/release/promise.js:510:31)
+    at Promise._settlePromise (/home/juan/grado/serverReport/node_modules/bluebird/js/release/promise.js:567:18)
+    at Promise._settlePromise0 (/home/juan/grado/serverReport/node_modules/bluebird/js/release/promise.js:612:10)
+    at Promise._settlePromises (/home/juan/grado/serverReport/node_modules/bluebird/js/release/promise.js:691:18)
+    at Async._drainQueue (/home/juan/grado/serverReport/node_modules/bluebird/js/release/async.js:133:16)
+    at Async._drainQueues (/home/juan/grado/serverReport/node_modules/bluebird/js/release/async.js:143:10)
+    at Immediate.Async.drainQueues (/home/juan/grado/serverReport/node_modules/bluebird/js/release/async.js:17:14)
+    at runCallback (timers.js:651:20)
+    at tryOnImmediate (timers.js:624:5)
+    at processImmediate [as _immediateCallback] (timers.js:596:5) requestId=3
+2017-04-17T20:56:25.212Z - error: Error when processing render request Error during rendering report: Unauthorized Error: Unauthorized
+    at EmbeddedCollection.<anonymous> (/home/juan/grado/serverReport/node_modules/jsreport-public-templates/lib/main.js:249:19)
+    at /home/juan/grado/serverReport/node_modules/listener-collection/lib/listenerCollection.js:171:33
+    at /home/juan/grado/serverReport/node_modules/listener-collection/lib/listenerCollection.js:151:16
+    at tryCatcher (/home/juan/grado/serverReport/node_modules/bluebird/js/release/util.js:16:23)
+    at Promise._settlePromiseFromHandler (/home/juan/grado/serverReport/node_modules/bluebird/js/release/promise.js:510:31)
+    at Promise._settlePromise (/home/juan/grado/serverReport/node_modules/bluebird/js/release/promise.js:567:18)
+    at Promise._settlePromise0 (/home/juan/grado/serverReport/node_modules/bluebird/js/release/promise.js:612:10)
+    at Promise._settlePromises (/home/juan/grado/serverReport/node_modules/bluebird/js/release/promise.js:691:18)
+    at Async._drainQueue (/home/juan/grado/serverReport/node_modules/bluebird/js/release/async.js:133:16)
+    at Async._drainQueues (/home/juan/grado/serverReport/node_modules/bluebird/js/release/async.js:143:10)
+    at Immediate.Async.drainQueues (/home/juan/grado/serverReport/node_modules/bluebird/js/release/async.js:17:14)
+    at runCallback (timers.js:651:20)
+    at tryOnImmediate (timers.js:624:5)
+    at processImmediate [as _immediateCallback] (timers.js:596:5) requestId=1
+2017-04-17T20:57:47.441Z - error: Error when processing render request Error during rendering report: Unauthorized Error: Unauthorized
+    at EmbeddedCollection.<anonymous> (/home/juan/grado/serverReport/node_modules/jsreport-public-templates/lib/main.js:249:19)
+    at /home/juan/grado/serverReport/node_modules/listener-collection/lib/listenerCollection.js:171:33
+    at /home/juan/grado/serverReport/node_modules/listener-collection/lib/listenerCollection.js:151:16
+    at tryCatcher (/home/juan/grado/serverReport/node_modules/bluebird/js/release/util.js:16:23)
+    at Promise._settlePromiseFromHandler (/home/juan/grado/serverReport/node_modules/bluebird/js/release/promise.js:510:31)
+    at Promise._settlePromise (/home/juan/grado/serverReport/node_modules/bluebird/js/release/promise.js:567:18)
+    at Promise._settlePromise0 (/home/juan/grado/serverReport/node_modules/bluebird/js/release/promise.js:612:10)
+    at Promise._settlePromises (/home/juan/grado/serverReport/node_modules/bluebird/js/release/promise.js:691:18)
+    at Async._drainQueue (/home/juan/grado/serverReport/node_modules/bluebird/js/release/async.js:133:16)
+    at Async._drainQueues (/home/juan/grado/serverReport/node_modules/bluebird/js/release/async.js:143:10)
+    at Immediate.Async.drainQueues (/home/juan/grado/serverReport/node_modules/bluebird/js/release/async.js:17:14)
+    at runCallback (timers.js:651:20)
+    at tryOnImmediate (timers.js:624:5)
+    at processImmediate [as _immediateCallback] (timers.js:596:5) requestId=1
+2017-04-17T21:17:35.290Z - error: Error during processing request: https://localhost:5489/api/report details: Could not parse report template, aren't you missing content type? undefined
+2017-04-17T21:19:07.418Z - error: Error when processing render request Error during rendering report: Unauthorized Error: Unauthorized
+    at EmbeddedCollection.<anonymous> (/home/juan/grado/serverReport/node_modules/jsreport-public-templates/lib/main.js:249:19)
+    at /home/juan/grado/serverReport/node_modules/listener-collection/lib/listenerCollection.js:171:33
+    at /home/juan/grado/serverReport/node_modules/listener-collection/lib/listenerCollection.js:151:16
+    at tryCatcher (/home/juan/grado/serverReport/node_modules/bluebird/js/release/util.js:16:23)
+    at Promise._settlePromiseFromHandler (/home/juan/grado/serverReport/node_modules/bluebird/js/release/promise.js:510:31)
+    at Promise._settlePromise (/home/juan/grado/serverReport/node_modules/bluebird/js/release/promise.js:567:18)
+    at Promise._settlePromise0 (/home/juan/grado/serverReport/node_modules/bluebird/js/release/promise.js:612:10)
+    at Promise._settlePromises (/home/juan/grado/serverReport/node_modules/bluebird/js/release/promise.js:691:18)
+    at Async._drainQueue (/home/juan/grado/serverReport/node_modules/bluebird/js/release/async.js:133:16)
+    at Async._drainQueues (/home/juan/grado/serverReport/node_modules/bluebird/js/release/async.js:143:10)
+    at Immediate.Async.drainQueues (/home/juan/grado/serverReport/node_modules/bluebird/js/release/async.js:17:14)
+    at runCallback (timers.js:651:20)
+    at tryOnImmediate (timers.js:624:5)
+    at processImmediate [as _immediateCallback] (timers.js:596:5) requestId=1
+2017-04-17T21:32:18.855Z - error: Error when processing render request Error during rendering report: Unauthorized Error: Unauthorized
+    at EmbeddedCollection.<anonymous> (/home/juan/grado/serverReport/node_modules/jsreport-public-templates/lib/main.js:249:19)
+    at /home/juan/grado/serverReport/node_modules/listener-collection/lib/listenerCollection.js:171:33
+    at /home/juan/grado/serverReport/node_modules/listener-collection/lib/listenerCollection.js:151:16
+    at tryCatcher (/home/juan/grado/serverReport/node_modules/bluebird/js/release/util.js:16:23)
+    at Promise._settlePromiseFromHandler (/home/juan/grado/serverReport/node_modules/bluebird/js/release/promise.js:510:31)
+    at Promise._settlePromise (/home/juan/grado/serverReport/node_modules/bluebird/js/release/promise.js:567:18)
+    at Promise._settlePromise0 (/home/juan/grado/serverReport/node_modules/bluebird/js/release/promise.js:612:10)
+    at Promise._settlePromises (/home/juan/grado/serverReport/node_modules/bluebird/js/release/promise.js:691:18)
+    at Async._drainQueue (/home/juan/grado/serverReport/node_modules/bluebird/js/release/async.js:133:16)
+    at Async._drainQueues (/home/juan/grado/serverReport/node_modules/bluebird/js/release/async.js:143:10)
+    at Immediate.Async.drainQueues (/home/juan/grado/serverReport/node_modules/bluebird/js/release/async.js:17:14)
+    at runCallback (timers.js:651:20)
+    at tryOnImmediate (timers.js:624:5)
+    at processImmediate [as _immediateCallback] (timers.js:596:5) requestId=4
+2017-04-17T21:38:53.977Z - error: Error when processing render request Error during rendering report: Unauthorized Error: Unauthorized
+    at EmbeddedCollection.<anonymous> (/home/juan/grado/serverReport/node_modules/jsreport-public-templates/lib/main.js:249:19)
+    at /home/juan/grado/serverReport/node_modules/listener-collection/lib/listenerCollection.js:171:33
+    at /home/juan/grado/serverReport/node_modules/listener-collection/lib/listenerCollection.js:151:16
+    at tryCatcher (/home/juan/grado/serverReport/node_modules/bluebird/js/release/util.js:16:23)
+    at Promise._settlePromiseFromHandler (/home/juan/grado/serverReport/node_modules/bluebird/js/release/promise.js:510:31)
+    at Promise._settlePromise (/home/juan/grado/serverReport/node_modules/bluebird/js/release/promise.js:567:18)
+    at Promise._settlePromise0 (/home/juan/grado/serverReport/node_modules/bluebird/js/release/promise.js:612:10)
+    at Promise._settlePromises (/home/juan/grado/serverReport/node_modules/bluebird/js/release/promise.js:691:18)
+    at Async._drainQueue (/home/juan/grado/serverReport/node_modules/bluebird/js/release/async.js:133:16)
+    at Async._drainQueues (/home/juan/grado/serverReport/node_modules/bluebird/js/release/async.js:143:10)
+    at Immediate.Async.drainQueues (/home/juan/grado/serverReport/node_modules/bluebird/js/release/async.js:17:14)
+    at runCallback (timers.js:651:20)
+    at tryOnImmediate (timers.js:624:5)
+    at processImmediate [as _immediateCallback] (timers.js:596:5) requestId=10
+2017-04-17T21:41:34.504Z - error: Error when processing render request Error during rendering report: Unauthorized Error: Unauthorized
+    at EmbeddedCollection.<anonymous> (/home/juan/grado/serverReport/node_modules/jsreport-public-templates/lib/main.js:249:19)
+    at /home/juan/grado/serverReport/node_modules/listener-collection/lib/listenerCollection.js:171:33
+    at /home/juan/grado/serverReport/node_modules/listener-collection/lib/listenerCollection.js:151:16
+    at tryCatcher (/home/juan/grado/serverReport/node_modules/bluebird/js/release/util.js:16:23)
+    at Promise._settlePromiseFromHandler (/home/juan/grado/serverReport/node_modules/bluebird/js/release/promise.js:510:31)
+    at Promise._settlePromise (/home/juan/grado/serverReport/node_modules/bluebird/js/release/promise.js:567:18)
+    at Promise._settlePromise0 (/home/juan/grado/serverReport/node_modules/bluebird/js/release/promise.js:612:10)
+    at Promise._settlePromises (/home/juan/grado/serverReport/node_modules/bluebird/js/release/promise.js:691:18)
+    at Async._drainQueue (/home/juan/grado/serverReport/node_modules/bluebird/js/release/async.js:133:16)
+    at Async._drainQueues (/home/juan/grado/serverReport/node_modules/bluebird/js/release/async.js:143:10)
+    at Immediate.Async.drainQueues (/home/juan/grado/serverReport/node_modules/bluebird/js/release/async.js:17:14)
+    at runCallback (timers.js:651:20)
+    at tryOnImmediate (timers.js:624:5)
+    at processImmediate [as _immediateCallback] (timers.js:596:5) requestId=11
+2017-04-17T21:43:34.936Z - error: Error during processing request: https://localhost:5489/api/report details: Could not parse report template, aren't you missing content type? undefined
+2017-04-18T21:44:36.454Z - error: Error when processing render request Error during rendering report: Unauthorized Error: Unauthorized
+    at EmbeddedCollection.<anonymous> (/home/juan/grado/serverReport/node_modules/jsreport-public-templates/lib/main.js:249:19)
+    at /home/juan/grado/serverReport/node_modules/listener-collection/lib/listenerCollection.js:171:33
+    at /home/juan/grado/serverReport/node_modules/listener-collection/lib/listenerCollection.js:151:16
+    at tryCatcher (/home/juan/grado/serverReport/node_modules/bluebird/js/release/util.js:16:23)
+    at Promise._settlePromiseFromHandler (/home/juan/grado/serverReport/node_modules/bluebird/js/release/promise.js:510:31)
+    at Promise._settlePromise (/home/juan/grado/serverReport/node_modules/bluebird/js/release/promise.js:567:18)
+    at Promise._settlePromise0 (/home/juan/grado/serverReport/node_modules/bluebird/js/release/promise.js:612:10)
+    at Promise._settlePromises (/home/juan/grado/serverReport/node_modules/bluebird/js/release/promise.js:691:18)
+    at Async._drainQueue (/home/juan/grado/serverReport/node_modules/bluebird/js/release/async.js:133:16)
+    at Async._drainQueues (/home/juan/grado/serverReport/node_modules/bluebird/js/release/async.js:143:10)
+    at Immediate.Async.drainQueues (/home/juan/grado/serverReport/node_modules/bluebird/js/release/async.js:17:14)
+    at runCallback (timers.js:651:20)
+    at tryOnImmediate (timers.js:624:5)
+    at processImmediate [as _immediateCallback] (timers.js:596:5) requestId=1
+2017-06-14T05:05:49.034Z - error: Error when processing render request Error during rendering report: Unauthorized Error: Unauthorized
+    at EmbeddedCollection.<anonymous> (/home/juan/grado/serverReport/node_modules/jsreport-public-templates/lib/main.js:249:19)
+    at /home/juan/grado/serverReport/node_modules/listener-collection/lib/listenerCollection.js:171:33
+    at /home/juan/grado/serverReport/node_modules/listener-collection/lib/listenerCollection.js:151:16
+    at tryCatcher (/home/juan/grado/serverReport/node_modules/bluebird/js/release/util.js:16:23)
+    at Promise._settlePromiseFromHandler (/home/juan/grado/serverReport/node_modules/bluebird/js/release/promise.js:510:31)
+    at Promise._settlePromise (/home/juan/grado/serverReport/node_modules/bluebird/js/release/promise.js:567:18)
+    at Promise._settlePromise0 (/home/juan/grado/serverReport/node_modules/bluebird/js/release/promise.js:612:10)
+    at Promise._settlePromises (/home/juan/grado/serverReport/node_modules/bluebird/js/release/promise.js:691:18)
+    at Async._drainQueue (/home/juan/grado/serverReport/node_modules/bluebird/js/release/async.js:133:16)
+    at Async._drainQueues (/home/juan/grado/serverReport/node_modules/bluebird/js/release/async.js:143:10)
+    at Immediate.Async.drainQueues (/home/juan/grado/serverReport/node_modules/bluebird/js/release/async.js:17:14)
+    at runCallback (timers.js:672:20)
+    at tryOnImmediate (timers.js:645:5)
+    at processImmediate [as _immediateCallback] (timers.js:617:5) requestId=9
+2017-09-08T23:30:59.955Z - error: Error during processing request: http://localhost:5488/api/report details: Could not parse report template, aren't you missing content type? undefined
+2017-09-08T23:36:06.944Z - error: Error during processing request: http://localhost:5488/api/report details: Could not parse report template, aren't you missing content type? undefined
+2017-09-08T23:36:31.515Z - error: Error during processing request: http://localhost:5488/api/report details: Could not parse report template, aren't you missing content type? undefined

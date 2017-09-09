@@ -1,0 +1,33 @@
+{
+    "certificate": {
+        "key": "certificates/jsreport.key",    
+        "cert": "certificates/jsreport.crt"
+    },
+    "authentication" : {
+        "cookieSession": {
+            "secret": "b123"
+        },
+        "admin": {
+            "username" : "admin",
+            "password": "password"
+        },
+        "enabled": true
+    },
+    "connectionString": { "name": "fs" },
+    "httpPort": 5488,
+    "httpsPort": null,
+    "blobStorage": "fileSystem",
+    "phantom": {
+        "strategy": "dedicated-process",
+        "timeout": 60000
+    },
+    "tasks": {
+        "strategy": "dedicated-process",
+        "timeout": 10000,
+        "allowedModules": []
+    },
+    "scripts": {
+        "allowedModules": [],
+        "timeout": 60000
+    }
+}
