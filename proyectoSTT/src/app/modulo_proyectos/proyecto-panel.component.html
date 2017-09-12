@@ -1,4 +1,4 @@
-<div class="container" style="background-color: #DEDCDD;">	
+<div class="container" style="background-color: #DEDCDD;">
 	<h2>LISTA DE PROYECTOS</h2>
 	<div class="row">
 		<div class="col-md-3"></div>
@@ -26,36 +26,37 @@
 				</tr>
 			</thead>
 			<tbody>
-				<tr *ngFor="let proyect of this.serviciog.proyecto" style="height: 50px">
-					<td style="padding: 15px">{{proyect.nombre}}</td>
-					<!-- <td style="padding: 15px"></td> -->
-					<td style="padding: 15px;text-align: center;">{{proyect.porcentaje}}%</td>
-					<td class="center-block">
-						<button  class="btn btn-primary center-block" (click)="entrar(proyect)" style=" background-color: orange">
+
+				<tr *ngFor="let proyect of this.serviciog.proyecto" style="height: 80px">
+					<td>{{proyect.nom_pro}}</td>
+					<td>{{proyect.nombre}} {{proyect.apellido}</td>
+					<td>{{proyect.porcentaje_cumplido}}%</td>
+					<td>
+						<button  class="btn btn-primary" (click)="entrar(proyect)" style=" background-color: orange">
 							Entrar
 						</button>
 					</td>
 				</tr>
-			</tbody>		
-		</table>		
+			</tbody>
+		</table>
 	</div>
-	
+
 	<button class="btn btn-primary" style="display: block; margin-left: auto; margin-right: auto; margin-bottom: 10px;"	data-toggle="modal" data-target="#mod-reg-pro">
 		NUEVO PROYECTO
 	</button>
 
 
 
-	<div class="scrollbar row" style="display: none;">	
+	<div class="scrollbar row" style="display: none;">
 		<div class=" col-md-6" *ngFor="let proyect of this.serviciog.proyecto">
-			<div class="row projectCard" style="margin: 10px">		
+			<div class="row projectCard" style="margin: 10px">
 				<div class="col-md-3">
 					<div style="background-color: white; margin-top: 30px">
 						<img style="height: 100px;" src="http://www2.udenar.edu.co/recursos/wp-content/uploads/2016/10/udenar.png">
 					</div>
 				</div>
 				<div class="col-md-9">
-					<h4 style="text-transform: uppercase; height: 30px">{{proyect.nombre}}</h4>					
+					<h4 style="text-transform: uppercase; height: 30px">{{proyect.nombre}}</h4>
 					<div>
 						<div class="row">
 							<div class="lab1 col-md-3">Lider de Proyecto:</div>
@@ -75,19 +76,19 @@
 								<div class="lab2">{{proyect.porcentaje}}%</div>
 							</div>
 						</div>
-					</div>				
+					</div>
 
 
-				</div>	
-			</div>			
-		</div>	
-		<button class="btn btn-primary" 
+				</div>
+			</div>
+		</div>
+		<button class="btn btn-primary"
 	style="display: block; margin-left: auto; margin-right: auto; margin-bottom: 10px;"
-	data-toggle="modal" 
+	data-toggle="modal"
 	data-target="#mod-reg-pro">
 	NUEVO PROYECTO
-</button>	
+</button>
 	</div>
-	
+
 </div>
 <registro-proyecto></registro-proyecto>

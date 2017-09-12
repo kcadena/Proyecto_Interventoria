@@ -46,7 +46,7 @@ export class ActividadPanel implements OnInit{
 
 		this.serviciog.actividades = [];
 		if(this.serviciog.proyecto){
-			this.serviciog.titulo = this.serviciog.proyecto.nombre;
+			this.serviciog.titulo = this.serviciog.proyecto.nom_pro;
 			var keym = this.serviciog.proyecto.keym;
 			var id_usuario = this.serviciog.proyecto.id_usuario;
 			var id_caracteristica = this.serviciog.proyecto.id_caracteristica;
