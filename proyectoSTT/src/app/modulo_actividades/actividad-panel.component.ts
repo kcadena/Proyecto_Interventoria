@@ -16,6 +16,8 @@ import { ServiciosGlobalesActividades} from './servicios-globales-actividades'
 
 export class ActividadPanel implements OnInit{
 	
+	isTitleSelected : boolean = false;
+	act_ant : string ='';
 
 	miPorcentaje:number = 100;
 	porcentajeAsignado:number = 0;
@@ -39,6 +41,9 @@ export class ActividadPanel implements OnInit{
 		if(this.serviciog.usuario.tipo_usuario === 'sup')
 			this.flg = false;
 
+		this.serviciog.tree_name.push(this.serviciog.proyecto.nombre);
+		//alert(JSON.stringify(this.serviciog.tree_name));
+
 		this.serviciog.actividades = [];
 		if(this.serviciog.proyecto){
 			this.serviciog.titulo = this.serviciog.proyecto.nombre;
@@ -55,6 +60,7 @@ export class ActividadPanel implements OnInit{
 					this.serviGloAct.tipo = this.serviciog.tipos_act[num + 1];
 					//alert(JSON.stringify(this.serviciog.actividades));
 					//alert('2 '+this.serviGloAct.tipo);
+
 				}
 			});
 		}else{
@@ -94,6 +100,7 @@ export class ActividadPanel implements OnInit{
 	}
 
 	onSelectActivity(activity){
+		this.isTitleSelected = false;
 		this.miPorcentaje = 100;
 		this.porcentajeAsignado =0;
 		this.serviciog.actividad = activity;
@@ -135,8 +142,11 @@ export class ActividadPanel implements OnInit{
 	}
 
 	tituloClick(){
+
+		this.isTitleSelected = true;
+
 		var num =this.serviciog.tipos_act.indexOf(this.serviciog.actividades[0].tipo);
-		this.serviGloAct.tipo = this.serviciog.tipos_act[num];
+		this.serviGloAct.tipo2 = this.serviciog.tipos_act[num];
 		//alert('ok  '+num+'   '+this.serviGloAct.tipo);
 
 		if(!this.serviciog.isSubActivity){
@@ -166,6 +176,7 @@ export class ActividadPanel implements OnInit{
 
 	inicio(){
 		this.serviciog.titulo = this.serviciog.proyecto.nombre;
+
 		var keym = this.serviciog.proyecto.keym;
 		var id_usuario = this.serviciog.proyecto.id_usuario;
 		var id_caracteristica = this.serviciog.proyecto.id_caracteristica;
@@ -177,6 +188,11 @@ export class ActividadPanel implements OnInit{
 	}
 
 	entrarACtividad(actividad){
+
+		this.serviciog.tree_name.push(actividad.nom_act);
+		this.serviGloAct.tipo2 = this.serviciog.tipos_act[this.serviciog.tipos_act.indexOf(actividad.tipo)+1];
+		//alert(JSON.stringify(this.serviciog.tree_name));
+
 		this.serviGloAct.lastActividad.push(this.serviciog.isSubActivity);
 
 
@@ -205,8 +221,12 @@ export class ActividadPanel implements OnInit{
 
 	regresar(){
 
-		var lastActividad = this.serviGloAct.lastActividad.pop();
+		this.serviciog.tree_name.pop();
 
+		//alert(JSON.stringify(this.serviciog.tree_name));
+
+		var lastActividad = this.serviGloAct.lastActividad.pop();
+this.serviGloAct.tipo2 = this.serviciog.tipos_act[this.serviciog.tipos_act.indexOf(lastActividad.tipo)+1];
 		if(lastActividad!= this.serviciog.isSubActivity && lastActividad){
 			this.subActivity = [];
 			this.serviciog.actividades = [];
@@ -312,6 +332,24 @@ export class ActividadPanel implements OnInit{
 
 	c3(){
 		this.serviGloAct.actOpt = 3;
+		
+		if(this.serviciog.isSelAct){
+			var numSi = this.serviciog.actividad.porcentaje_cumplido;
+			var numNo = 100 - numSi
+			this.doughnutChartData = [
+			numSi,
+			numNo
+			]
+
+		}
+		else{
+			var numSi = this.serviciog.proyecto.porcentaje_cumplido;
+			var numNo = 100 - numSi
+			this.doughnutChartData = [
+			numSi,
+			numNo
+			]
+		}
 	}
 
 	c4(){

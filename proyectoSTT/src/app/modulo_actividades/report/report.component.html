@@ -1,3 +1,43 @@
-<p>
-  report works!
-</p>
+<div style="width: 80%;margin: auto;">
+	<h1>Reporte  {{this.serviciog.actividad.nom_act}}</h1>
+
+	<br>
+
+	<label *ngIf="!this.isTitleSelected"
+	for="porcentaje" 
+	class="lab">Porcentaje de {{this.serviciog.actividad.nom_act}} frente a {{this.serviciog.titulo}}:  {{this.serviciog.actividad.porcentaje}} %</label>
+	<label *ngIf="this.isTitleSelected"
+	for="porcentaje" 
+	class="lab">Porcentaje de {{this.serviciog.actividad.nom_act}} frente a {{this.serviciog.tree_name[this.serviciog.tree_name.length - 2]}}:  {{this.serviciog.actividad.porcentaje}} %</label>
+
+	<br>
+
+	<label for="tiempo_inicial" class="lab">Tiempo de Inicio: {{this.serviciog.actividad.fecha_inicio}}</label>
+
+	<br>
+
+	<label for="tiempo_fin" class="lab">Tiempo Final: {{this.serviciog.actividad.fecha_fin}}</label>
+
+	<br>
+
+	<label for="estado" class="lab">Estado: {{this.serviciog.actividad.estado}}</label>
+
+	<br>
+	<div>
+		<label for="porcentaje_cumplido" class="lab">Porcentaje Ejecutado {{this.serviciog.actividad.tipo}} {{this.serviciog.actividad.nom_act}}: {{this.serviciog.actividad.porcentaje_cumplido}} %</label>
+
+		<div style="display: block; height: 300px; width: 300px" class="center-block">
+			<canvas baseChart
+			[data]="this.doughnutChartData"
+			[labels]="this.doughnutChartLabels"
+			[chartType]="this.doughnutChartType"
+			(chartHover)="chartHovered($event)"
+			(chartClick)="chartClicked($event)"></canvas>
+		</div>
+	</div>
+
+	<div *ngIf="this.tipo == 'Beneficiario'">
+		<h2>OK</h2>
+	</div>
+
+</div>

@@ -19,19 +19,19 @@
 		<table  class="table table-striped">
 			<thead>
 				<tr>
-					<th style="width: 40%">Nombre</th>
-					<th style="width: 30%">Lider de Proyecto</th>
-					<th style="width: 10%">Progreso</th>
-					<th style="width: 10%">Entrar</th>
+					<th style="width: 50%" style="text-align: left;">Nombre</th>
+					<!-- <th style="width: 30%">Lider de Proyecto</th> -->
+					<th style="width: 25%" style="text-align: center;">Progreso</th>
+					<th style="width: 25%" style="text-align: center;">Entrar</th>
 				</tr>
 			</thead>
 			<tbody>
-				<tr *ngFor="let proyect of this.serviciog.proyecto" style="height: 80px">
-					<td>{{proyect.nombre}}</td>
-					<td></td>
-					<td>{{proyect.porcentaje}}%</td>
-					<td>
-						<button  class="btn btn-primary" (click)="entrar(proyect)" style=" background-color: orange">
+				<tr *ngFor="let proyect of this.serviciog.proyecto" style="height: 50px">
+					<td style="padding: 15px">{{proyect.nombre}}</td>
+					<!-- <td style="padding: 15px"></td> -->
+					<td style="padding: 15px;text-align: center;">{{proyect.porcentaje}}%</td>
+					<td class="center-block">
+						<button  class="btn btn-primary center-block" (click)="entrar(proyect)" style=" background-color: orange">
 							Entrar
 						</button>
 					</td>

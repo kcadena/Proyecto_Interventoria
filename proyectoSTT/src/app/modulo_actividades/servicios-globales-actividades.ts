@@ -11,6 +11,7 @@ export class ServiciosGlobalesActividades {
 	lastActividad:any = [];
 	remarks:any=[];
 	tipo :string = '';
+	tipo2 :string = '';
 	
 	constructor(private persistenceService:PersistenceService){}
 }
