@@ -27,9 +27,9 @@
 			</thead>
 			<tbody>
 				<tr *ngFor="let proyect of this.serviciog.proyecto" style="height: 80px">
-					<td>{{proyect.nombre}}</td>
-					<td></td>
-					<td>{{proyect.porcentaje}}%</td>
+					<td>{{proyect.nom_pro}}</td>
+					<td>{{proyect.nombre}} {{proyect.apellido}</td>
+					<td>{{proyect.porcentaje_cumplido}}%</td>
 					<td>
 						<button  class="btn btn-primary" (click)="entrar(proyect)" style=" background-color: orange">
 							Entrar
