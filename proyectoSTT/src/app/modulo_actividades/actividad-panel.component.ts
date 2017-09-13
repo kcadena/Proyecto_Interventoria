@@ -15,7 +15,7 @@ import { ServiciosGlobalesActividades} from './servicios-globales-actividades'
 })
 
 export class ActividadPanel implements OnInit{
-	
+
 	isTitleSelected : boolean = false;
 	act_ant : string ='';
 
@@ -38,6 +38,13 @@ export class ActividadPanel implements OnInit{
 		){ };
 
 	ngOnInit():void {
+
+    this.serviciog.actividad =null;
+		this.serviciog.isSelAct =false;
+		this.serviciog.isSubActivity = null;
+		this.serviciog.isSelAct = false;
+		this.serviGloAct.actOpt = 0;
+
 		if(this.serviciog.usuario.tipo_usuario === 'sup')
 			this.flg = false;
 
@@ -72,12 +79,12 @@ export class ActividadPanel implements OnInit{
 
 	actualizarActividad(actividad){
 		var isUpdatePercentage = false;
-
+		this.isEditar = !this.isEditar;
 		////se comprueba si ubieron cambios en el porcentaje ejecutado
 		if(this.porcentaje_ejecutado != actividad.porcentaje_cumplido){
 			this.porcentaje_ejecutado = actividad.porcentaje_cumplido - this.porcentaje_ejecutado;
 			//this.porcentaje_ejecutado = this.porcentaje_ejecutado * (actividad.porcentaje/100);
-			this.isEditar = !this.isEditar;
+			
 			isUpdatePercentage = true;
 			//alert(this.porcentaje_ejecutado);
 		}
@@ -87,7 +94,6 @@ export class ActividadPanel implements OnInit{
 		formData.append("porcentaje_cumplido",JSON.stringify(this.porcentaje_ejecutado));
 		formData.append("isUpdatePercentage",JSON.stringify(isUpdatePercentage));
 
-		this.porcentaje_ejecutado = 0;
 		this.servicios.updateCaracteristica(formData)
 		.then(message=>{
 			alert(JSON.stringify(message));
@@ -332,7 +338,7 @@ this.serviGloAct.tipo2 = this.serviciog.tipos_act[this.serviciog.tipos_act.index
 
 	c3(){
 		this.serviGloAct.actOpt = 3;
-		
+
 		if(this.serviciog.isSelAct){
 			var numSi = this.serviciog.actividad.porcentaje_cumplido;
 			var numNo = 100 - numSi

@@ -18,7 +18,7 @@ module.exports.createProjectFromActivity = function (data) {
   //informacion
   var nombre = data.nombre;
   var descripcion = data.descripcion;
-  var icon = data.icon;
+  var icon = data.icon != undefined ? icon = data.icon : icon = '';
 
   //fecha
   var current_date = new Date();
@@ -41,7 +41,7 @@ module.exports.createProjectFromActivity = function (data) {
                     `+ id_caracteristica_car + `,
 
                     '`+ nombre + `',
-                    '',
+                    
                     `+ false + `,
                     '`+ icon + `',
                     '`+ descripcion + `',
@@ -56,6 +56,8 @@ module.exports.createProjectFromActivity = function (data) {
                 and id_caracteristica = `+ id_caracteristica_car + `
                 and id_usuario = `+ id_usuario_car + `;
                 `;
+
+                console.log('HAHHAHAHAH te jodiste');
 
         sequelize.query(query1, { type: sequelize.QueryTypes.INSERT })
           .then(x => {
@@ -164,7 +166,7 @@ module.exports.createProject = function (data, files) {
                                 `+ x.id_caracteristica + `,
 
                                 '`+ nombre + `',
-                                '',
+                                
                                 `+ false + `,
                                 '`+ icon + `',
                                 '`+ descripcion + `',
