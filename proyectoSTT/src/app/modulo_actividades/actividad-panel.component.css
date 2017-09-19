@@ -4,7 +4,8 @@
 
 .listaActividades{
 	overflow-y:auto; 
-	height: 73vh;
+	height: 71vh;
+	margin-top: 3px;
 }
 .listaActividades ul {
 	list-style: none;
@@ -89,6 +90,7 @@
 	text-transform: uppercase; 
 	font-weight: bold;
 	cursor: pointer;
+	font-size: 18px;
 }
 
 .titulo:hover{	
@@ -101,5 +103,10 @@
 	background-color: white;
 	text-align: center;
 	margin: auto;
+}
+
+.btn1{
+	padding: 2px 2px 2px 2px;
+	margin: 2px
 }
 

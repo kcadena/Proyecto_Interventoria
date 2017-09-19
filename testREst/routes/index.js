@@ -566,6 +566,35 @@ router.post("/insertCapitulos", (req, res, next) => {
     });
 });
 
+router.post("/insertMarker", (req, res, next) => {
+  console.log(
+    " <=====    Insertar Marcadores      ==== >   " +
+      JSON.stringify(req.body)
+  );
+
+  var ax = AuxModel.insertMarker();
+  ax
+    .then(x => {
+      console.log(
+        "!!!!!!!!!!!!!Se han creado todos los beneficiarios correctamente  !!!!!!!!!!!"
+      );
+      res.header("Access-Control-Allow-Origin", "*");
+      res.json(true);
+    })
+    .catch(x => {
+      console.log("ERROR al insertar beneficiarioss  =>  " + x);
+      res.header("Access-Control-Allow-Origin", "*");
+      res.json(false);
+    });
+});
+
+
+
+
+
+
+
+
 
 
 //Obtiene las observaciones de una caracteristica

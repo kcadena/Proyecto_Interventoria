@@ -20,17 +20,19 @@ import { } from 'googlemaps';
 export class Mapa implements OnInit{
 	public searchControl: FormControl;
 	icon_marker = "";
-	lat: number = 1.2144293922395473;
-	lng: number = -77.27847844362259;
-	zoom: number = 16; 
+	lat: number = 0.82438333300000000000;
+	lng: number = -77.83935000000000000000;
+	zoom: number = 11; 
 	categorias:any;
 	categoria:any;
 	http:string = this.serviciog.servidor + "Category/";
 	ext:string = ".svg"	
-	caracteristica: Caracteristica = new Caracteristica('','','');
+	caracteristica: Caracteristica = new Caracteristica('','','','');
 	id_categoria:string;
 
-	markers:Marker[] = [];
+	markers:any = [];
+	ax_markers:any = [];
+
 	mark:any;
 
 
@@ -49,9 +51,10 @@ export class Mapa implements OnInit{
 		this.searchControl = new FormControl();
 		this.buscarLugar();
 
-		this.caracteristica.keym_car = this.serviciog.proyecto.keym;
-		this.caracteristica.id_caracteristica = this.serviciog.proyecto.id_caracteristica;
-		this.caracteristica.id_usuario_car = this.serviciog.proyecto.id_usuario;
+		this.caracteristica.keym_car 			= this.serviciog.proyecto.keym;
+		this.caracteristica.id_caracteristica 	= this.serviciog.proyecto.id_caracteristica;
+		this.caracteristica.id_usuario_car 		= this.serviciog.proyecto.id_usuario;
+		this.caracteristica.tipo 				= this.serviciog.proyecto.tipo;
 		
 		var formData = new FormData();
 		formData.append('caracteristica', JSON.stringify(this.caracteristica));
@@ -70,12 +73,25 @@ export class Mapa implements OnInit{
 			if(marcador){
 				this.id_categoria = marcador[0].id_categoria;
 				this.markers= marcador;
+				this.ax_markers= marcador;
 			}
 		});		
 	}
 
 	btnCat(category){		
 		this.categoria = category;		
+		if(category != undefined){
+			this.markers = this.ax_markers.filter(x=>{
+				return x.id_categoria == category.id_categoria;
+			});
+
+		}
+		else{
+			this.markers = this.ax_markers;
+		}
+
+		//alert(JSON.stringify(this.markers));
+
 	}	
 	
 	mapClicked($event: any){		
@@ -173,6 +189,25 @@ export class Mapa implements OnInit{
 		}
 	}
 
+
+	search_ben( beneficiario : string){
+ 		//alert(beneficiario);
+ 		//alert(JSON.stringify(this.ax_markers[0]));
+ 		if(beneficiario.trim().length>0)
+ 		this.markers = this.ax_markers.filter(
+ 				item  => {
+ 					//alert(item.nombre.toLowerCase().replace(/ /g,''));
+ 					return item.nombre.toLowerCase().replace(/ /g,'').indexOf(beneficiario.replace(/ /g,'').toLowerCase()) !== -1 	||
+ 					item.cedula.toLowerCase().replace(/ /g,'').indexOf(beneficiario.replace(/ /g,'').toLowerCase()) !== -1 
+ 				}	
+ 			);	
+ 		else		
+ 			this.markers = this.ax_markers;
+
+ 		//alert(JSON.stringify(this.marcadores));
+
+ 	}
+
 	guardarPunto(marker){
 		var formData = new FormData();
 		formData.append('marcador',JSON.stringify(marker));
@@ -185,6 +220,9 @@ export class Mapa implements OnInit{
 			}
 		});
 	}
+
+	
+
 }
 
 
@@ -202,5 +240,6 @@ class Caracteristica{
 		public keym_car: string,
 		public id_usuario_car: string,
 		public id_caracteristica: string,
+		public tipo:string
 		) {  }
 }

@@ -42,11 +42,16 @@ export class ActivityTableComponent implements OnInit{
 				this.subActivity = actividad;
 				//alert(JSON.stringify(actividad));
 				this.serviciog.axActividades = actividad;
+				
 			}
 		});
 	}
 
 	entrarAct(subActividad){
+
+		this.serviciog.tree_name.push(subActividad.nom_act);
+		this.serviGloAct.tipo2 = this.serviciog.tipos_act[this.serviciog.tipos_act.indexOf(subActividad.tipo)+1];
+
 		this.serviGloAct.lastActividad.push(this.serviciog.actividad);
 		this.subActivity = [];
 		this.serviciog.actividades = [];

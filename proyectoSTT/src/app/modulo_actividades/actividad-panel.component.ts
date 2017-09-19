@@ -84,7 +84,7 @@ export class ActividadPanel implements OnInit{
 		if(this.porcentaje_ejecutado != actividad.porcentaje_cumplido){
 			this.porcentaje_ejecutado = actividad.porcentaje_cumplido - this.porcentaje_ejecutado;
 			//this.porcentaje_ejecutado = this.porcentaje_ejecutado * (actividad.porcentaje/100);
-			
+
 			isUpdatePercentage = true;
 			//alert(this.porcentaje_ejecutado);
 		}
@@ -181,7 +181,7 @@ export class ActividadPanel implements OnInit{
 	}
 
 	inicio(){
-		this.serviciog.titulo = this.serviciog.proyecto.nombre;
+		this.serviciog.titulo = this.serviciog.proyecto.nom_pro;
 
 		var keym = this.serviciog.proyecto.keym;
 		var id_usuario = this.serviciog.proyecto.id_usuario;
@@ -195,6 +195,7 @@ export class ActividadPanel implements OnInit{
 
 	entrarACtividad(actividad){
 
+		this.isTitleSelected = true;
 		this.serviciog.tree_name.push(actividad.nom_act);
 		this.serviGloAct.tipo2 = this.serviciog.tipos_act[this.serviciog.tipos_act.indexOf(actividad.tipo)+1];
 		//alert(JSON.stringify(this.serviciog.tree_name));
@@ -231,9 +232,13 @@ export class ActividadPanel implements OnInit{
 
 		//alert(JSON.stringify(this.serviciog.tree_name));
 
+
+
+
 		var lastActividad = this.serviGloAct.lastActividad.pop();
-this.serviGloAct.tipo2 = this.serviciog.tipos_act[this.serviciog.tipos_act.indexOf(lastActividad.tipo)+1];
-		if(lastActividad!= this.serviciog.isSubActivity && lastActividad){
+	
+		if(lastActividad != this.serviciog.isSubActivity && lastActividad ){
+			this.serviGloAct.tipo2 = this.serviciog.tipos_act[this.serviciog.tipos_act.indexOf(lastActividad.tipo)+1];
 			this.subActivity = [];
 			this.serviciog.actividades = [];
 			this.serviciog.actividad = lastActividad;
@@ -255,6 +260,7 @@ this.serviGloAct.tipo2 = this.serviciog.tipos_act[this.serviciog.tipos_act.index
 				}
 			});
 		}else{
+			this.serviGloAct.tipo2 = this.serviciog.tipos_act[0];
 			this.inicio();
 		}
 	}
@@ -300,15 +306,9 @@ this.serviGloAct.tipo2 = this.serviciog.tipos_act[this.serviciog.tipos_act.index
 	{data: [28, 48, 40, 19, 86, 27, 92], label: 'Categoria 3'}
 	];
 
-	public barColor:any[] = [
-	{backgroundColor: 'rgba(9,128,1,.8)'},
-	{backgroundColor: 'rgba(255,255,1,.8)'},
-	{backgroundColor: 'rgba(254,0,0,.8)'},
-	{backgroundColor: '#4d86dc'},
-	{backgroundColor: '#f3af37'}
-	];
+	public barColor:any[] = [{backgroundColor: ['rgba(15, 255, 0, 0.8)','rgba(255, 9, 0, 0.81)']}];
 
-	public doughnutChartLabels:string[] = ['CUMPLIDO', 'NO CUMPLIDO'];
+	public doughnutChartLabels:string[] = ['EJECUTADO', 'NO EJECUTADO'];
 	public doughnutChartData:number[] = [10,20];
 	public doughnutChartType:string = 'doughnut';
 

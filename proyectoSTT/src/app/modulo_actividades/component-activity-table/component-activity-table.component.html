@@ -8,8 +8,9 @@
 
 				<th style="text-transform: uppercase;">{{this.serviGloAct.tipo}}</th>
 
-				<th>USUARIO DUEÑO / ASIGNADO</th>
-				<th>ACCIONES</th>
+				<th style="text-align: center;">USUARIO DUEÑO / ASIGNADO</th>
+				<th style="text-align: center;">% EJECUTADO</th>
+				<th style="text-align: center;">ACCIONES</th>
 				
 				
 			</thead>
@@ -17,13 +18,16 @@
 				<div *ngIf="this.subActivity[0].id_beneficiario == null ; then ok2 else bad2"></div>
 				<ng-template #ok2>
 					<tr *ngFor="let subActividad of this.subActivity">
-						<td>
+						<td >
 							{{subActividad.nom_act}}	
 						</td>
-						<td>
+						<td style="text-align: center;">
 							{{subActividad.usr_nom}} {{subActividad.usr_ape}}
 						</td>
-						<td >
+						<td style="text-align: center;">
+							{{subActividad.porcentaje_cumplido}} %
+						</td>
+						<td style="text-align: center;">
 							<div class="form-inline">
 								<button  class="btn btn-primary" (click)="entrarAct(subActividad)" class="btn btn-warning">	Entrar </button>
 
@@ -36,10 +40,11 @@
 						<td>
 							{{subActividad.tipo_identificacion}}	{{subActividad.cedula}}	
 						</td>
+						
 						<td>
 							{{subActividad.nombre}} 
-						</td>
-						<td>
+						</td >
+						<td >
 							{{subActividad.usr_nom}} {{subActividad.usr_ape}}
 						</td>
 						<td>

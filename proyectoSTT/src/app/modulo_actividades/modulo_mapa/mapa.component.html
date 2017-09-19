@@ -6,7 +6,7 @@
 		<br/>
 	</div>	
 </ul>
-
+<!--
 <div class="row search">
 	<div class="form-group col-md-9">
 		<input placeholder="Buscar dirección..." autocorrect="on" autocapitalize="on" spellcheck="on" type="text" class="form-control" #search [formControl]="searchControl">
@@ -19,30 +19,59 @@
 		<img src="https://image.flaticon.com/icons/png/512/484/484149.png" style="height: 50px; width: 50px; " />		
 	</button>
 </div>
+-->
+
+<div  class="input-group">
+	<input #ben class="form-control" placeholder="Buscar..." type="text" 
+	(keyup)="search_ben(ben.value)" >
+	<span class="input-group-btn">
+		
+		<button  aria-label="Left Align" class="btn btn-primary" type="button" 
+		(click)="search_ben(ben.value)"><span  aria-hidden="true" class="glyphicon glyphicon-search">								
+		</span>
+	</button>
+
+
+</span>
+</div>
 
 <table style="width: 100%">
 	<tbody>
 		<tr>
 			<td style="width: 90%">
 				<agm-map [latitude]="lat" [longitude]="lng" [zoom]="zoom" (mapClick)="mapClicked($event)" [mapTypeControl]="true" [fullscreenControl]="true" >	
-					<agm-marker *ngFor="let marker of this.markers;" [latitude]="marker.latitud-0" [longitude]="marker.longitud-0" [iconUrl]="this.http+marker.id_categoria+this.ext" >			
-					</agm-marker>
-				</agm-map>
-			</td>
-			<td style="width: 10%">
-				<div style="height: 70vh; overflow-y: auto;">
-					<ul>
-						<div class="blockCategory" *ngFor="let category of this.categorias;" (click)="btnCat(category)" [class.selected2]="category === this.categoria">
-							<div style="background-color: #222; color: white;">
-								{{category.nombre}}
-							</div>
-							<div [ngStyle]="{ 'background-color':  category.color }" style="height: 50px"></div> 
-						</div>		
-					</ul>	
-				</div>
-			</td>
-		</tr>
-	</tbody>
+					<agm-marker *ngFor="let marker of this.markers;" [latitude]="marker.latitud-0" [longitude]="marker.longitud-0" [iconUrl]="this.http+marker.id_categoria+this.ext" >			 <agm-info-window>
+
+								Beneficiario: {{marker.nombre}}
+								<br>
+								Cedula: {{marker.cedula}}
+							
+					</agm-info-window>
+				</agm-marker>
+			</agm-map>
+		</td>
+		<td style="width: 10%">
+			<div style="height: 70vh; overflow-y: auto;">
+				<ul>
+					<div class="blockCategory" *ngFor="let category of this.categorias;" (click)="btnCat(category)" [class.selected2]="category === this.categoria">
+						<div style="background-color: #222; color: white;">
+							{{category.nombre}}
+						</div>
+						<div [ngStyle]="{ 'background-color':  category.color }" style="height: 50px"></div> 
+					</div>	
+
+					<div class="blockCategory" (click)="btnCat(category)" >
+						<div style="background-color: #222; color: white;">
+							Todas las categorias
+						</div>
+						<div [ngStyle]="{ 'background-color':  'rgb( 80, 80, 80 )' }" style="height: 50px"></div> 
+					</div>	
+
+				</ul>	
+			</div>
+		</td>
+	</tr>
+</tbody>
 </table>
 
 
