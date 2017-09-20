@@ -5,6 +5,7 @@ agm-map {
 	padding-top: 100px;
 	margin-left: 10%;
 	margin-right: 10%;
+	
 }
 
 .modal-dialog{
@@ -17,4 +18,8 @@ agm-map {
     font-size: 30px;
     display: block;
     margin: auto;
+}
+
+#ids_ben:hover{
+	cursor: pointer;
 }

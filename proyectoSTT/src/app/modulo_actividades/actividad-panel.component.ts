@@ -15,7 +15,7 @@ import { ServiciosGlobalesActividades} from './servicios-globales-actividades'
 })
 
 export class ActividadPanel implements OnInit{
-	
+
 	isTitleSelected : boolean = false;
 	act_ant : string ='';
 
@@ -38,6 +38,13 @@ export class ActividadPanel implements OnInit{
 		){ };
 
 	ngOnInit():void {
+
+    this.serviciog.actividad =null;
+		this.serviciog.isSelAct =false;
+		this.serviciog.isSubActivity = null;
+		this.serviciog.isSelAct = false;
+		this.serviGloAct.actOpt = 0;
+
 		if(this.serviciog.usuario.tipo_usuario === 'sup')
 			this.flg = false;
 
@@ -72,12 +79,12 @@ export class ActividadPanel implements OnInit{
 
 	actualizarActividad(actividad){
 		var isUpdatePercentage = false;
-
+		this.isEditar = !this.isEditar;
 		////se comprueba si ubieron cambios en el porcentaje ejecutado
 		if(this.porcentaje_ejecutado != actividad.porcentaje_cumplido){
 			this.porcentaje_ejecutado = actividad.porcentaje_cumplido - this.porcentaje_ejecutado;
 			//this.porcentaje_ejecutado = this.porcentaje_ejecutado * (actividad.porcentaje/100);
-			this.isEditar = !this.isEditar;
+
 			isUpdatePercentage = true;
 			//alert(this.porcentaje_ejecutado);
 		}
@@ -87,7 +94,6 @@ export class ActividadPanel implements OnInit{
 		formData.append("porcentaje_cumplido",JSON.stringify(this.porcentaje_ejecutado));
 		formData.append("isUpdatePercentage",JSON.stringify(isUpdatePercentage));
 
-		this.porcentaje_ejecutado = 0;
 		this.servicios.updateCaracteristica(formData)
 		.then(message=>{
 			alert(JSON.stringify(message));
@@ -175,7 +181,7 @@ export class ActividadPanel implements OnInit{
 	}
 
 	inicio(){
-		this.serviciog.titulo = this.serviciog.proyecto.nombre;
+		this.serviciog.titulo = this.serviciog.proyecto.nom_pro;
 
 		var keym = this.serviciog.proyecto.keym;
 		var id_usuario = this.serviciog.proyecto.id_usuario;
@@ -189,6 +195,7 @@ export class ActividadPanel implements OnInit{
 
 	entrarACtividad(actividad){
 
+		this.isTitleSelected = true;
 		this.serviciog.tree_name.push(actividad.nom_act);
 		this.serviGloAct.tipo2 = this.serviciog.tipos_act[this.serviciog.tipos_act.indexOf(actividad.tipo)+1];
 		//alert(JSON.stringify(this.serviciog.tree_name));
@@ -225,9 +232,13 @@ export class ActividadPanel implements OnInit{
 
 		//alert(JSON.stringify(this.serviciog.tree_name));
 
+
+
+
 		var lastActividad = this.serviGloAct.lastActividad.pop();
-this.serviGloAct.tipo2 = this.serviciog.tipos_act[this.serviciog.tipos_act.indexOf(lastActividad.tipo)+1];
-		if(lastActividad!= this.serviciog.isSubActivity && lastActividad){
+	
+		if(lastActividad != this.serviciog.isSubActivity && lastActividad ){
+			this.serviGloAct.tipo2 = this.serviciog.tipos_act[this.serviciog.tipos_act.indexOf(lastActividad.tipo)+1];
 			this.subActivity = [];
 			this.serviciog.actividades = [];
 			this.serviciog.actividad = lastActividad;
@@ -249,6 +260,7 @@ this.serviGloAct.tipo2 = this.serviciog.tipos_act[this.serviciog.tipos_act.index
 				}
 			});
 		}else{
+			this.serviGloAct.tipo2 = this.serviciog.tipos_act[0];
 			this.inicio();
 		}
 	}
@@ -294,15 +306,9 @@ this.serviGloAct.tipo2 = this.serviciog.tipos_act[this.serviciog.tipos_act.index
 	{data: [28, 48, 40, 19, 86, 27, 92], label: 'Categoria 3'}
 	];
 
-	public barColor:any[] = [
-	{backgroundColor: 'rgba(9,128,1,.8)'},
-	{backgroundColor: 'rgba(255,255,1,.8)'},
-	{backgroundColor: 'rgba(254,0,0,.8)'},
-	{backgroundColor: '#4d86dc'},
-	{backgroundColor: '#f3af37'}
-	];
+	public barColor:any[] = [{backgroundColor: ['rgba(15, 255, 0, 0.8)','rgba(255, 9, 0, 0.81)']}];
 
-	public doughnutChartLabels:string[] = ['CUMPLIDO', 'NO CUMPLIDO'];
+	public doughnutChartLabels:string[] = ['EJECUTADO', 'NO EJECUTADO'];
 	public doughnutChartData:number[] = [10,20];
 	public doughnutChartType:string = 'doughnut';
 
@@ -332,7 +338,7 @@ this.serviGloAct.tipo2 = this.serviciog.tipos_act[this.serviciog.tipos_act.index
 
 	c3(){
 		this.serviGloAct.actOpt = 3;
-		
+
 		if(this.serviciog.isSelAct){
 			var numSi = this.serviciog.actividad.porcentaje_cumplido;
 			var numNo = 100 - numSi

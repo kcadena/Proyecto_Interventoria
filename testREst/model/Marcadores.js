@@ -14,13 +14,13 @@ module.exports.getMarkersListFromCategory = function(id_categoria,select_cat){
         on c.keym = a.keym_car
         and c.id_caracteristica = a.id_caracteristica
         and c.id_usuario = a.id_usuario_car
-        
+
         join marcador p
         on c.keym = p.keym
         and c.id_caracteristica = p.id_caracteristica
         and c.id_usuario = p.id_usuario
-                   
-		where p.id_categoria = `+id_categoria+`   
+
+		where p.id_categoria = `+id_categoria+`
         `;
     else
         query1 = `
@@ -28,7 +28,7 @@ module.exports.getMarkersListFromCategory = function(id_categoria,select_cat){
         on c.keym = a.keym_car
         and c.id_caracteristica = a.id_caracteristica
         and c.id_usuario = a.id_usuario_car
-        
+
         join marcador p
         on c.keym = p.keym
         and c.id_caracteristica = p.id_caracteristica

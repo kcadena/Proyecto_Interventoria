@@ -10,6 +10,7 @@ export class ServiciosGlobales {
 	
 	tree_name : string[] = [];
 	
+	
 	usuario:Usuario;
 	proyecto:any;
 	actividad:any;

@@ -108,7 +108,6 @@ module.exports.getActivityList = function (data) {
 				c.fecha_inicio,
 				c.fecha_fin,
 				c.publicacion_reporte,
-        c.id_beneficiario,
         b.cedula,
         b.nombre,
         b.tipo_identificacion,
@@ -128,7 +127,7 @@ module.exports.getActivityList = function (data) {
 
 
         left join beneficiarios b
-        on c.id_beneficiario = b.id_beneficiario
+        on c.cedula = b.cedula
 
 
 				where c.keym_padre = ` + keym + `

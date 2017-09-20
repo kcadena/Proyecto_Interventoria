@@ -54,3 +54,11 @@ button.btn-primary:active {
 	height: 20px;
 	text-align: left;
 }
+
+p{
+	margin-top: 10px;
+}
+
+.txt{
+	text-align: center;
+}

@@ -7,10 +7,10 @@ function configConnection() {
         //host: 'knower.udenar.edu.co',
         host: 'localhost',
         dialect: 'postgres',
-        connectionTimeout: 100000,
+        connectionTimeout: 10000,
         pool: {
-          max: 1000000,
-          min: 0
+          max: 10000,
+          min: 10000
         },
         define: {
             timestamps: false
