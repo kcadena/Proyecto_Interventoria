@@ -90,9 +90,11 @@ export class ActivityTableComponent implements OnInit{
 
 	filter(text : string){
 		//alert(this.serviciog.axActividades[0].id_beneficiario);
+		
+
 		if(text.trim() == '')
 			this.subActivity = this.serviciog.axActividades; 	
-		else if(this.serviciog.axActividades[0].id_beneficiario == null){
+		else if(this.serviciog.axActividades[0].tipo != 'Beneficiario'){
 			//alert('CARACTERISTICA');
 			this.subActivity = this.serviciog.axActividades.filter(item => 
 				item.nom_act.toLowerCase().indexOf(text.toLowerCase()) !== -1 ||

@@ -5,7 +5,7 @@ var router = express.Router();
 var fs = require("fs");
 
 var repository =
-  "/run/media/admin/DATA/UDENAR/WORK/Anexo Tecnico/DATABASE_INTERNVENTORIA/CSV_POST/Point/";
+  "/run/media/admin/DATA/CSV_POST/Point/K/";
 
 module.exports.insertData = function() {
   var keym = 0;
@@ -392,22 +392,36 @@ module.exports.insertMarker = function() {
   var sum = 0;
   var sum_usu = 0;
 
-  var res = ["Aldea de Maria", "Chiles", "Gran Cumbal"];
+  
+  //var res = ["Aldea de Maria", "Chiles", "Gran Cumbal","Carlosama","Funes","Gran Tescual","Iles","Ipiales",
+  //"Males Cordoba","Mayasquer","Miraflores","Panan",'Pastas Aldana'];
+  //var res = ["Aldea de Maria"];
   //var res = ["Chiles"];
+  //var res = ["Gran Cumbal"];
+  //var res = ["Carlosama"];
+  //var res = ["Funes"];
+  //var res = ["Gran Tescual"];
+  //--var res = ["Iles"];
+  //var res = ["Ipiales"];
+  //var res = ["Males Cordoba"];
+  //var res = ["Mayasquer"];
+  //var res = ["Miraflores"];
+  //var res = ["Panan"];
+  var res = ["Pastas Aldana"];
 
   res.forEach(function(element) {
     var path = repository + element + ".csv";
     //console.log(path);
     fs.readFile(path, "utf8", (err, data) => {
-      console.log("\n\n\n"+path+'\n\n\n');
+      //console.log("\n\n\n"+path+'\n\n\n');
 
       if (!err) {
         //console.log(data);
         data.split("\n").forEach(function(item) {
           item = item.split(",");
           var cedula = item[1];
-          var lat = item[3];
-          var lon = item[4];
+          var lat = item[4];
+          var lon = item[3];
           var alt = item[5];
 
 

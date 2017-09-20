@@ -95,7 +95,7 @@ export class Mapa implements OnInit{
 	}	
 	
 	mapClicked($event: any){		
-		if(!this.mark){
+		/*if(!this.mark){
 			var marker:any = {				
 				keym:this.serviciog.actividad.keym,
 				id_caracteristica:this.serviciog.actividad.id_caracteristica,
@@ -132,7 +132,7 @@ export class Mapa implements OnInit{
 			this.lng = $event.coords.lng;
 
 			
-		}
+		}*/
 	}
 
 	buscarLugar(){
@@ -193,6 +193,9 @@ export class Mapa implements OnInit{
 	search_ben( beneficiario : string){
  		//alert(beneficiario);
  		//alert(JSON.stringify(this.ax_markers[0]));
+
+	alert(JSON.stringify(this.ax_markers.filter(item =>item.cedula.indexOf('87218745'||'59178526') !== -1).nombre));
+/*
  		if(beneficiario.trim().length>0)
  		this.markers = this.ax_markers.filter(
  				item  => {
@@ -203,13 +206,13 @@ export class Mapa implements OnInit{
  			);	
  		else		
  			this.markers = this.ax_markers;
-
+*/
  		//alert(JSON.stringify(this.marcadores));
 
  	}
 
 	guardarPunto(marker){
-		var formData = new FormData();
+		/*var formData = new FormData();
 		formData.append('marcador',JSON.stringify(marker));
 		this.servicios.updatePointMap(formData).
 		then(message => {
@@ -218,7 +221,7 @@ export class Mapa implements OnInit{
 			}else{
 				this.markers.push(marker);
 			}
-		});
+		});*/
 	}
 
 	
