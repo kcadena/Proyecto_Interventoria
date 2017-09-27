@@ -91,8 +91,12 @@
 				<a>Mapa</a>
 			</li>
 
-			<li *ngIf="this.serviciog.isSelAct" (click)="c9()" [class.itemSelected]="this.serviGloAct.actOpt===9">
-				<a>Observaciones</a>
+			<li  (click)="c9()" [class.itemSelected]="this.serviGloAct.actOpt===10">
+				<a>Recomendaciones</a>
+			</li>
+
+			<li  (click)="c9()" [class.itemSelected]="this.serviGloAct.actOpt===9">
+				<a>Observaciones Supervisor</a>
 			</li>
 
 			<li (click)="c8()" [class.itemSelected]="this.serviGloAct.actOpt===8">
@@ -123,7 +127,7 @@
 					<label for="tiempo_fin" class="lab">Fecha Final</label>
 					<input name="" type="text" id="tiempo_fin" class="form-control" name="tiempo_fin" ng-reflect-model="a" readonly [(ngModel)]="this.serviciog.proyecto.fecha_fin" >
 
-					<label for="estado" class="lab">Estado</label>
+					<label for="estado" class="lab">Etapa</label>
 					<input name="" type="text" id="estado" class="form-control" name="estado" ng-reflect-model="a" readonly [(ngModel)]="this.serviciog.proyecto.estado" >
 				</div>
 			</form>
@@ -168,74 +172,98 @@
 						<label for="tiempo_fin" class="lab">Tiempo Final</label>
 						<input name="" type="text" id="tiempo_fin" class="form-control" name="tiempo_fin" [readonly]="!this.isEditar" [(ngModel)]="this.serviciog.actividad.fecha_fin" >
 
-						<label for="estado" class="lab">Estado</label>
+
+<!--
+						<label for="estado" class="lab">Etapa</label>
 						<input type="text" id="estado" class="form-control" name="estado"  [readonly]="!this.isEditar" [(ngModel)]="this.serviciog.actividad.estado" >
+					-->
 
-						<label for="porcentaje_cumplido" class="lab">Porcentaje Ejecutado {{this.serviciog.actividad.tipo}} {{this.serviciog.actividad.nom_act}} </label>
-						<input name="" type="number" min="0" max="100" id="estado" class="form-control" name="porcentaje_cumplido" 
-						[(ngModel)]="this.serviciog.actividad.porcentaje_cumplido" [readonly]="!this.isEditar" >
+					<div class="form-group">
+						<label for="etapa" class="lab">Etapa</label>
+						<select  id="etapa"  class="form-control" name="etapa" 
+						[(ngModel)]="this.actividad.etapa" required>
+						<option  value="Iniciacion" >Inicio </option>
+						<option  value="Ejecucion" >Entrega de materiales</option>
+						<option  value="Ejecucion" >Ejecucion de obra</option>
+						<option  value="cierre" >Liquidacion</option>
+					</select>	
+				</div>
 
-						<label for="Usuario" class="lab">Usuario Dueño / Asignado</label>
-						<div  (click)="getUsers()" 
-						[attr.data-toggle]="this.flg  ? 'modal' : null " data-target="#mod-list-usu"  style="display: block; height: 100px; width: 100%; margin: auto; background-color: rgb(36,36,36); border:1px solid rgb(87,87,87)" >
-						<div class="row">
-							<div class="col-md-3">
-								<img src=" assets/img/manprofile.png" style="width: 85px;height: 85px; margin-left: 7px; margin-top: 7px;">
-							</div>
-							<div class="col-md-9">
-								<div style="color: rgb(245,245,245);     text-decoration: underline;   text-transform: uppercase; font-weight: bold;">
-									{{this.serviciog.actividad.usr_nom}} {{this.serviciog.actividad.usr_ape}}
-								</div>
-								<div style="color: rgb(209,209,209);font-style: italic;">
-									{{this.serviciog.actividad.e_mail}}
-								</div>
-								<div style="color: rgb(209,209,209);">
-									{{this.serviciog.actividad.cargo}}
-								</div>
-							</div>
+
+
+
+
+
+
+
+
+
+
+				<label for="porcentaje_cumplido" class="lab">Porcentaje Ejecutado {{this.serviciog.actividad.tipo}} {{this.serviciog.actividad.nom_act}} </label>
+				<input name="" type="number" min="0" max="100" id="estado" class="form-control" name="porcentaje_cumplido" 
+				[(ngModel)]="this.serviciog.actividad.porcentaje_cumplido" [readonly]="!this.isEditar" >
+
+				<label for="Usuario" class="lab">Usuario Dueño / Asignado</label>
+				<div  (click)="getUsers()" 
+				[attr.data-toggle]="this.flg  ? 'modal' : null " data-target="#mod-list-usu"  style="display: block; height: 100px; width: 100%; margin: auto; background-color: rgb(36,36,36); border:1px solid rgb(87,87,87)" >
+				<div class="row">
+					<div class="col-md-3">
+						<img src=" assets/img/manprofile.png" style="width: 85px;height: 85px; margin-left: 7px; margin-top: 7px;">
+					</div>
+					<div class="col-md-9">
+						<div style="color: rgb(245,245,245);     text-decoration: underline;   text-transform: uppercase; font-weight: bold;">
+							{{this.serviciog.actividad.usr_nom}} {{this.serviciog.actividad.usr_ape}}
+						</div>
+						<div style="color: rgb(209,209,209);font-style: italic;">
+							{{this.serviciog.actividad.e_mail}}
+						</div>
+						<div style="color: rgb(209,209,209);">
+							{{this.serviciog.actividad.cargo}}
 						</div>
 					</div>
-
-					<br/>
-					<button class="btn btn-success" *ngIf="this.isEditar" (click)="actualizarActividad(this.serviciog.actividad)">Guardar</button>
-
-					<button class="btn btn-primary" *ngIf="!this.isEditar && this.flg " (click)="editarClick(this.serviciog.actividad)">Editar</button>
-
 				</div>
-			</form>
-		</div>
-
-		<div *ngIf="this.serviGloAct.actOpt === 2" >
-			<activity-table></activity-table>
-		</div>
-
-		<div *ngIf="this.serviGloAct.actOpt === 3" >
-			<!-- Seccion para reportes  -->
-			<!-- <embed  src="http://knower.udenar.edu.co/imgSTT/CONVENIO.pdf" style="width: 100%; min-height:80vh;" fullframe /> -->
-
-			<app-report 
-			[tipo]='this.serviciog.actividad.tipo' 
-			[isTitleSelected]='this.isTsitleSelected'
-			[doughnutChartData]='doughnutChartData'
-			[doughnutChartLabels]='doughnutChartLabels'
-			[doughnutChartType]='doughnutChartType'></app-report>
-
-		</div>
-
-		<div *ngIf="this.serviGloAct.actOpt === 4" >
-			<multimedia></multimedia>
-		</div>
-
-		<div *ngIf="this.serviGloAct.actOpt === 5" >
-			<div style="display: block; height: 500px; width: 500px" class="center-block">
-				<canvas baseChart
-				[data]="doughnutChartData"
-				[labels]="doughnutChartLabels"
-				[chartType]="doughnutChartType"
-				[colors] = "barColor"
-				(chartHover)="chartHovered($event)"
-				(chartClick)="chartClicked($event)"></canvas>
 			</div>
+
+			<br/>
+			<button class="btn btn-success" *ngIf="this.isEditar" (click)="actualizarActividad(this.serviciog.actividad)">Guardar</button>
+
+			<button class="btn btn-primary" *ngIf="!this.isEditar && this.flg " (click)="editarClick(this.serviciog.actividad)">Editar</button>
+
+		</div>
+	</form>
+</div>
+
+<div *ngIf="this.serviGloAct.actOpt === 2" >
+	<activity-table></activity-table>
+</div>
+
+<div *ngIf="this.serviGloAct.actOpt === 3" >
+	<!-- Seccion para reportes  -->
+	<!-- <embed  src="http://knower.udenar.edu.co/imgSTT/CONVENIO.pdf" style="width: 100%; min-height:80vh;" fullframe /> -->
+
+	<app-report 
+	[tipo]='this.serviciog.actividad.tipo' 
+	[isTitleSelected]='this.isTsitleSelected'
+	[doughnutChartData]='doughnutChartData'
+	[doughnutChartLabels]='doughnutChartLabels'
+	[doughnutChartType]='doughnutChartType'></app-report>
+
+</div>
+
+<div *ngIf="this.serviGloAct.actOpt === 4" >
+	<multimedia></multimedia>
+</div>
+
+<div *ngIf="this.serviGloAct.actOpt === 5" >
+	<div style="display: block; height: 500px; width: 500px" class="center-block">
+		<canvas baseChart
+		[data]="doughnutChartData"
+		[labels]="doughnutChartLabels"
+		[chartType]="doughnutChartType"
+		[colors] = "barColor"
+		(chartHover)="chartHovered($event)"
+		(chartClick)="chartClicked($event)"></canvas>
+	</div>
 
 			<!-- Diagrama de barras
 			<div style="display: block">

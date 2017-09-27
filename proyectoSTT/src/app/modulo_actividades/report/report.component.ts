@@ -17,7 +17,7 @@ export class ReportComponent implements OnInit {
 	@Input() doughnutChartData: string[] = [];
 	@Input() doughnutChartLabels: number[] = [];
 	@Input() doughnutChartType: any = '';
-
+	@Input() etapa: string = '';
 	@Input() tipo: string = '';
 	@Input() isTitleSelected : boolean = false;
 

@@ -20,9 +20,15 @@
 
 	<br>
 
-	<label for="estado" class="lab">Estado: {{this.serviciog.actividad.estado}}</label>
+	
 
-	<br>
+	
+
+	<div class="col-md-12">
+		<label for="estado" class="lab col-md-6">Etapa: {{this.etapa}}</label>
+		<br>
+		<label for="estado" class="lab col-md-6">Estado: {{this.serviciog.actividad.estado}}</label>
+	</div>
 	<div>
 		<label for="porcentaje_cumplido" class="lab">Porcentaje Ejecutado {{this.serviciog.actividad.tipo}} {{this.serviciog.actividad.nom_act}}: {{this.serviciog.actividad.porcentaje_cumplido}} %</label>
 
