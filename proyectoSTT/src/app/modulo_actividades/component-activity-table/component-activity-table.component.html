@@ -14,7 +14,8 @@
 		</div>
 		<br><br>
 		<div class="table_list">
-			<table class="table table-striped ">
+			<div *ngIf="this.subActivity.length == 0" ><h4>No se encontraron datos.</h4></div>
+			<table *ngIf="this.subActivity.length > 0" class="table table-striped ">
 				<thead>
 					<th *ngIf="this.subActivity[0].tipo == 'Beneficiario'">CEDULA</th>
 
@@ -26,7 +27,7 @@
 
 
 				</thead>
-				<tbody>
+				<tbody >
 					<div *ngIf="this.subActivity[0].tipo != 'Beneficiario' ; then ok2 else bad2"></div>
 					<ng-template #ok2>
 						<tr *ngFor="let subActividad of this.subActivity">
@@ -56,12 +57,16 @@
 							<td>
 								{{subActividad.nombre}} 
 							</td >
-							<td >
+							<td style="text-align: center;">
 								{{subActividad.usr_nom}} {{subActividad.usr_ape}}
 							</td>
+							<td style="text-align: center;">
+								{{subActividad.porcentaje_cumplido}} 
+							</td >
+							
 							<td>
-								<div>
-									<button  class="btn btn-primary" (click)="entrarAct(subActividad)" class="btn btn-warning">	Entrar </button>
+								<div style="position: relative;width: 100%">
+									<button  class="btn btn-primary col-md-6" (click)="entrarAct(subActividad)" class="btn btn-warning">	Entrar </button>
 
 									<div>
 										<div *ngIf="
@@ -73,7 +78,7 @@
 										<ng-template #thenBlock1>
 											<!--*ngIf="this.serviciog.usuario.id_usuario != subActividad.usuario_asignado"  -->
 											<button (click)="asignarUsuario(subActividad)" 
-											class="btn btn-danger"> Asignar </button>
+											class="btn btn-danger  col-md-6"> Asignar </button>
 										</ng-template >
 									</div>
 									<div>
@@ -84,7 +89,7 @@
 
 										<ng-template #thenBlock2 >
 											<!--*ngIf="this.serviciog.usuario.id_usuario != subActividad.usuario_asignado"  -->
-											<button (click)="getUsers()"  data-toggle="modal" [attr.data-target]="'#' + subActividad.keym+'-'+subActividad.id_caracteristica+'-'+subActividad.id_usuario" class="btn btn-success"
+											<button (click)="getUsers()"  data-toggle="modal" [attr.data-target]="'#' + subActividad.keym+'-'+subActividad.id_caracteristica+'-'+subActividad.id_usuario" class="btn btn-success  col-md-6"
 											>  Asignar. </button>
 											<app-assign-user 
 											[usuarios]="this.axUsers"

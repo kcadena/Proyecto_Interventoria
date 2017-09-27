@@ -37,7 +37,7 @@ export class ModalRegister {
 		}		
 		this.servicios.createUser(formData)
 		.then(message => { 
-			alert("" + message);
+			//alert("" + message);
 			this.submit = false;
 								
 		 } );	

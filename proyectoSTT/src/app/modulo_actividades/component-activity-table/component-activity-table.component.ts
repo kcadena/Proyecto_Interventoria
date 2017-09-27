@@ -15,7 +15,7 @@ import { Servicios }         from '../../services/servicios';
 	styleUrls: ['./component-activity-table.component.css']
 })
 export class ActivityTableComponent implements OnInit{
-	subActivity:any = 0;
+	subActivity:any = [];
 	isSubActivity:any = [];
 	usuarios:any = [];
 	axUsers : any = [];
@@ -90,12 +90,13 @@ export class ActivityTableComponent implements OnInit{
 
 	filter(text : string){
 		//alert(this.serviciog.axActividades[0].id_beneficiario);
-		
+		this.subActivity = [];
 
-		if(text.trim() == '')
+		if(text.trim() == ''){
 			this.subActivity = this.serviciog.axActividades; 	
+		}
 		else if(this.serviciog.axActividades[0].tipo != 'Beneficiario'){
-			//alert('CARACTERISTICA');
+			//alert('Activity');
 			this.subActivity = this.serviciog.axActividades.filter(item => 
 				item.nom_act.toLowerCase().indexOf(text.toLowerCase()) !== -1 ||
 				item.usr_nom.toLowerCase().indexOf(text.toLowerCase()) !== -1 ||
@@ -103,15 +104,15 @@ export class ActivityTableComponent implements OnInit{
 				);
 		}
 		else{
-			//alert('ACTIVITY');
+			
 			this.subActivity = this.serviciog.axActividades.filter(item => 
-				item.nom_act.toLowerCase().indexOf(text.toLowerCase()) !== -1 ||
 				item.usr_nom.toLowerCase().indexOf(text.toLowerCase()) !== -1 ||
 				item.usr_ape.toLowerCase().indexOf(text.toLowerCase()) !== -1 ||
 				item.nombre.toLowerCase().indexOf(text.toLowerCase()) !== -1 ||
-				item.cedula.toLowerCase().indexOf(text.toLowerCase()) !== -1 ||
-				item.tipo_identificacion.toLowerCase().indexOf(text.toLowerCase()) !== -1 
+				item.cedula.indexOf(text) !== -1 
+				//item.tipo_identificacion.toLowerCase().indexOf(text.toLowerCase()) !== -1 
 				);
+			//alert('Beneficiario'+JSON.stringify(this.subActivity));
 		}
 
 

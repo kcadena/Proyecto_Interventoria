@@ -106,6 +106,13 @@ module.exports.updatePoint = function(data) {
 //Servoce to get point list
 module.exports.getPointList = function(data) {
   console.log("\n\n\n\nGEtPintList ===> " + JSON.stringify(data));
+  if(data.keym == null || data.keym == undefined )
+  {
+    data.keym = data.keym_car;
+    data.id_usuario = data.id_usuario_car;
+    //data.keym = data.key_car;
+    console.log('MODIFY   =>   '+JSON.stringify(data));
+  }
   var sequelize = sqlCon.configConnection();
   switch (data.tipo) {
     case "Beneficiario":

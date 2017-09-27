@@ -2,11 +2,11 @@
 	<h2>LISTA DE PROYECTOS</h2>
 	<div class="row">
 		<div class="col-md-3"></div>
-		<div class="col-md-6">
+		<div class="col-md-6"> 
 			<div class="input-group">
-				<input type="text" class="form-control" placeholder="Buscar...">
+				<input #prj type="text" class="form-control" placeholder="Buscar..." (keyup)="btnSearchPrj(prj.value)">
 				<span class="input-group-btn">
-					<button type="button" class="btn btn-primary" aria-label="Left Align">
+					<button type="button" class="btn btn-primary" aria-label="Left Align" (click)="btnSearchPrj(prj.value)">
 						<span class="glyphicon glyphicon-search" aria-hidden="true"></span>
 					</button>
 				</span>
@@ -27,8 +27,13 @@
 			</thead>
 			<tbody>
 
-				<tr *ngFor="let proyect of this.serviciog.proyecto" style="height: 30px;">
-					<td><p>{{proyect.nom_pro}}</p></td>
+				<tr *ngFor="let proyect of this.projectList" style="height: 30px;">
+					<td>
+						<p>{{proyect.nom_pro}}</p>
+						<span>
+							<p *ngIf="proyect.descripcion.indexOf('C.C') !== -1">{{proyect.descripcion}}</p>
+						</span>
+					</td>
 					<td><p class="txt">{{proyect.nombre}} {{proyect.apellido}}</p></td>
 					<td><p class="txt">{{proyect.porcentaje_cumplido}} % </p></td>
 					<td>

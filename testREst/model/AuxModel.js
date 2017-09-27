@@ -5,7 +5,7 @@ var router = express.Router();
 var fs = require("fs");
 
 var repository =
-  "/run/media/admin/DATA/CSV_POST/Point/K/";
+  "/run/media/admin/DATA/CSV_POST/Point/K/PT/";
 
 module.exports.insertData = function() {
   var keym = 0;
@@ -407,7 +407,7 @@ module.exports.insertMarker = function() {
   //var res = ["Mayasquer"];
   //var res = ["Miraflores"];
   //var res = ["Panan"];
-  var res = ["Pastas Aldana"];
+  var res = ["San Juan"];
 
   res.forEach(function(element) {
     var path = repository + element + ".csv";

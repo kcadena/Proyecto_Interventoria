@@ -42,7 +42,7 @@ export class RegistroMultimedia{
 		}		
 		this.servicios.createMultimedia(formData)
 		.then(message => {			 
-			alert("" + message);
+			//alert("" + message);
 			if(message){
 				var formData = new FormData();
 				//alert(JSON.stringify(this.serviciog.actividad));

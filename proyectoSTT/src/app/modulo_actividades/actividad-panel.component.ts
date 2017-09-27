@@ -28,6 +28,7 @@ export class ActividadPanel implements OnInit{
 	usuarios:any = [];
 	flg : boolean = true;
 	porcentaje_ejecutado:number;
+	activityList : any = [];
 
 
 	constructor(
@@ -39,7 +40,7 @@ export class ActividadPanel implements OnInit{
 
 	ngOnInit():void {
 
-    this.serviciog.actividad =null;
+		this.serviciog.actividad =null;
 		this.serviciog.isSelAct =false;
 		this.serviciog.isSubActivity = null;
 		this.serviciog.isSelAct = false;
@@ -52,6 +53,7 @@ export class ActividadPanel implements OnInit{
 		//alert(JSON.stringify(this.serviciog.tree_name));
 
 		this.serviciog.actividades = [];
+		this.activityList = [];
 		if(this.serviciog.proyecto){
 			this.serviciog.titulo = this.serviciog.proyecto.nom_pro;
 			var keym = this.serviciog.proyecto.keym;
@@ -62,6 +64,7 @@ export class ActividadPanel implements OnInit{
 			.then(actividades =>{
 				if(actividades){
 					this.serviciog.actividades = actividades;
+					this.activityList = actividades;
 					this.calculateValue(this.serviciog.actividades);
 					var num =this.serviciog.tipos_act.indexOf(actividades[0].tipo);
 					this.serviGloAct.tipo = this.serviciog.tipos_act[num + 1];
@@ -150,6 +153,7 @@ export class ActividadPanel implements OnInit{
 	tituloClick(){
 
 		this.isTitleSelected = true;
+		this.serviciog.actividad = null;
 
 		var num =this.serviciog.tipos_act.indexOf(this.serviciog.actividades[0].tipo);
 		this.serviGloAct.tipo2 = this.serviciog.tipos_act[num];
@@ -190,7 +194,10 @@ export class ActividadPanel implements OnInit{
 		this.serviciog.isSelAct = false;
 		this.serviGloAct.actOpt = 0;
 		this.servicios.getActividad(keym,id_usuario,id_caracteristica)
-		.then(actividad => this.serviciog.actividades = actividad );
+		.then(actividad =>{ 
+			this.serviciog.actividades = actividad;
+			this.activityList = actividad;
+		});
 	}
 
 	entrarACtividad(actividad){
@@ -205,6 +212,7 @@ export class ActividadPanel implements OnInit{
 
 		this.subActivity = [];
 		this.serviciog.actividades = [];
+		this.activityList = [];
 		this.serviciog.actividad = actividad;
 		this.serviciog.isSubActivity = actividad;
 		var keym = actividad.keym;
@@ -219,6 +227,7 @@ export class ActividadPanel implements OnInit{
 		.then(actividad => {
 			if(actividad){
 				this.serviciog.actividades = actividad;
+				this.activityList = actividad;
 				var num =this.serviciog.tipos_act.indexOf(this.serviciog.actividades[0].tipo);
 				this.serviGloAct.tipo = this.serviciog.tipos_act[num + 1];
 				//alert('1 '+this.serviGloAct.tipo);
@@ -236,11 +245,12 @@ export class ActividadPanel implements OnInit{
 
 
 		var lastActividad = this.serviGloAct.lastActividad.pop();
-	
+
 		if(lastActividad != this.serviciog.isSubActivity && lastActividad ){
 			this.serviGloAct.tipo2 = this.serviciog.tipos_act[this.serviciog.tipos_act.indexOf(lastActividad.tipo)+1];
 			this.subActivity = [];
 			this.serviciog.actividades = [];
+			this.activityList = [];
 			this.serviciog.actividad = lastActividad;
 			this.serviciog.isSubActivity = lastActividad;
 			var keym = lastActividad.keym;
@@ -254,6 +264,7 @@ export class ActividadPanel implements OnInit{
 			.then(actividad => {
 				if(actividad){
 					this.serviciog.actividades = actividad;
+					this.activityList =actividad;
 					var num =this.serviciog.tipos_act.indexOf(actividad[0].tipo);
 					this.serviGloAct.tipo = this.serviciog.tipos_act[num];
 
@@ -420,6 +431,20 @@ export class ActividadPanel implements OnInit{
 		this.porcentajeAsignado = percent;
 		this.miPorcentaje = 100 - this.porcentajeAsignado;
 	}
+
+	btnSearchAct(value : string){
+		//alert(JSON.stringify(this.serviciog.actividades));
+		
+		if(this.serviciog.actividades[0].tipo !== 'Beneficiario')
+			this.activityList = this.serviciog.actividades.filter(item  => {
+				return (item.tipo + item.nom_act).toLowerCase().replace(/ /g,'').indexOf(value.replace(/ /g,'').toLowerCase()) !== -1;
+			});
+		else
+			this.activityList = this.serviciog.actividades.filter(item  => {
+				return (item.cedula + item.nombre).toLowerCase().replace(/ /g,'').indexOf(value.replace(/ /g,'').toLowerCase()) !== -1;
+			});
+	}
+
 }
 
 

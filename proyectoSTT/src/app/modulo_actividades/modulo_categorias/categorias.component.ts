@@ -63,7 +63,7 @@ export class Categorias implements OnInit{
 	
 
 	editar(category){
-		alert(JSON.stringify(category))
+		//alert(JSON.stringify(category))
 		this.isEditar = true;
 		this.categoryValid = category;
 

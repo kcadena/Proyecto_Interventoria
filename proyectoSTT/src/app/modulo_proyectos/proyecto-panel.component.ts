@@ -12,6 +12,8 @@ import { Servicios }         from '../services/servicios';
 
 export class ProyectoPanel implements OnInit{
 
+	projectList : any = [];
+
 	constructor(
 		private serviciog:ServiciosGlobales,
 		private router:Router,
@@ -22,13 +24,15 @@ export class ProyectoPanel implements OnInit{
 		if(this.serviciog.usuario.tipo_usuario === 'sup' || [4,7].indexOf(this.serviciog.usuario.id_usuario) ){
 			this.servicios.getProyecto( [5 , this.serviciog.usuario.id_usuario ] + '')
 			.then(cadena => {
-				this.serviciog.proyecto = cadena
+				this.serviciog.proyecto = cadena;
+				this.projectList = cadena;
 			});
 		}
 		else if(this.serviciog.usuario){
 			this.servicios.getProyecto(this.serviciog.usuario.id_usuario + '')
 			.then(cadena => {
 				this.serviciog.proyecto = cadena
+				this.projectList = cadena;
 			});
 		}
 	}	
@@ -37,5 +41,12 @@ export class ProyectoPanel implements OnInit{
 		this.serviciog.proyecto = proyect;		
 		let link = ['actividades'];
 		this.router.navigate(link);
+	}
+
+	btnSearchPrj(value : string){
+		//alert(JSON.stringify(this.serviciog.proyecto));
+		this.projectList = this.serviciog.proyecto.filter(item  => {
+				return (item.nom_pro + item.descripcion).toLowerCase().replace(/ /g,'').indexOf(value.replace(/ /g,'').toLowerCase()) !== -1;
+			});
 	}
 }

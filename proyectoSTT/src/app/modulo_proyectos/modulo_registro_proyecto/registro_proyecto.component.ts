@@ -37,7 +37,7 @@ export class RegistroProyecto{
 
 		this.servicios.createProject(formData)
 		.then(message => { 
-			alert("" + message);
+			//alert("" + message);
 			if(message){
 				this.servicios.getProyecto(this.serviciog.usuario.id_usuario + '')
 				.then(cadena => {

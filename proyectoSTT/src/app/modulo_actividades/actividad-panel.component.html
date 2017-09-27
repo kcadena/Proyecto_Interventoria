@@ -23,11 +23,11 @@
 			</div>
 			<div  style="background-color: rgb(153,191,78); margin: 10px 10px;margin-top: 8px; min-height: 50vh">
 
-				<div style="margin: auto;">
+				<div style="margin: auto;"> 
 					<div class="input-group">
-						<input type="text" class="form-control" placeholder="Buscar....">
+						<input #act type="text" class="form-control" placeholder="Buscar...." (keyup)="btnSearchAct(act.value)">
 						<span class="input-group-btn">
-							<button type="button" class="btn btn-primary" aria-label="Left Align">
+							<button type="button" class="btn btn-primary" aria-label="Left Align" (click)="btnSearchAct(act.value)">
 								<span class="glyphicon glyphicon-search" aria-hidden="true"></span>
 							</button>
 						</span>
@@ -37,7 +37,7 @@
 
 				<div class="listaActividades">
 					<ul>
-						<li *ngFor="let activity of this.serviciog.actividades"
+						<li *ngFor="let activity of this.activityList"
 						[class.selected]="activity === this.serviciog.actividad"
 						(click)="onSelectActivity(activity)" (dblclick)="entrarACtividad(activity)">
 						<a>{{activity.tipo}} {{activity.nom_act}}</a>
@@ -85,7 +85,9 @@
 			<li (click)="c5()" [class.itemSelected]="this.serviGloAct.actOpt===5">
 				<a>Estadisticas </a>
 			</li>
-			<li *ngIf="this.serviciog.isSelAct" (click)="c6()" [class.itemSelected]="this.serviGloAct.actOpt===6">
+
+			<!-- *ngIf="this.serviciog.isSelAct" -->
+			<li  (click)="c6()" [class.itemSelected]="this.serviGloAct.actOpt===6">
 				<a>Mapa</a>
 			</li>
 
@@ -250,7 +252,7 @@
 		</div>
 
 		<div *ngIf="this.serviGloAct.actOpt === 6">
-			<mapa></mapa>
+			<mapa [tipo]='this.serviciog.tipos_act[this.serviciog.tipos_act.indexOf(this.serviGloAct.tipo2) - 1 ]'></mapa>
 		</div>
 
 		<div *ngIf="this.serviGloAct.actOpt === 7">

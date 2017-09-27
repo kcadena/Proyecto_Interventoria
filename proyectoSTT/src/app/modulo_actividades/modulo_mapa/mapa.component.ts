@@ -1,4 +1,4 @@
-import { Component, ElementRef, NgZone, OnInit}  from '@angular/core';
+import { Component, ElementRef, NgZone, OnInit, Input}  from '@angular/core';
 
 import { NgModule, ViewChild } 		 from '@angular/core';
 import { NgForm, FormControl } from '@angular/forms';
@@ -28,6 +28,7 @@ export class Mapa implements OnInit{
 	http:string = this.serviciog.servidor + "Category/";
 	ext:string = ".svg"	
 	caracteristica: Caracteristica = new Caracteristica('','','','');
+	ax_caracteristica: Caracteristica = new Caracteristica('','','','');
 	id_categoria:string;
 
 	markers:any = [];
@@ -35,6 +36,7 @@ export class Mapa implements OnInit{
 
 	mark:any;
 
+	@Input() tipo : string = '';
 
 	@ViewChild("search")
 	public searchElementRef: ElementRef;
@@ -50,32 +52,72 @@ export class Mapa implements OnInit{
 	ngOnInit():void {
 		this.searchControl = new FormControl();
 		this.buscarLugar();
-
+		
 		this.caracteristica.keym_car 			= this.serviciog.proyecto.keym;
 		this.caracteristica.id_caracteristica 	= this.serviciog.proyecto.id_caracteristica;
 		this.caracteristica.id_usuario_car 		= this.serviciog.proyecto.id_usuario;
 		this.caracteristica.tipo 				= this.serviciog.proyecto.tipo;
 		
-		var formData = new FormData();
-		formData.append('caracteristica', JSON.stringify(this.caracteristica));
-		this.servicios.getCategoryList(formData)
-		.then(categorias => {
-			this.categorias = categorias;
-			if(categorias[0]){
-				this.categoria = categorias[0];
-			}						
-		});
+		//alert('OK'+JSON.stringify(this.serviciog.actividad));
 
-		var formData = new FormData();
-		formData.append('caracteristica', JSON.stringify(this.serviciog.actividad));
-		this.servicios.getPointList(formData)
-		.then(marcador =>{			
-			if(marcador){
-				this.id_categoria = marcador[0].id_categoria;
-				this.markers= marcador;
-				this.ax_markers= marcador;
-			}
-		});		
+		if(this.serviciog.actividad != null){
+			var formData = new FormData();
+			formData.append('caracteristica', JSON.stringify(this.caracteristica));
+			this.servicios.getCategoryList(formData)
+			.then(categorias => {
+				//alert(JSON.stringify('Categorias'+categorias));
+				this.categorias = categorias;
+				if(categorias[0]){
+
+					this.categoria = categorias[0];
+				}						
+			});
+
+			var formData = new FormData();
+			formData.append('caracteristica', JSON.stringify(this.serviciog.actividad));
+			this.servicios.getPointList(formData)
+			.then(marcador =>{			
+				//alert(JSON.stringify(marcador));
+				if(marcador){
+
+					this.id_categoria = marcador[0].id_categoria;
+					this.markers= marcador;
+					this.ax_markers= marcador;
+				}
+			});
+		}
+		else{
+			//alert(this.tipo);
+			this.ax_caracteristica.tipo = this.tipo;
+			if(this.tipo == undefined)
+				this.ax_caracteristica.tipo = 'Proyecto';
+			this.ax_caracteristica.keym_car 			= '0';
+			this.ax_caracteristica.id_caracteristica 	= this.serviciog.proyecto.id_caracteristica;
+			this.ax_caracteristica.id_usuario_car 		= '5';
+
+			var formData = new FormData();
+			formData.append('caracteristica', JSON.stringify(this.ax_caracteristica));
+			this.servicios.getCategoryList(formData)
+			.then(categorias => {
+				//alert(JSON.stringify('Categorias => '+categorias));
+				this.categorias = categorias;
+				if(categorias[0]){
+					this.categoria = categorias[0];
+				}						
+			});
+
+			var formData = new FormData();
+			formData.append('caracteristica', JSON.stringify(this.ax_caracteristica));
+			this.servicios.getPointList(formData)
+			.then(marcador =>{			
+				//alert("Marcador => "+JSON.stringify(marcador));
+				if(marcador){
+					this.id_categoria = marcador[0].id_categoria;
+					this.markers= marcador;
+					this.ax_markers= marcador;
+				}
+			});
+		}		
 	}
 
 	btnCat(category){		
@@ -189,27 +231,38 @@ export class Mapa implements OnInit{
 		}
 	}
 
-
+	//filtro beneficiarios
 	search_ben( beneficiario : string){
- 		//alert(beneficiario);
- 		//alert(JSON.stringify(this.ax_markers[0]));
+		this.markers = [];		//Vacio los marcadores que tengo
+		var ax_arr : any = [];	//arreglo auxiliar de marcadores
+		var ax = [];			//arreglo de palabras a buscar 
 
-	alert(JSON.stringify(this.ax_markers.filter(item =>item.cedula.indexOf('87218745'||'59178526') !== -1).nombre));
-/*
- 		if(beneficiario.trim().length>0)
- 		this.markers = this.ax_markers.filter(
- 				item  => {
- 					//alert(item.nombre.toLowerCase().replace(/ /g,''));
- 					return item.nombre.toLowerCase().replace(/ /g,'').indexOf(beneficiario.replace(/ /g,'').toLowerCase()) !== -1 	||
- 					item.cedula.toLowerCase().replace(/ /g,'').indexOf(beneficiario.replace(/ /g,'').toLowerCase()) !== -1 
- 				}	
- 			);	
- 		else		
- 			this.markers = this.ax_markers;
-*/
- 		//alert(JSON.stringify(this.marcadores));
+		//Se crea el arreglo de las palabras a buscar separadas por coma ','
+		beneficiario.split(',').forEach(function(x) {
+			if(x)
+				ax.push(x);//solo se agregan aquellas que sean palabras not null
+		});
 
- 	}
+		//si arreglo contiene palabras realizo fitro
+		if(ax.length>0){
+			//recorro el arreglo de palabras
+			for (var i = ax.length - 1; i >= 0; i--) {
+				//realizo filtro por nombre y cedula
+				ax_arr = this.ax_markers.filter(item  => {
+					return item.cedula.indexOf(ax[i]) !== -1 ||
+					item.nombre.toLowerCase().replace(/ /g,'').indexOf(ax[i].replace(/ /g,'').toLowerCase()) !== -1;
+				});
+				//si el filtro contiene elemnetos se agregan a los marcadores del mapa
+				if(ax_arr.length>0){
+					for (var j = ax_arr.length - 1; j >= 0; j--) {
+						this.markers.push(ax_arr[j]);
+					}
+				}
+			}
+		}
+		else		
+			this.markers = this.ax_markers; //sin palabras a buscar solo asigno todos los marcadores
+	}
 
 	guardarPunto(marker){
 		/*var formData = new FormData();
