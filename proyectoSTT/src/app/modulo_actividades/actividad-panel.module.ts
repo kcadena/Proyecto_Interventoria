@@ -21,27 +21,26 @@ import { RemarksComponent } from './remarks/remarks.component';
 import { ReportComponent } from './report/report.component'
 
 
-
 @NgModule({
   imports: [
-    CommonModule,
-    FormsModule,
-    ChartsModule,
-    AgmCoreModule,
-    ReactiveFormsModule
+  CommonModule,
+  FormsModule,
+  ChartsModule,
+  AgmCoreModule,
+  ReactiveFormsModule
   ],
   declarations: [
-  	ActividadPanel,
-    RegistroActividad,
-    Multimedia,
-    RegistroMultimedia,
-    Categorias,
-    Mapa,
-    SubActividadPanel,
-    ActivityTableComponent,
-    AssignUserComponent,
-    RemarksComponent,
-    ReportComponent
+  ActividadPanel,
+  RegistroActividad,
+  Multimedia,
+  RegistroMultimedia,
+  Categorias,
+  Mapa,
+  SubActividadPanel,
+  ActivityTableComponent,
+  AssignUserComponent,
+  RemarksComponent,
+  ReportComponent
   ],
   providers: [ ServiciosGlobalesActividades ]
 })

@@ -533,3 +533,55 @@ function getIdCharacteristic(keym, id_usuario, id_caracteristica, type_char) {
             });
     });
 }
+
+module.exports.updateCompletePercentage = function (data, etapa) {
+    console.log('updatePercentage  ==>    ' + JSON.stringify(data) + '\n' + porcentaje_cumplido);
+    return new Promise((resolve, reject) => {
+        var sequelize = sqlCon.configConnection();
+
+        var query1 = `
+        select updatePercent(`+ data.keym + `,` + data.id_caracteristica + `,` + data.id_usuario + `,` + porcentaje_cumplido + `)
+        `;
+        console.log('\n\n' + query1);
+        sequelize.query(query1, { type: sequelize.QueryTypes.UPDATE })
+            .then(x => {
+                console.log('ok');
+                resolve(true);
+            }).catch(x => {
+                console.log('Error al actualizar porcentajes ' + x);
+                reject(false);
+            }).done(x => {
+                sequelize.close();
+                console.log('Se ha cerrado sesion de la conexion a la base de datos');
+            });
+
+
+    });
+}
+
+module.exports.updateEtapa = function (data, etapa) {
+    console.log('updateEtapa  ==>    ' + JSON.stringify(data) + '\n' + etapa);
+    return new Promise((resolve, reject) => {
+        var sequelize = sqlCon.configConnection();
+
+        var query1 = `
+        update caracteristicas set estado = '`+ etapa + `'
+        where keym = `+ data.keym + ` 
+        and id_caracteristica = `+ data.id_caracteristica + ` 
+        and id_usuario = `+ data.id_usuario + ` ; `;
+
+
+        console.log('\n\n' + query1);
+        sequelize.query(query1, { type: sequelize.QueryTypes.UPDATE })
+            .then(x => {
+                console.log('ok');
+                resolve(true);
+            }).catch(x => {
+                console.log('Error al actualizar etapa ' + x);
+                reject(false);
+            }).done(x => {
+                sequelize.close();
+                console.log('Se ha cerrado sesion de la conexion a la base de datos');
+            });
+    });
+}

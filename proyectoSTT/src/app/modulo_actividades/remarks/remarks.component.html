@@ -5,7 +5,7 @@
     <h5>{{item.observacion}}</h5>
   </div>
 
-  <div id="form-remark">
+  <div *ngIf="this.tipo_usuario != 'sup'" id="form-remark">
     <p>Agregar nuevo comentario</p>
     <textarea [(ngModel)]="cad" #ctrl="ngModel"
     placeholder="Agrega aqui tu comentario..."

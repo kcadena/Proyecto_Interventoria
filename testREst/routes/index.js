@@ -11,7 +11,7 @@ var Category = require("../model/Categorias");
 var Map = require("../model/Mapa");
 var File = require("../model/Archivos");
 var Marker = require("../model/Marcadores");
-var Characteritic = require("../model/Caracteristicas");
+var Characteristic = require("../model/Caracteristicas");
 var AuxModel = require("../model/AuxModel");
 //POST Services
 
@@ -122,7 +122,7 @@ router.post("/getUserProjectList", (req, res, next) => {
     });
 });
 
-//service to get user's activity with theirs characteristics
+//service to get user's activity with theirs Characteristics
 router.post("/getActivityList", (req, res, next) => {
   console.log("GET ACTIVITY LIST");
   var act = Activity.getActivityList(req.body);
@@ -420,22 +420,22 @@ router.post("/getMarkersListFromCategory", (req, res, next) => {
       JSON.stringify(req.body)
   );
 
-  if (req.body.id_categoria != undefined)
-    var mar = Marker.getMarkersListFromCategory(req.body.id_categoria, true);
-  else var mar = Marker.getMarkersListFromCategory("", false);
-  mar
-    .then(x => {
-      console.log(
-        "Se ha retornado correctamente los marcadores de la categoria"
-      );
-      res.header("Access-Control-Allow-Origin", "*");
-      res.send(x);
-    })
-    .catch(x => {
-      console.log("ERROR =>  " + x);
-      res.header("Access-Control-Allow-Origin", "*");
-      res.json(false);
-    });
+    if (req.body.id_categoria != undefined)
+      var mar = Marker.getMarkersListFromCategory(req.body.id_categoria, true);
+    else var mar = Marker.getMarkersListFromCategory("", false);
+    mar
+      .then(x => {
+        console.log(
+          "Se ha retornado correctamente los marcadores de la categoria"
+        );
+        res.header("Access-Control-Allow-Origin", "*");
+        res.send(x);
+      })
+      .catch(x => {
+        console.log("ERROR =>  " + x);
+        res.header("Access-Control-Allow-Origin", "*");
+        res.json(false);
+      });
 });
 
 router.post("/getPercentage", (req, res, next) => {
@@ -444,7 +444,7 @@ router.post("/getPercentage", (req, res, next) => {
       JSON.stringify(req.body.caracteristica.keym)
   );
 
-  var mar = Characteritic.getPercentage(JSON.parse(req.body.caracteristica));
+  var mar = Characteristic.getPercentage(JSON.parse(req.body.caracteristica));
   mar
     .then(x => {
       console.log(
@@ -465,7 +465,7 @@ router.post("/updatePercentage", (req, res, next) => {
     " <=====    Update Percentage      ==== >   " + JSON.stringify(req.body)
   );
 
-  var per = Characteritic.updatePercentage(JSON.parse(req.body.actividades));
+  var per = Characteristic.updatePercentage(JSON.parse(req.body.actividades));
   per
     .then(x => {
       console.log("Se ha Acctualizado correctamente el porcentaje");
@@ -484,7 +484,7 @@ router.post("/updateCharacteristic", (req, res, next) => {
     " <=====    Update Characteristic      ==== >   " + JSON.stringify(req.body)
   );
 
-  var car = Characteritic.updateCharacteristic(JSON.parse(req.body.actividad),req.body.isUpdatePercentage,req.body.porcentaje_cumplido);
+  var car = Characteristic.updateCharacteristic(JSON.parse(req.body.actividad),req.body.isUpdatePercentage,req.body.porcentaje_cumplido);
   car
     .then(x => {
       console.log("Se ha Acctualizado correctamente la caracteristica");
@@ -601,7 +601,7 @@ router.post("/insertMarker", (req, res, next) => {
 router.post('/getRemarks',(req,res,next)=>{
   console.log(' <=====    Get Remarks      ==== >   ' + JSON.stringify(req.body));
 
-      var car = Characteritic.getRemarks(JSON.parse(req.body.caracteristica));
+      var car = Characteristic.getRemarks(JSON.parse(req.body.caracteristica));
       car.then(x => {
         console.log('!!!!!!!!!!!!!Se ha creado exitosamente el proyecto!!!!!!!!!!!');
         console.log('\n\n\nREMARKS\n'+JSON.stringify(x));
@@ -618,7 +618,7 @@ router.post('/getRemarks',(req,res,next)=>{
 router.post('/regRemarks',(req,res,next)=>{
   console.log(' <=====    reg Remarks      ==== >   ' + JSON.stringify(req.body));
 
-      var car = Characteritic.regRemarks(JSON.parse(req.body.remark));
+      var car = Characteristic.regRemarks(JSON.parse(req.body.remark));
       car.then(x => {
         console.log('!!!!!!!!!!!!!Se ha creado exitosamente el proyecto!!!!!!!!!!!');
         console.log('\n\n\nREMARKS\n'+JSON.stringify(x));
@@ -627,6 +627,42 @@ router.post('/regRemarks',(req,res,next)=>{
 
       }).catch(x => {
         console.log('ERROR al actualizar el porcentaje  =>  ' + x)
+        res.header("Access-Control-Allow-Origin", "*");
+        res.json(false);
+      });
+});
+
+
+router.post('/updateCompletePercentage',(req,res,next)=>{
+  console.log(' <=====    updateCompletePercentage     ==== >   ' + JSON.stringify(req.body));
+
+      var car = Characteristic.updateCompletePercentage(JSON.parse(req.body.actividad), req.body.porcentaje_cumplido );
+      car.then(x => {
+        console.log('!!!!!!!!!!!!!Se ha creado exitosamente el proyecto!!!!!!!!!!!');
+        console.log('\n\n\n Percentage completed \n'+JSON.stringify(x));
+        res.header("Access-Control-Allow-Origin", "*");
+        res.json(true);
+
+      }).catch(x => {
+        console.log('ERROR al actualizar el porcentaje  =>  ' + x)
+        res.header("Access-Control-Allow-Origin", "*");
+        res.json(false);
+      });
+});
+
+
+router.post('/updateEtapa',(req,res,next)=>{
+  console.log(' <=====    updateEtapa     ==== >   ' + JSON.stringify(req.body));
+
+      var car =  Characteristic.updateEtapa(JSON.parse(req.body.actividad), JSON.parse(req.body.etapa) );
+      car.then(x => {
+        console.log('!!!!!!!!!!!!!Se ha creado exitosamente el proyecto!!!!!!!!!!!');
+        console.log('\n\n\n Etapa OK  \n'+JSON.stringify(x));
+        res.header("Access-Control-Allow-Origin", "*");
+        res.json(true);
+
+      }).catch(x => {
+        console.log('ERROR al actualizar la etapa  =>  ' + x)
         res.header("Access-Control-Allow-Origin", "*");
         res.json(false);
       });

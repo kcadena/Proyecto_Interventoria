@@ -1,4 +1,4 @@
-import { Component, OnInit } from "@angular/core";
+import { Component, OnInit, Input } from "@angular/core";
 import { NgModule } from "@angular/core";
 
 import { Router } from "@angular/router";
@@ -15,7 +15,7 @@ export class RemarksComponent implements OnInit {
 
 
   cad: string = '';
-
+  @Input() tipo_usuario :string ='';
 
   constructor(
     private serviciog: ServiciosGlobales,

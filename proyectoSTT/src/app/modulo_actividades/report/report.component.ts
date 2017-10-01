@@ -18,8 +18,11 @@ export class ReportComponent implements OnInit {
 	@Input() doughnutChartLabels: number[] = [];
 	@Input() doughnutChartType: any = '';
 	@Input() etapa: string = '';
+	@Input() estado: string = '';
 	@Input() tipo: string = '';
+	@Input() color: string = '';
 	@Input() isTitleSelected : boolean = false;
+
 
 	constructor(
 		private serviciog: ServiciosGlobales,

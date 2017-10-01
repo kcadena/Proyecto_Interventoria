@@ -93,12 +93,12 @@ module.exports.getActivityList = function (data) {
 				c.id_caracteristica,
 				c.id_usuario,
 
-        c.usuario_asignado,
-        c.tipo,
+        		c.usuario_asignado,
+        		c.tipo,
 				c.keym_padre,
 				c.id_caracteristica_padre,
-        c.id_usuario_padre,
-        c.tipo,
+        		c.id_usuario_padre,
+        		c.tipo,
 
 				c.estado,
 				c.porcentaje_asignado,
@@ -108,27 +108,37 @@ module.exports.getActivityList = function (data) {
 				c.fecha_inicio,
 				c.fecha_fin,
 				c.publicacion_reporte,
-        b.cedula,
-        b.nombre,
-        b.tipo_identificacion,
+        		b.cedula,
+        		b.nombre,
+        		b.tipo_identificacion,
 
 				u.nombre as usr_nom,
 				u.apellido as usr_ape,
-        u.e_mail as e_mail,
-        u.cargo as cargo,
-        u.tipo_usuario
+       			u.e_mail as e_mail,
+        		u.cargo as cargo,
+				u.tipo_usuario,
+				ct.nombre nombre_cat,
+				ct.color color_cat
 
 				from actividades a join caracteristicas c
  				on 	a.keym_car = c.keym
 				and 	a.id_usuario_car = c.id_usuario
 				and 	a.id_caracteristica = c.id_caracteristica
 				join usuarios u
-        on c.usuario_asignado=u.id_usuario
+        		on c.usuario_asignado=u.id_usuario
 
+				
 
-        left join beneficiarios b
-        on c.cedula = b.cedula
+				left join beneficiarios b
+				on c.cedula = b.cedula
 
+				left join marcador m
+				on 	m.keym = c.keym
+				and 	m.id_usuario = c.id_usuario
+				and 	m.id_caracteristica = c.id_caracteristica
+		
+				left join categorias_mapa ct
+				on 	ct.id_categoria = m.id_categoria
 
 				where c.keym_padre = ` + keym + `
 				and c.id_caracteristica_padre = ` + id_caracteristica + `

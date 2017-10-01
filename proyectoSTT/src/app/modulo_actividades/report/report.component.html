@@ -1,49 +1,146 @@
+<!--
+
 <div style="width: 80%;margin: auto;">
-	<h1>Reporte  {{this.serviciog.actividad.nom_act}}</h1>
-
-	<br>
-
 	<label *ngIf="!this.isTitleSelected"
 	for="porcentaje" 
 	class="lab">Porcentaje de {{this.serviciog.actividad.nom_act}} frente a {{this.serviciog.titulo}}:  {{this.serviciog.actividad.porcentaje}} %</label>
 	<label *ngIf="this.isTitleSelected"
 	for="porcentaje" 
 	class="lab">Porcentaje de {{this.serviciog.actividad.nom_act}} frente a {{this.serviciog.tree_name[this.serviciog.tree_name.length - 2]}}:  {{this.serviciog.actividad.porcentaje}} %</label>
+</div>
 
-	<br>
 
-	<label for="tiempo_inicial" class="lab">Tiempo de Inicio: {{this.serviciog.actividad.fecha_inicio}}</label>
 
-	<br>
 
-	<label for="tiempo_fin" class="lab">Tiempo Final: {{this.serviciog.actividad.fecha_fin}}</label>
 
-	<br>
+-->
 
+
+<input #slide style="width: 150px" id="slider1" type="range" min="0" max="100" step="1"  value="{{this.serviciog.actividad.porcentaje_cumplido}}"
+[(ngModel)]="this.serviciog.actividad.porcentaje_cumplido" (ngModelChange)="range=saverange($event, points)"/>
+<input type="number" name="slider" value="0" [(ngModel)]="this.serviciog.actividad.porcentaje_cumplido" max="100" min="0" >
+
+
+<div style="height: 70vh;overflow-y: auto;margin-top: 10px" >
 	
 
-	
+	<table class="tg" width="100%">
+		<tr>
+			<th class="tg-baqh" colspan="4">UNIVERSIDAD DE NARIÑO
+				<br>
+			</th>
+		</tr>
+		<tr>
+			<td class="tg-baqh" colspan="4">INFORME GENERAL BENEFICIARIO UDENAR. 006D-2017
+				<br>
+			</td>
+		</tr>
+		<tr>
+			<td class="tg-2nhx" colspan="2">DATOS BENEFICIARIO
+				<br>
+			</td>
+			<td class="tg-2nhx">FECHA
+				<br>INFORME
+				<br>
+			</td>
+			<td class="tg-yw4l">
+				<label id='fecha'></label>
+			</td>
+		</tr>
+		<tr>
+			<td class="tg-2nhx">BENEFICIARIO</td>
+			<td class="tg-yw4l">{{this.serviciog.actividad.nom_act}}</td>
+			<td class="tg-2nhx">No. CEDULA DE
+				<br>CIUDADANIA
+				<br>
+			</td>
+			<td class="tg-yw4l">{{this.serviciog.actividad.cedula}}</td>
+		</tr>
+		<tr>
+			<td class="tg-2nhx">MUNICIPIO</td>
+			<td class="tg-yw4l">{{municipio}}</td>
+			<td class="tg-2nhx">RESGUARDO</td>
+			<td class="tg-yw4l">{{resguardo}}</td>
+		</tr>
+		<tr>
+			<td class="tg-2nhx">FECHA DE INICIO DE OBRA
+				<br>
+			</td>
+			<td class="tg-yw4l">{{this.serviciog.actividad.fecha_inicio}}</td>
+			<td class="tg-2nhx">PORCENTAJE DE EJECUCIÓN
+				<br>
+			</td>
+			<td class="tg-yw4l"> {{this.serviciog.actividad.porcentaje_cumplido}} %</td>
+		</tr>
 
-	<div class="col-md-12">
-		<label for="estado" class="lab col-md-6">Etapa: {{this.etapa}}</label>
-		<br>
-		<label for="estado" class="lab col-md-6">Estado: {{this.serviciog.actividad.estado}}</label>
-	</div>
-	<div>
-		<label for="porcentaje_cumplido" class="lab">Porcentaje Ejecutado {{this.serviciog.actividad.tipo}} {{this.serviciog.actividad.nom_act}}: {{this.serviciog.actividad.porcentaje_cumplido}} %</label>
+		<tr>
+			<td class="tg-2nhx">ETAPA</td>
+			<td class="tg-yw4l">{{this.etapa}}</td>
+			<td class="tg-2nhx">ESTADO</td>
+			<td class="tg-yw4l"> 
+				{{this.estado}} 
+				<div class="form-control" [style.background-color]='this.color' style="width: 50px;height: 15px"></div>
+			</td>
+		</tr>
 
-		<div style="display: block; height: 300px; width: 300px" class="center-block">
-			<canvas baseChart
-			[data]="this.doughnutChartData"
-			[labels]="this.doughnutChartLabels"
-			[chartType]="this.doughnutChartType"
-			(chartHover)="chartHovered($event)"
-			(chartClick)="chartClicked($event)"></canvas>
+	</table>
+	<table class="tg1" width="100%" id="tabobse">
+		<tr>
+			<td class="tg-6qw1" colspan="3">OBSERVACIONES</td>
+		</tr>
+		<tr>
+			<td class="tg-baqh">No</td>
+			<td class="tg-baqh">DESCRIPCIÓN</td>
+			<td class="tg-baqh">RECOMENDACIÓN</td>
+		</tr>
+		<tr>
+			<td class="tg-baqh">1</td>
+			<td class="tg-baqh">{{descripcion}}</td>
+			<td class="tg-baqh">{{recomendacion}}</td>
+		</tr>
+	</table>
+	<table class="tg2" width="100%" >
+		<tr>
+			<td class="tg-2nhx">REGISTRO FOTOGRAFICO</td>
+		</tr>
+	</table>
+	<div class="divfot" width="100%" id="regfot">
+		<div>
+			<label for="porcentaje_cumplido" class="lab">Porcentaje Ejecutado {{this.serviciog.actividad.tipo}} {{this.serviciog.actividad.nom_act}}: {{this.serviciog.actividad.porcentaje_cumplido}} %</label>
+
+			<div style="display: block; height: 300px; width: 300px" class="center-block">
+				<canvas baseChart
+				[data]="this.doughnutChartData"
+				[labels]="this.doughnutChartLabels"
+				[chartType]="this.doughnutChartType"
+				(chartHover)="chartHovered($event)"
+				(chartClick)="chartClicked($event)"></canvas>
+			</div>
 		</div>
 	</div>
-
-	<div *ngIf="this.tipo == 'Beneficiario'">
-		<h2>OK</h2>
-	</div>
-
+	<p>Para constancia de lo anterior, se firma el presente documento bajo la responsabilidad expresa de los que intervienen.</p>
+	<table class="tg2" width="100%" >
+		<tr>
+			<td class="tg-2nhx" colspan="2">ELABORÓ</td>
+			<td class="tg-2nhx" colspan="2">APROBÓ</td>
+		</tr>
+		<tr>
+			<td class="tg-2nhx">FIRMA</td>
+			<td class="tg-baqh">{{firmaEla}}</td>
+			<td class="tg-2nhx">FIRMA</td>
+			<td class="tg-baqh">{{firmaApr}}</td>
+		</tr>
+		<tr>
+			<td class="tg-2nhx">NOMBRE</td>
+			<td class="tg-baqh">{{nombreEla}}</td>
+			<td class="tg-2nhx">NOMBRE</td>
+			<td class="tg-baqh">{{nombreApr}}</td>
+		</tr>
+		<tr>
+			<td class="tg-2nhx">CARGO</td>
+			<td class="tg-baqh">{{cargoEla}}</td>
+			<td class="tg-2nhx">CARGO</td>
+			<td class="tg-baqh">{{cargoApr}}</td>
+		</tr>
+	</table>
 </div>
