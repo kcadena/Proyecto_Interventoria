@@ -297,7 +297,9 @@
 					<!-- Seccion para reportes  -->
 					<!-- <embed  src="http://knower.udenar.edu.co/imgSTT/CONVENIO.pdf" style="width: 100%; min-height:80vh;" fullframe /> -->
 
-					<app-report [color]='this.serviciog.actividad.color_cat' 
+					<app-report *ngIf="this.serviciog.actividad"
+					[observaciones]='this.serviGloAct.observaciones'
+					[color]='this.serviciog.actividad.color_cat' 
 					[etapa]='this.serviciog.actividad.estado' 
 					[estado]='this.serviciog.actividad.nombre_cat'
 					[isTitleSelected]='this.isTsitleSelected' 
@@ -314,11 +316,39 @@
 					[cargoEla]=''
 					[firmaApr]=''
 					[nombreApr]=''
-					[cargoApr]=''
+					[cargoApr]='' 
 					[provincia]='this.serviciog.tree_name[2]'
 					[municipio]='this.serviciog.tree_name[3]'
 					[resguardo]='this.serviciog.tree_name[4]'
 					[beneficiario]='this.serviciog.actividad.nom_act'
+					
+					></app-report>
+
+					<app-report *ngIf="!this.serviciog.actividad"
+					[observaciones]='this.serviGloAct.observaciones'
+					[color]='this.serviciog.proyecto.color_cat' 
+					[etapa]='this.serviciog.proyecto.estado' 
+					[estado]='this.serviciog.proyecto.nombre_cat'
+					[isTitleSelected]='this.isTsitleSelected' 
+					[doughnutChartData]='doughnutChartData'
+					[doughnutChartLabels]='doughnutChartLabels' 
+					[doughnutChartType]='doughnutChartType'
+					[nombre]='this.serviciog.proyecto.beneficiario.toUpperCase()'
+					[tipo]='this.serviciog.proyecto.tipo.toUpperCase()' 
+					[cedula]='this.serviciog.proyecto.cedula'
+					[feciniobr]='this.serviciog.proyecto.fecha_inicio'
+					[porcejec]='this.serviciog.proyecto.porcentaje_cumplido'
+					[firmaEla]=''
+					[nombreEla]=''
+					[cargoEla]=''
+					[firmaApr]=''
+					[nombreApr]=''
+					[cargoApr]=''
+					[provincia]='this.listTypes[1]'
+					[municipio]='this.listTypes[2]'
+					[resguardo]='this.listTypes[3]'
+					[beneficiario]='this.serviciog.proyecto.beneficiario.toUpperCase()'
+					
 					></app-report>
 
 				</div>

@@ -31,6 +31,8 @@ export class ActividadPanel implements OnInit {
   flg: boolean = true;
   porcentaje_ejecutado: number;
   activityList: any = [];
+  listTypes : any[] =[];
+
 
   constructor(
     private serviciog: ServiciosGlobales,
@@ -76,7 +78,7 @@ export class ActividadPanel implements OnInit {
   ngOnInit(): void {
 
     //alert(JSON.stringify(this.serviciog.proyecto));
-    
+
     this.serviciog.actividad = null;
     this.serviciog.isSelAct = false;
     this.serviciog.isSubActivity = null;
@@ -120,7 +122,7 @@ export class ActividadPanel implements OnInit {
       let link = ["administrador"];
       this.router.navigate(link);
       this.serviciog.tree_name.pop();
-      alert(JSON.stringify(this.serviciog.tree_name));
+      //alert(JSON.stringify(this.serviciog.tree_name));
     }
   }
 
@@ -203,7 +205,7 @@ export class ActividadPanel implements OnInit {
   }
 
   tituloClick() {
-    //alert(JSON.stringify(this.serviciog.tree_name));
+    //alert(JSON.stringify(this.serviciog.proyecto));
     this.isTitleSelected = true;
     this.serviciog.actividad = null;
 
@@ -246,6 +248,9 @@ export class ActividadPanel implements OnInit {
 
   inicio() {
 
+    for (var i = 0; i < this.serviciog.tree_name.length; i++) {
+      this.serviciog.tree_name.pop();
+    }
     this.serviGloAct.tipo2 = this.serviciog.tipos_act[
       this.serviciog.tipos_act.indexOf(this.serviciog.proyecto.tipo) + 1
     ];
@@ -393,9 +398,9 @@ export class ActividadPanel implements OnInit {
 
   c3() {
     this.serviGloAct.actOpt = 3;
-
+    this.listTypes=[];
     this.serviGloAct.observaciones = [];
-    alert(JSON.stringify(this.serviciog.actividad));
+    //alert(JSON.stringify(this.serviciog.actividad));
     if (this.isTitleSelected && this.serviciog.actividad == null)
       var dat = {
         keym: this.serviciog.proyecto.keym,
@@ -414,13 +419,28 @@ export class ActividadPanel implements OnInit {
         id_caracteristica: this.serviciog.proyecto.id_caracteristica,
         id_usuario: this.serviciog.proyecto.id_usuario
       };
+
     var formData = new FormData();
     formData.append("caracteristica", JSON.stringify(dat));
-
     this.servicios.getObservaciones(formData).then(message => {
       //alert(JSON.stringify(message));
       this.serviGloAct.observaciones = message;
     });
+
+    var frmDat = new FormData();
+    frmDat.append("caracteristica", JSON.stringify(dat));
+    this.servicios.getTypes(frmDat).then(message => {
+      //alert(JSON.stringify(message));
+      message.forEach(element => {
+        var x = element.gettypes;
+        this.listTypes.push(x);
+        console.log(x);
+      });
+    });
+
+    
+    
+
 
     if (this.serviciog.isSelAct) {
       var numSi = this.serviciog.actividad.porcentaje_cumplido;

@@ -29,6 +29,9 @@ export class ReportComponent implements OnInit {
 	@Input() estado: string = '';
 	@Input() color: string = '';
 	@Input() nombre: string = '';
+
+	@Input() observaciones: any[] = [];
+
 	//Datos reporte
 	@Input() tipo: string = '';
 	@Input() beneficiario: string = '';
@@ -64,44 +67,46 @@ export class ReportComponent implements OnInit {
 	) { }
 
 	ngOnInit() {
-
-		this.msg = [
-			{ "tipo": this.tipo },
-			{ "beneficiario": this.beneficiario },
-			{ "cedula": this.cedula },
-			{ "provincia": this.provincia },
-			{ "municipio": this.municipio },
-			{ "resguardo": this.resguardo },
-			{ "feciniobr": this.feciniobr },
-			{ "porcejec": this.porcejec },
-			{ "firmaEla": this.firmaEla },
-			{ "nombreEla": this.nombreEla },
-			{ "cargoEla": this.cargoEla },
-			{ "firmaApr": this.firmaApr },
-			{ "nombreApr": this.nombreApr },
-			{ "cargoApr": this.cargoApr }
-		];
-
-
+		this.msg = [];
+		this.tipNum = 0;
 		this.chartLabels = ["EJECUTADO " + this.porcejec + ' %', "NO EJECUTADO " + (100 - parseFloat(this.porcejec)) + ' %'];
-		alert(JSON.stringify(this.chartLabels));
-		if (this.resguardo != undefined) {
+
+		switch (this.tipo) {
+			case 'BENEFICIARIO':
+			this.tipNum = 4;
+			break;
+			case 'RESGUARDO':
 			this.tipNum = 3;
-			alert(this.resguardo);
-			if (this.beneficiario != this.resguardo)
-				this.tipNum = 4;
-		}
-		else if (this.municipio != undefined)
+			break;
+			case 'MUNICIPIO':
 			this.tipNum = 2;
-		else if (this.provincia != undefined)
+			break;
+			case 'PROVINCIA':
 			this.tipNum = 1;
-
-
-		
-
+			break;
+		}
 	}
 
-	downloadReport(){
+	downloadReport() {
+		this.msg = {
+			"tipo": this.tipo,
+			"beneficiario": this.beneficiario,
+			"cedula": this.cedula,
+			"provincia": this.provincia,
+			"municipio": this.municipio,
+			"resguardo": this.resguardo,
+			"feciniobr": this.feciniobr,
+			"porcejec": this.porcejec,
+			"firmaEla": this.firmaEla,
+			"nombreEla": this.nombreEla,
+			"cargoEla": this.cargoEla,
+			"firmaApr": this.firmaApr,
+			"nombreApr": this.nombreApr,
+			"cargoApr": this.cargoApr,
+			"nombre": this.nombre,
+			"observaciones": this.observaciones
+		};
+		//alert(JSON.stringify(this.observaciones));
 		//generar reporte
 		/*var formData = new FormData();
 		formData.append("msg", JSON.stringify(this.msg));
@@ -110,7 +115,7 @@ export class ReportComponent implements OnInit {
 		});*/
 
 		var url;
-		url = 'http://localhost:81/downloadReport' + '?val1=' + this.msg;
+		url = 'http://localhost:81/downloadReport' + '?val1=' + JSON.stringify(this.msg);
 		window.open(url, '_blank');
 	}
 

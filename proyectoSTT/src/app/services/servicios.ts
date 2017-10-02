@@ -217,5 +217,11 @@ export class Servicios {
 			.then(response => response.json())
 			.catch(err => false)
 	}
+	getTypes(formData: FormData): Promise<any> {
+		return this.http.post(this.url + "getTypes", formData)
+			.toPromise()
+			.then(response => response.json())
+			.catch(err => false)
+	}
 
 } 

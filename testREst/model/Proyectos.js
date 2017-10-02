@@ -91,7 +91,9 @@ module.exports.getListProjects = function (id_user) {
 
         `;*/
   var query1 = `
-        select  c.keym,
+        select b.nombre beneficiario,
+                b.cedula,
+                c.keym,
                 c.id_usuario ,
                 c.id_caracteristica,
                 c.keym_padre ,
@@ -117,6 +119,8 @@ module.exports.getListProjects = function (id_user) {
                       and p.id_usuario_car = c.id_usuario
                       and p.id_caracteristica = c.id_caracteristica
                       join usuarios u on  c.usuario_asignado = u.id_usuario
+                      left join beneficiarios b
+                      on c.cedula = b.cedula
                       where p.id_usuario in(` + id_user + `)`;
 
 

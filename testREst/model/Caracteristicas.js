@@ -428,7 +428,7 @@ module.exports.getRemarks = function (data, observacion) {
         var sequelize = sqlCon.configConnection();
 
         var query1 = `
-                select u.nombre||' '||u.apellido as usuario,o.observacion from caracteristicas c natural join observaciones o join usuarios u
+                select u.nombre||' '||u.apellido as usuario,o.observacion,row_number() OVER () numero from caracteristicas c natural join observaciones o join usuarios u
                 on o.usu_observacion = u.id_usuario
                 where c.keym = `+ data.keym + ` and c.id_caracteristica = ` + data.id_caracteristica + ` and c.id_usuario = ` + data.id_usuario + `
                 and reporte =  `+ observacion + `;
@@ -440,6 +440,28 @@ module.exports.getRemarks = function (data, observacion) {
                 resolve(x);
             }).catch(x => {
                 console.log('Error al Obtener remarks' + x);
+                reject(false);
+            }).done(x => {
+                sequelize.close();
+                console.log('Se ha cerrado sesion de la conexion a la base de datos');
+            });
+    });
+}
+
+module.exports.getTypes = function (data) {
+    console.log(JSON.stringify(data));
+    return new Promise((resolve, reject) => {
+        var sequelize = sqlCon.configConnection();
+
+        var query1 = `
+        select getTypes(`+ data.keym + `,`+ data.id_caracteristica + `,`+ data.id_usuario + `);  `;
+
+        sequelize.query(query1, { type: sequelize.QueryTypes.SELECT })
+            .then(x => {
+                console.log('YAY get types   =>   ' + JSON.stringify(x[0].func));
+                resolve(x);
+            }).catch(x => {
+                console.log('Error al Obtener los tipos' + x);
                 reject(false);
             }).done(x => {
                 sequelize.close();

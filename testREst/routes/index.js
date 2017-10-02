@@ -16,7 +16,7 @@ var AuxModel = require("../model/AuxModel");
 //POST Services
 
 //Service for createa new User
-router.post("/createUser", function(req, res, next) {
+router.post("/createUser", function (req, res, next) {
   var usr = User.createUser(JSON.parse(req.body.usuario), req.files);
   usr
     .then(x => {
@@ -36,7 +36,7 @@ router.post("/createUser", function(req, res, next) {
 });
 
 //Service for create a new Activity
-router.post("/createActivity", function(req, res, next) {
+router.post("/createActivity", function (req, res, next) {
   console.log(JSON.stringify(req.body));
   var act = Activity.createActivity(JSON.parse(req.body.actividad));
   act
@@ -53,7 +53,7 @@ router.post("/createActivity", function(req, res, next) {
 });
 
 //Serice for create a new Project
-router.post("/createProject", function(req, res, next) {
+router.post("/createProject", function (req, res, next) {
   var prj = Project.createProject(JSON.parse(req.body.proyecto), req.files);
   prj
     .then(x => {
@@ -68,7 +68,7 @@ router.post("/createProject", function(req, res, next) {
     });
 });
 
-router.post("/createProjectFromActivity", function(req, res, next) {
+router.post("/createProjectFromActivity", function (req, res, next) {
   var prj = Project.createProjectFromActivity(JSON.parse(req.body.json));
   prj
     .then(x => {
@@ -84,7 +84,7 @@ router.post("/createProjectFromActivity", function(req, res, next) {
 });
 
 //service for get information user when login into application
-router.post("/getUser", function(req, res, next) {
+router.post("/getUser", function (req, res, next) {
   var usr = User.sigIn(JSON.parse(req.body.usuario));
 
   usr
@@ -326,7 +326,7 @@ router.post("/getCategoryList", (req, res, next) => {
 router.post("/editProjectInformation", (req, res, next) => {
   console.log(
     " ------- Edit Project Information    ==== >   " +
-      JSON.stringify(req.body.caracteristica)
+    JSON.stringify(req.body.caracteristica)
   );
   var prj = Project.getCategoriesList(JSON.parse(req.body.caracteristica));
   prj
@@ -351,7 +351,7 @@ router.post("/editProjectInformation", (req, res, next) => {
 router.post("/editActivityInformation", (req, res, next) => {
   console.log(
     " ------- Edit Project Information    ==== >   " +
-      JSON.stringify(req.body.caracteristica)
+    JSON.stringify(req.body.caracteristica)
   );
   var prj = Project.getCategoriesList(JSON.parse(req.body.caracteristica));
   prj
@@ -398,7 +398,7 @@ router.post("/getPointList", (req, res, next) => {
 router.post("/getVisibleProjects", (req, res, next) => {
   console.log(
     " <=====       Get Visible Projects List      ==== >   " +
-      JSON.stringify(req.body.caracteristica)
+    JSON.stringify(req.body.caracteristica)
   );
   var prj = Project.getVisibleProjects();
   prj
@@ -417,31 +417,31 @@ router.post("/getVisibleProjects", (req, res, next) => {
 router.post("/getMarkersListFromCategory", (req, res, next) => {
   console.log(
     " <=====     Get Markers List From Category      ==== >   " +
-      JSON.stringify(req.body)
+    JSON.stringify(req.body)
   );
 
-    if (req.body.id_categoria != undefined)
-      var mar = Marker.getMarkersListFromCategory(req.body.id_categoria, true);
-    else var mar = Marker.getMarkersListFromCategory("", false);
-    mar
-      .then(x => {
-        console.log(
-          "Se ha retornado correctamente los marcadores de la categoria"
-        );
-        res.header("Access-Control-Allow-Origin", "*");
-        res.send(x);
-      })
-      .catch(x => {
-        console.log("ERROR =>  " + x);
-        res.header("Access-Control-Allow-Origin", "*");
-        res.json(false);
-      });
+  if (req.body.id_categoria != undefined)
+    var mar = Marker.getMarkersListFromCategory(req.body.id_categoria, true);
+  else var mar = Marker.getMarkersListFromCategory("", false);
+  mar
+    .then(x => {
+      console.log(
+        "Se ha retornado correctamente los marcadores de la categoria"
+      );
+      res.header("Access-Control-Allow-Origin", "*");
+      res.send(x);
+    })
+    .catch(x => {
+      console.log("ERROR =>  " + x);
+      res.header("Access-Control-Allow-Origin", "*");
+      res.json(false);
+    });
 });
 
 router.post("/getPercentage", (req, res, next) => {
   console.log(
     " <=====    getPercentage      ==== >   " +
-      JSON.stringify(req.body.caracteristica.keym)
+    JSON.stringify(req.body.caracteristica.keym)
   );
 
   var mar = Characteristic.getPercentage(JSON.parse(req.body.caracteristica));
@@ -484,7 +484,7 @@ router.post("/updateCharacteristic", (req, res, next) => {
     " <=====    Update Characteristic      ==== >   " + JSON.stringify(req.body)
   );
 
-  var car = Characteristic.updateCharacteristic(JSON.parse(req.body.actividad),req.body.isUpdatePercentage,req.body.porcentaje_cumplido);
+  var car = Characteristic.updateCharacteristic(JSON.parse(req.body.actividad), req.body.isUpdatePercentage, req.body.porcentaje_cumplido);
   car
     .then(x => {
       console.log("Se ha Acctualizado correctamente la caracteristica");
@@ -502,7 +502,7 @@ router.post("/updateCharacteristic", (req, res, next) => {
 router.post("/assignActivityToUser", (req, res, next) => {
   console.log(
     " <=====    Assign Activity To User      ==== >   " +
-      JSON.stringify(req.body)
+    JSON.stringify(req.body)
   );
 
   var prj = Project.assignActivityToUser(JSON.parse(JSON.stringify(req.body)));
@@ -525,7 +525,7 @@ router.post("/assignActivityToUser", (req, res, next) => {
 router.post("/insertData", (req, res, next) => {
   console.log(
     " <=====    Assign Activity To User      ==== >   " +
-      JSON.stringify(req.body)
+    JSON.stringify(req.body)
   );
 
   var ax = AuxModel.insertData();
@@ -547,7 +547,7 @@ router.post("/insertData", (req, res, next) => {
 router.post("/insertCapitulos", (req, res, next) => {
   console.log(
     " <=====    Assign Activity To User      ==== >   " +
-      JSON.stringify(req.body)
+    JSON.stringify(req.body)
   );
 
   var ax = AuxModel.insertCapitulos();
@@ -569,7 +569,7 @@ router.post("/insertCapitulos", (req, res, next) => {
 router.post("/insertMarker", (req, res, next) => {
   console.log(
     " <=====    Insertar Marcadores      ==== >   " +
-      JSON.stringify(req.body)
+    JSON.stringify(req.body)
   );
 
   var ax = AuxModel.insertMarker();
@@ -588,121 +588,180 @@ router.post("/insertMarker", (req, res, next) => {
     });
 });
 
-
-
-
-
-
-
-
-
-
 //Obtiene las observaciones de una caracteristica
-router.post('/getRemarks',(req,res,next)=>{
+router.post('/getRemarks', (req, res, next) => {
   console.log(' <=====    Get Remarks      ==== >   ' + JSON.stringify(req.body));
 
-      var car = Characteristic.getRemarks(JSON.parse(req.body.caracteristica),false);
-      car.then(x => {
-        console.log('!!!!!!!!!!!!!Se ha creado exitosamente el proyecto!!!!!!!!!!!');
-        console.log('\n\n\nREMARKS\n'+JSON.stringify(x));
-        res.header("Access-Control-Allow-Origin", "*");
-        res.json(x);
+  var car = Characteristic.getRemarks(JSON.parse(req.body.caracteristica), false);
+  car.then(x => {
+    console.log('!!!!!!!!!!!!!Se ha creado exitosamente el proyecto!!!!!!!!!!!');
+    console.log('\n\n\nREMARKS\n' + JSON.stringify(x));
+    res.header("Access-Control-Allow-Origin", "*");
+    res.json(x);
 
-      }).catch(x => {
-        console.log('ERROR al actualizar el porcentaje  =>  ' + x)
-        res.header("Access-Control-Allow-Origin", "*");
-        res.json(false);
-      });
+  }).catch(x => {
+    console.log('ERROR al actualizar el porcentaje  =>  ' + x)
+    res.header("Access-Control-Allow-Origin", "*");
+    res.json(false);
+  });
 });
 
-router.post('/getObservaciones',(req,res,next)=>{
+router.post('/getObservaciones', (req, res, next) => {
   console.log(' <=====    Get Observaciones      ==== >   ' + JSON.stringify(req.body));
 
-      var car = Characteristic.getRemarks(JSON.parse(req.body.caracteristica),true);
-      car.then(x => {
-        console.log('!!!!!!!!!!!!!Se ha creado exitosamente el proyecto!!!!!!!!!!!');
-        console.log('\n\n\n Observaciones \n'+JSON.stringify(x));
-        res.header("Access-Control-Allow-Origin", "*");
-        res.json(x);
+  var car = Characteristic.getRemarks(JSON.parse(req.body.caracteristica), true);
+  car.then(x => {
+    console.log('!!!!!!!!!!!!!Se ha creado exitosamente el proyecto!!!!!!!!!!!');
+    console.log('\n\n\n Observaciones \n' + JSON.stringify(x));
+    res.header("Access-Control-Allow-Origin", "*");
+    res.json(x);
 
-      }).catch(x => {
-        console.log('ERROR al actualizar el porcentaje  =>  ' + x)
-        res.header("Access-Control-Allow-Origin", "*");
-        res.json(false);
-      });
+  }).catch(x => {
+    console.log('ERROR al actualizar el porcentaje  =>  ' + x)
+    res.header("Access-Control-Allow-Origin", "*");
+    res.json(false);
+  });
 });
 
-router.post('/regRemarks',(req,res,next)=>{
+router.post('/regRemarks', (req, res, next) => {
   console.log(' <=====    reg Remarks      ==== >   ' + JSON.stringify(req.body));
 
-      var car = Characteristic.regRemarks(JSON.parse(req.body.remark));
-      car.then(x => {
-        console.log('!!!!!!!!!!!!!Se ha creado exitosamente el proyecto!!!!!!!!!!!');
-        console.log('\n\n\nREMARKS\n'+JSON.stringify(x));
-        res.header("Access-Control-Allow-Origin", "*");
-        res.json(x);
+  var car = Characteristic.regRemarks(JSON.parse(req.body.remark));
+  car.then(x => {
+    console.log('!!!!!!!!!!!!!Se ha creado exitosamente el proyecto!!!!!!!!!!!');
+    console.log('\n\n\nREMARKS\n' + JSON.stringify(x));
+    res.header("Access-Control-Allow-Origin", "*");
+    res.json(x);
 
-      }).catch(x => {
-        console.log('ERROR al actualizar el porcentaje  =>  ' + x)
-        res.header("Access-Control-Allow-Origin", "*");
-        res.json(false);
-      });
+  }).catch(x => {
+    console.log('ERROR al actualizar el porcentaje  =>  ' + x)
+    res.header("Access-Control-Allow-Origin", "*");
+    res.json(false);
+  });
 });
 
-router.post('/regObservacion',(req,res,next)=>{
+router.post('/regObservacion', (req, res, next) => {
   console.log(' <=====    reg Observacion      ==== >   ' + JSON.stringify(req.body));
 
-      var car = Characteristic.regObservacion(JSON.parse(req.body.observacion));
-      car.then(x => {
-        console.log('!!!!!!!!!!!!!Se ha creado exitosamente el proyecto!!!!!!!!!!!');
-        console.log('\n\n\nREMARKS\n'+JSON.stringify(x));
-        res.header("Access-Control-Allow-Origin", "*");
-        res.json(x);
+  var car = Characteristic.regObservacion(JSON.parse(req.body.observacion));
+  car.then(x => {
+    console.log('!!!!!!!!!!!!!Se ha creado exitosamente el proyecto!!!!!!!!!!!');
+    console.log('\n\n\nREMARKS\n' + JSON.stringify(x));
+    res.header("Access-Control-Allow-Origin", "*");
+    res.json(x);
 
-      }).catch(x => {
-        console.log('ERROR al actualizar el porcentaje  =>  ' + x)
-        res.header("Access-Control-Allow-Origin", "*");
-        res.json(false);
-      });
+  }).catch(x => {
+    console.log('ERROR al actualizar el porcentaje  =>  ' + x)
+    res.header("Access-Control-Allow-Origin", "*");
+    res.json(false);
+  });
 });
 
-
-
-
-router.post('/updateCompletePercentage',(req,res,next)=>{
+router.post('/updateCompletePercentage', (req, res, next) => {
   console.log(' <=====    updateCompletePercentage     ==== >   ' + JSON.stringify(req.body));
 
-      var car = Characteristic.updateCompletePercentage(JSON.parse(req.body.actividad), JSON.parse(req.body.porcentaje_cumplido) );
-      car.then(x => {
-        console.log('!!!!!!!!!!!!!Se ha creado exitosamente el proyecto!!!!!!!!!!!');
-        console.log('\n\n\n Percentage completed \n'+JSON.stringify(x));
-        res.header("Access-Control-Allow-Origin", "*");
-        res.json(true);
+  var car = Characteristic.updateCompletePercentage(JSON.parse(req.body.actividad), JSON.parse(req.body.porcentaje_cumplido));
+  car.then(x => {
+    console.log('!!!!!!!!!!!!!Se ha creado exitosamente el proyecto!!!!!!!!!!!');
+    console.log('\n\n\n Percentage completed \n' + JSON.stringify(x));
+    res.header("Access-Control-Allow-Origin", "*");
+    res.json(true);
 
-      }).catch(x => {
-        console.log('ERROR al actualizar el porcentaje  =>  ' + x)
-        res.header("Access-Control-Allow-Origin", "*");
-        res.json(false);
-      });
+  }).catch(x => {
+    console.log('ERROR al actualizar el porcentaje  =>  ' + x)
+    res.header("Access-Control-Allow-Origin", "*");
+    res.json(false);
+  });
 });
 
-
-router.post('/updateEtapa',(req,res,next)=>{
+router.post('/updateEtapa', (req, res, next) => {
   console.log(' <=====    updateEtapa     ==== >   ' + JSON.stringify(req.body));
 
-      var car =  Characteristic.updateEtapa(JSON.parse(req.body.actividad), JSON.parse(req.body.etapa) );
-      car.then(x => {
-        console.log('!!!!!!!!!!!!!Se ha creado exitosamente el proyecto!!!!!!!!!!!');
-        console.log('\n\n\n Etapa OK  \n'+JSON.stringify(x));
-        res.header("Access-Control-Allow-Origin", "*");
-        res.json(true);
+  var car = Characteristic.updateEtapa(JSON.parse(req.body.actividad), JSON.parse(req.body.etapa));
+  car.then(x => {
+    console.log('!!!!!!!!!!!!!Se ha creado exitosamente el proyecto!!!!!!!!!!!');
+    console.log('\n\n\n Etapa OK  \n' + JSON.stringify(x));
+    res.header("Access-Control-Allow-Origin", "*");
+    res.json(true);
 
-      }).catch(x => {
-        console.log('ERROR al actualizar la etapa  =>  ' + x)
-        res.header("Access-Control-Allow-Origin", "*");
-        res.json(false);
-      });
+  }).catch(x => {
+    console.log('ERROR al actualizar la etapa  =>  ' + x)
+    res.header("Access-Control-Allow-Origin", "*");
+    res.json(false);
+  });
 });
+
+router.post('/getTypes', (req, res, next) => {
+  console.log(' <=====    Get Types      ==== >   ' + JSON.stringify(req.body));
+
+  var car = Characteristic.getTypes(JSON.parse(req.body.caracteristica));
+  car.then(x => {
+    console.log('!!!!!!!!!!!!!Se ha creado exitosamente el proyecto!!!!!!!!!!!');
+    console.log('\n\n\n Observaciones \n' + JSON.stringify(x));
+    res.header("Access-Control-Allow-Origin", "*");
+    res.json(x);
+
+  }).catch(x => {
+    console.log('ERROR al actualizar el porcentaje  =>  ' + x)
+    res.header("Access-Control-Allow-Origin", "*");
+    res.json(false);
+  });
+});
+
+var client = require("jsreport-client")("http://indicadoresacademicos.udenar.edu.co:5488", 'admin', 'password');
+router.get('/downloadReport', function (req, res) {
+  console.log('\n\n\n\n\n\n\n\n =============   Download Report  =============\n\n' + JSON.stringify(req.query));
+  try {
+    //res.header("Access-Control-Allow-Origin", "*");
+    // res.json("goal"); 
+
+    var data = JSON.parse(req.query.val1);
+    console.log('\n\n\nOKI => ' + JSON.stringify(data));
+    //configuracion de template y datos a enviar al pdf 
+    client.render({
+      template: {
+        "shortid": "HyEDwVhjW"
+      },
+      "data": {
+        "tipo": data.tipo, // PROYECTO, PROVINCIA, MUNICIPIO, RESGUARDO, BENEFICIARIO
+        "beneficiario": data.beneficiario,
+        "cedula": data.cedula,
+        "provincia": data.provincia,
+        "municipio": data.municipio,
+        "resguardo": data.resguardo,
+        "feciniobr": data.feciniobr,
+        "observaciones": data.observaciones,
+        "porcejec": data.porcejec,
+        "nombre": data.nombre,
+        "grafica": "data:image/jpeg;base64,/9j/4AAQSkZJRgABAQAAAQABAAD/2wBDAAMCAgICAgMCAgIDAwMDBAYEBAQEBAgGBgUGCQgKCgkICQkKDA8MCgsOCwkJDRENDg8QEBEQCgwSExIQEw8QEBD/2wBDAQMDAwQDBAgEBAgQCwkLEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBD/wAARCACWASwDAREAAhEBAxEB/8QAHwAAAQUBAQEBAQEAAAAAAAAAAAECAwQFBgcICQoL/8QAtRAAAgEDAwIEAwUFBAQAAAF9AQIDAAQRBRIhMUEGE1FhByJxFDKBkaEII0KxwRVS0fAkM2JyggkKFhcYGRolJicoKSo0NTY3ODk6Q0RFRkdISUpTVFVWV1hZWmNkZWZnaGlqc3R1dnd4eXqDhIWGh4iJipKTlJWWl5iZmqKjpKWmp6ipqrKztLW2t7i5usLDxMXGx8jJytLT1NXW19jZ2uHi4+Tl5ufo6erx8vP09fb3+Pn6/8QAHwEAAwEBAQEBAQEBAQAAAAAAAAECAwQFBgcICQoL/8QAtREAAgECBAQDBAcFBAQAAQJ3AAECAxEEBSExBhJBUQdhcRMiMoEIFEKRobHBCSMzUvAVYnLRChYkNOEl8RcYGRomJygpKjU2Nzg5OkNERUZHSElKU1RVVldYWVpjZGVmZ2hpanN0dXZ3eHl6goOEhYaHiImKkpOUlZaXmJmaoqOkpaanqKmqsrO0tba3uLm6wsPExcbHyMnK0tPU1dbX2Nna4uPk5ebn6Onq8vP09fb3+Pn6/9oADAMBAAIRAxEAPwD8qqACgAoAKACgAoAKACgAoAKACgAoAKACgAoAKACgAoAKACgAoAKACgAoAKACgAoAKACgAoAKACgAoAKACgAoAKACgAoAKACgAoAKACgAoAKACgAoAKACgAoAKACgAoAKACgAoAKACgAoAKACgAoAKACgAoAKACgAoAKACgAoAKACgAoAKACgAoAKACgAoAKACgAoAKACgAoAKACgAoAKACgAoAKACgAoAKACgAoAKACgAoAKACgAoAKACgAoAKACgAoAKACgAoAKACgAoAKACgAoAKACgAoAKACgAoAKACgAoAKACgAoAKACgAoAKACgAoAKACgAoAKACgAoAKACgAoAKACgAoAKACgAoAKACgAoAKACgAoAKACgAoAKACgAoAKACgAoAKACgAoAKACgAoAKACgAoAKACgAoAKACgAoAKACgAoAKACgAoAKACgAoAKACgAoAKACgAoAKACgAoAKACgAoAKACgAoAKACgAoAKACgAoAKACgAoAKACgAoAKACgAoAKACgAoAKACgAoAKACgAoAKACgAoAKACgAoAKACgAoAKACgAoAKACgAoAKACgAoAKACgAoAKACgAoAKACgAoAKACgAoAKACgAoAKACgAoAKACgAoAKACgAoAKACgAoAKACgAoAKACgAoAKACgAoAKACgAoAKACgAoAKACgAoAKACgAoAKACgAoAKACgAoAKACgAoAKACgAoAKACgAoAKACgAoAKACgAoAKACgAoAKACgAoAKACgAoAKACgAoAKACgAoAKACgAoAKACgAoAKACgAoAKACgAoAKACgAoAKACgAoAKACgAoAKACgAoAKACgAoAKACgAoAKACgAoAKACgAoAKACgAoAKACgAoAKACgAoAKACgAoAKACgAoAKACgAoAKACgAoAKACgAoAKACgAoAKACgAoAKACgAoAKACgAoAKACgAoAKACgAoAKACgAoAKACgAoAKACgAoAKACgAoAKACgAoAKACgAoAKACgAoAKACgAoAKACgAoAKACgAoAKACgAoAKACgAoAKACgAoAKACgAoAKACgAoAKACgAoAKACgAoAKACgAoAKACgAoAKACgAoAKACgAoAKACgAoAKACgAoAKACgAoAKACgAoAKACgAoAKACgAoAKACgAoAKACgAoAKACgAoAKACgAoAKACgAoAKACgAoAKACgAoAKACgAoAKACgAoAKACgAoAKACgAoAKACgAoAKACgAoAKACgAoAKACgAoAKACgAoAKACgAoAKACgAoAKACgAoAKACgAoAKACgAoAKACgAoAKACgAoAKACgAoAKACgAoAKACgAoAKACgAoAKACgAoAKACgAoAKACgAoAKACgAoAKACgAoAKACgAoAKACgAoAKACgAoAKACgAoAKACgAoAKACgAoAKACgAoAKACgAoAKACgAoAKACgAoAKACgAoAKACgAoAKACgAoAKACgAoAKACgAoAKACgAoAKACgAoAKACgAoAKACgAoAKACgAoAKACgAoAKACgAoAKACgAoAKACgAoAKACgAoAKACgAoAKACgAoAKACgAoAKACgAoAKACgAoAKACgAoAKACgAoAKACgAoAKACgAoAKACgAoAKACgAoAKACgAoAKACgAoAKACgAoAKACgAoAKACgAoAKACgAoAKACgAoAKACgAoAKACgD//2Q==",
+        "imagenes": [{
+          "nombre": "Pasto",
+          "url": "https://upload.wikimedia.org/wikipedia/commons/thumb/2/20/Parque_Narino_Pasto.JPG/400px-Parque_Narino_Pasto.JPG"
+        }, {
+          "nombre": "udenar",
+          "url": "http://knower.udenar.edu.co:81/udenar%201.png"
+        }],
+        "firmaEla": "david e",
+        "nombreEla": "David Estrada",
+        "cargoEla": "Interventor",
+        "firmaApr": "kelvin c",
+        "nombreApr": "Kelvin Cadena",
+        "cargoApr": "Supervisor"
+      }
+    }, function (err, response) {
+      if (err) {
+        console.log(err);
+      }
+      response.pipe(res);
+    });
+  } catch (e) {
+    res.header("Access-Control-Allow-Origin", "*");
+    res.json('error => ' + e);
+  }
+
+});
+
+
 
 
 module.exports = router;

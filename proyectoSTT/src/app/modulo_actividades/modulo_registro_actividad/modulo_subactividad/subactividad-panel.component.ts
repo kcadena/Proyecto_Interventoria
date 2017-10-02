@@ -3,9 +3,9 @@ import { Component, OnInit}  from '@angular/core';
 import { NgModule } 		 from '@angular/core';
 
 import { Router }            from '@angular/router';
-import { ServiciosGlobales } from '../../services/servicios-globales';
-import { ServiciosGlobalesActividades} from '../servicios-globales-actividades'
-import { Servicios }         from '../../services/servicios';
+import { ServiciosGlobales } from '../../../services/servicios-globales';
+import { ServiciosGlobalesActividades} from '../../servicios-globales-actividades'
+import { Servicios }         from '../../../services/servicios';
 
 @Component({
 	selector: 'subactividad-panel',
