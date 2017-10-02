@@ -1,4 +1,4 @@
-import { NgModule }       from '@angular/core';
+import { NgModule, LOCALE_ID }       from '@angular/core';
 import { CommonModule }   from '@angular/common';
 import { FormsModule,ReactiveFormsModule }    from '@angular/forms';
 import { ActividadPanel }   from './actividad-panel.component';
@@ -18,7 +18,10 @@ import { ServiciosGlobalesActividades} from './servicios-globales-actividades';
 import { ActivityTableComponent } from './component-activity-table/component-activity-table.component';
 import { AssignUserComponent } from './assign-user/assign-user.component';
 import { RemarksComponent } from './remarks/remarks.component';
-import { ReportComponent } from './report/report.component'
+import { ReportComponent } from './report/report.component';
+import { ObservacionesComponent } from './observaciones/observaciones.component'
+
+
 
 
 @NgModule({
@@ -40,8 +43,9 @@ import { ReportComponent } from './report/report.component'
   ActivityTableComponent,
   AssignUserComponent,
   RemarksComponent,
-  ReportComponent
+  ReportComponent,
+  ObservacionesComponent
   ],
-  providers: [ ServiciosGlobalesActividades ]
+  providers: [  { provide: LOCALE_ID, useValue: "es-CO" },ServiciosGlobalesActividades ]
 })
 export class ActividadModule {}

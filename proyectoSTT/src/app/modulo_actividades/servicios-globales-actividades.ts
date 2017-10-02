@@ -10,6 +10,7 @@ export class ServiciosGlobalesActividades {
 	subActividades:any = [];
 	lastActividad:any = [];
 	remarks:any=[];
+	observaciones:any=[];
 	tipo :string = '';
 	tipo2 :string = '';
 	

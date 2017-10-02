@@ -15,6 +15,9 @@ import { ServiciosGlobalesActividades } from "./servicios-globales-actividades";
 export class ActividadPanel implements OnInit {
   public slideval: number = 0;
 
+  nom_act_report: string[] = [];
+
+
   isTitleSelected: boolean = false;
   act_ant: string = "";
 
@@ -71,22 +74,28 @@ export class ActividadPanel implements OnInit {
 
 
   ngOnInit(): void {
+
     //alert(JSON.stringify(this.serviciog.proyecto));
-    this.slideval = this.serviciog.proyecto.porcentaje_cumplido;
+    
     this.serviciog.actividad = null;
     this.serviciog.isSelAct = false;
     this.serviciog.isSubActivity = null;
     this.serviciog.isSelAct = false;
     this.serviGloAct.actOpt = 0;
+    this.serviciog.tree_name = [];
 
     if (this.serviciog.usuario.tipo_usuario === "sup") this.flg = false;
 
-    this.serviciog.tree_name.push(this.serviciog.proyecto.nombre);
+
     //alert(JSON.stringify(this.serviciog.tree_name));
+    //this.serviciog.tree_name.push(this.serviciog.proyecto.nom_pro);
 
     this.serviciog.actividades = [];
     this.activityList = [];
     if (this.serviciog.proyecto) {
+      this.slideval = this.serviciog.proyecto.porcentaje_cumplido;
+      this.serviciog.tree_name.push(this.serviciog.proyecto.nom_pro);
+      //alert(JSON.stringify(this.serviciog.tree_name));
       this.serviciog.titulo = this.serviciog.proyecto.nom_pro;
       var keym = this.serviciog.proyecto.keym;
       var id_usuario = this.serviciog.proyecto.id_usuario;
@@ -102,6 +111,7 @@ export class ActividadPanel implements OnInit {
             this.calculateValue(this.serviciog.actividades);
             var num = this.serviciog.tipos_act.indexOf(actividades[0].tipo);
             this.serviGloAct.tipo = this.serviciog.tipos_act[num + 1];
+            this.serviGloAct.tipo2 = this.serviciog.tipos_act[num];
             //alert(JSON.stringify(this.serviciog.actividades));
             //alert('2 '+this.serviGloAct.tipo);
           }
@@ -109,6 +119,8 @@ export class ActividadPanel implements OnInit {
     } else {
       let link = ["administrador"];
       this.router.navigate(link);
+      this.serviciog.tree_name.pop();
+      alert(JSON.stringify(this.serviciog.tree_name));
     }
   }
 
@@ -191,6 +203,7 @@ export class ActividadPanel implements OnInit {
   }
 
   tituloClick() {
+    //alert(JSON.stringify(this.serviciog.tree_name));
     this.isTitleSelected = true;
     this.serviciog.actividad = null;
 
@@ -198,14 +211,14 @@ export class ActividadPanel implements OnInit {
       this.serviciog.actividades[0].tipo
     );
     this.serviGloAct.tipo2 = this.serviciog.tipos_act[num];
-    alert('Global act  '+JSON.stringify(this.serviGloAct));
+    //alert('Global act  '+JSON.stringify(this.serviGloAct));
 
     if (!this.serviciog.isSubActivity) {
       this.serviciog.isSelAct = false;
       this.serviGloAct.actOpt = 0;
     } else {
       this.serviciog.actividad = this.serviciog.isSubActivity;
-      alert('Global act  '+JSON.stringify(this.serviciog.isSubActivity));
+      //alert('Global act  ' + JSON.stringify(this.serviciog.isSubActivity));
       this.serviciog.actividad.porcentaje_cumplido = this.serviciog.actividad * 1;
       this.slideval = this.serviciog.isSubActivity.porcentaje_cumplido * 1;
     }
@@ -232,6 +245,11 @@ export class ActividadPanel implements OnInit {
   }
 
   inicio() {
+
+    this.serviGloAct.tipo2 = this.serviciog.tipos_act[
+      this.serviciog.tipos_act.indexOf(this.serviciog.proyecto.tipo) + 1
+    ];
+
     this.serviciog.titulo = this.serviciog.proyecto.nom_pro;
 
     var keym = this.serviciog.proyecto.keym;
@@ -376,6 +394,34 @@ export class ActividadPanel implements OnInit {
   c3() {
     this.serviGloAct.actOpt = 3;
 
+    this.serviGloAct.observaciones = [];
+    alert(JSON.stringify(this.serviciog.actividad));
+    if (this.isTitleSelected && this.serviciog.actividad == null)
+      var dat = {
+        keym: this.serviciog.proyecto.keym,
+        id_caracteristica: this.serviciog.proyecto.id_caracteristica,
+        id_usuario: this.serviciog.proyecto.id_usuario
+      };
+    else if (this.serviciog.actividad)
+      var dat = {
+        keym: this.serviciog.actividad.keym,
+        id_caracteristica: this.serviciog.actividad.id_caracteristica,
+        id_usuario: this.serviciog.actividad.id_usuario
+      };
+    else
+      var dat = {
+        keym: this.serviciog.proyecto.keym,
+        id_caracteristica: this.serviciog.proyecto.id_caracteristica,
+        id_usuario: this.serviciog.proyecto.id_usuario
+      };
+    var formData = new FormData();
+    formData.append("caracteristica", JSON.stringify(dat));
+
+    this.servicios.getObservaciones(formData).then(message => {
+      //alert(JSON.stringify(message));
+      this.serviGloAct.observaciones = message;
+    });
+
     if (this.serviciog.isSelAct) {
       var numSi = this.serviciog.actividad.porcentaje_cumplido;
       var numNo = 100 - numSi;
@@ -404,22 +450,42 @@ export class ActividadPanel implements OnInit {
       this.doughnutChartData = [numSi, numNo];
     }
   }
+
   c6() {
     this.serviGloAct.actOpt = 6;
   }
+
   c7() {
     this.serviGloAct.actOpt = 7;
   }
+
   c8() {
     this.serviGloAct.actOpt = 8;
   }
+
   c9() {
+    this.serviGloAct.remarks = [];
     this.serviGloAct.actOpt = 9;
-    var dat = {
-      keym: this.serviciog.actividad.keym,
-      id_caracteristica: this.serviciog.actividad.id_caracteristica,
-      id_usuario: this.serviciog.actividad.id_usuario
-    };
+    console.log(this.serviciog.proyecto);
+    console.log(this.serviciog.actividad);
+    if (this.isTitleSelected && this.serviciog.actividad == null)
+      var dat = {
+        keym: this.serviciog.proyecto.keym,
+        id_caracteristica: this.serviciog.proyecto.id_caracteristica,
+        id_usuario: this.serviciog.proyecto.id_usuario
+      };
+    else if (this.serviciog.actividad)
+      var dat = {
+        keym: this.serviciog.actividad.keym,
+        id_caracteristica: this.serviciog.actividad.id_caracteristica,
+        id_usuario: this.serviciog.actividad.id_usuario
+      };
+    else
+      var dat = {
+        keym: this.serviciog.proyecto.keym,
+        id_caracteristica: this.serviciog.proyecto.id_caracteristica,
+        id_usuario: this.serviciog.proyecto.id_usuario
+      };
 
     var formData = new FormData();
     formData.append("caracteristica", JSON.stringify(dat));
@@ -431,7 +497,34 @@ export class ActividadPanel implements OnInit {
   }
 
   c10() {
+    this.serviGloAct.observaciones = [];
     this.serviGloAct.actOpt = 10;
+    alert(JSON.stringify(this.serviciog.actividad));
+    if (this.isTitleSelected && this.serviciog.actividad == null)
+      var dat = {
+        keym: this.serviciog.proyecto.keym,
+        id_caracteristica: this.serviciog.proyecto.id_caracteristica,
+        id_usuario: this.serviciog.proyecto.id_usuario
+      };
+    else if (this.serviciog.actividad)
+      var dat = {
+        keym: this.serviciog.actividad.keym,
+        id_caracteristica: this.serviciog.actividad.id_caracteristica,
+        id_usuario: this.serviciog.actividad.id_usuario
+      };
+    else
+      var dat = {
+        keym: this.serviciog.proyecto.keym,
+        id_caracteristica: this.serviciog.proyecto.id_caracteristica,
+        id_usuario: this.serviciog.proyecto.id_usuario
+      };
+    var formData = new FormData();
+    formData.append("caracteristica", JSON.stringify(dat));
+
+    this.servicios.getObservaciones(formData).then(message => {
+      //alert(JSON.stringify(message));
+      this.serviGloAct.observaciones = message;
+    });
   }
 
   calculateValue(actividades) {
@@ -481,19 +574,33 @@ export class ActividadPanel implements OnInit {
     }
   }
 
-  changeEtapa(etapa) {
-    
-    if(etapa != this.serviciog.actividad.estado){
-      //alert(etapa);
-      var formData = new FormData();
-      formData.append("actividad", JSON.stringify(this.serviciog.actividad));
-      formData.append("etapa", JSON.stringify(etapa));
-      this.servicios.updateEtapa(formData).then(message => {
-        this.serviciog.actividad.estado = etapa;
-        //alert(JSON.stringify(message));
-      });
+  changeEtapa(etapa, tipo) {
+    if (tipo = 'P') {
+      if (etapa != this.serviciog.proyecto.estado) {
+        var formData = new FormData();
+        formData.append("actividad", JSON.stringify(this.serviciog.proyecto));
+        formData.append("etapa", JSON.stringify(etapa));
+        this.servicios.updateEtapa(formData).then(message => {
+          this.serviciog.proyecto.estado = etapa;
+          if (message == 'true')
+            alert("Actualizado");
+        });
+      }
     }
-    
+    else if (tipo = 'A') {
+      if (etapa != this.serviciog.actividad.estado) {
+        var formData = new FormData();
+        formData.append("actividad", JSON.stringify(this.serviciog.actividad));
+        formData.append("etapa", JSON.stringify(etapa));
+        this.servicios.updateEtapa(formData).then(message => {
+          this.serviciog.actividad.estado = etapa;
+          if (message)
+            alert("Actualizado");
+        });
+      }
+    }
+
+
   }
 
 }

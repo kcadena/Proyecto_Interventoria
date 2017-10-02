@@ -82,14 +82,14 @@ module.exports.createProjectFromActivity = function (data) {
 // Service to get the project list
 module.exports.getListProjects = function (id_user) {
   var sequelize = sqlCon.configConnection();
-  var query1 = `
+  /*var query1 = `
         select * from proyectos
         join caracteristicas on proyectos.keym_car = caracteristicas.keym
         and proyectos.id_usuario_car = caracteristicas.id_usuario
         and proyectos.id_caracteristica = caracteristicas.id_caracteristica
         where proyectos.id_usuario in (`+id_user+`)
 
-        `;
+        `;*/
   var query1 = `
         select  c.keym,
                 c.id_usuario ,
@@ -105,7 +105,12 @@ module.exports.getListProjects = function (id_user) {
                 p.nombre as nom_pro,
                 p.descripcion,
                 u.nombre,
-                u.apellido 
+                u.apellido,
+                c.tipo_caracteristica,
+                c.tipo,
+                c.fecha_inicio,
+                c.fecha_fin
+
 
                 from proyectos p
                       join caracteristicas c on p.keym_car = c.keym

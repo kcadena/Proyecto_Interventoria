@@ -177,9 +177,21 @@ export class Servicios {
 			.then(response => response.json())
 			.catch(err => false)
 	}
+	getObservaciones(formData: FormData): Promise<any> {
+		return this.http.post(this.url + "getObservaciones", formData)
+			.toPromise()
+			.then(response => response.json())
+			.catch(err => false)
+	}
 
 	regRemarks(formData: FormData): Promise<any> {
 		return this.http.post(this.url + "regRemarks", formData)
+			.toPromise()
+			.then(response => response.json())
+			.catch(err => false)
+	}
+	regObservacion(formData: FormData): Promise<any> {
+		return this.http.post(this.url + "regObservacion", formData)
 			.toPromise()
 			.then(response => response.json())
 			.catch(err => false)
@@ -194,6 +206,13 @@ export class Servicios {
 
 	updateEtapa(formData: FormData): Promise<any> {
 		return this.http.post(this.url + "updateEtapa", formData)
+			.toPromise()
+			.then(response => response.json())
+			.catch(err => false)
+	}
+
+	downloadReport(formData: FormData): Promise<any> {
+		return this.http.post(this.url + "downloadReport", formData)
 			.toPromise()
 			.then(response => response.json())
 			.catch(err => false)

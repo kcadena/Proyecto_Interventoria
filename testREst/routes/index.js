@@ -601,10 +601,27 @@ router.post("/insertMarker", (req, res, next) => {
 router.post('/getRemarks',(req,res,next)=>{
   console.log(' <=====    Get Remarks      ==== >   ' + JSON.stringify(req.body));
 
-      var car = Characteristic.getRemarks(JSON.parse(req.body.caracteristica));
+      var car = Characteristic.getRemarks(JSON.parse(req.body.caracteristica),false);
       car.then(x => {
         console.log('!!!!!!!!!!!!!Se ha creado exitosamente el proyecto!!!!!!!!!!!');
         console.log('\n\n\nREMARKS\n'+JSON.stringify(x));
+        res.header("Access-Control-Allow-Origin", "*");
+        res.json(x);
+
+      }).catch(x => {
+        console.log('ERROR al actualizar el porcentaje  =>  ' + x)
+        res.header("Access-Control-Allow-Origin", "*");
+        res.json(false);
+      });
+});
+
+router.post('/getObservaciones',(req,res,next)=>{
+  console.log(' <=====    Get Observaciones      ==== >   ' + JSON.stringify(req.body));
+
+      var car = Characteristic.getRemarks(JSON.parse(req.body.caracteristica),true);
+      car.then(x => {
+        console.log('!!!!!!!!!!!!!Se ha creado exitosamente el proyecto!!!!!!!!!!!');
+        console.log('\n\n\n Observaciones \n'+JSON.stringify(x));
         res.header("Access-Control-Allow-Origin", "*");
         res.json(x);
 
@@ -632,11 +649,30 @@ router.post('/regRemarks',(req,res,next)=>{
       });
 });
 
+router.post('/regObservacion',(req,res,next)=>{
+  console.log(' <=====    reg Observacion      ==== >   ' + JSON.stringify(req.body));
+
+      var car = Characteristic.regObservacion(JSON.parse(req.body.observacion));
+      car.then(x => {
+        console.log('!!!!!!!!!!!!!Se ha creado exitosamente el proyecto!!!!!!!!!!!');
+        console.log('\n\n\nREMARKS\n'+JSON.stringify(x));
+        res.header("Access-Control-Allow-Origin", "*");
+        res.json(x);
+
+      }).catch(x => {
+        console.log('ERROR al actualizar el porcentaje  =>  ' + x)
+        res.header("Access-Control-Allow-Origin", "*");
+        res.json(false);
+      });
+});
+
+
+
 
 router.post('/updateCompletePercentage',(req,res,next)=>{
   console.log(' <=====    updateCompletePercentage     ==== >   ' + JSON.stringify(req.body));
 
-      var car = Characteristic.updateCompletePercentage(JSON.parse(req.body.actividad), req.body.porcentaje_cumplido );
+      var car = Characteristic.updateCompletePercentage(JSON.parse(req.body.actividad), JSON.parse(req.body.porcentaje_cumplido) );
       car.then(x => {
         console.log('!!!!!!!!!!!!!Se ha creado exitosamente el proyecto!!!!!!!!!!!');
         console.log('\n\n\n Percentage completed \n'+JSON.stringify(x));
