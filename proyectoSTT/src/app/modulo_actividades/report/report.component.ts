@@ -106,6 +106,9 @@ export class ReportComponent implements OnInit {
 			"nombre": this.nombre,
 			"observaciones": this.observaciones
 		};
+
+		console.log(this.msg);
+
 		//alert(JSON.stringify(this.observaciones));
 		//generar reporte
 		/*var formData = new FormData();
