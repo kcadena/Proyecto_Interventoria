@@ -439,8 +439,6 @@ export class ActividadPanel implements OnInit {
     });
 
     
-    
-
 
     if (this.serviciog.isSelAct) {
       var numSi = this.serviciog.actividad.porcentaje_cumplido;
