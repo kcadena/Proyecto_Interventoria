@@ -48,6 +48,8 @@ export class ReportComponent implements OnInit {
 	@Input() nombreApr: string = '';
 	@Input() cargoApr: string = '';
 
+	images : any [] =[];
+
 	msg: any;
 
 	public chartLabels: string[] = ["EJECUTADO", "NO EJECUTADO"];
@@ -71,7 +73,7 @@ export class ReportComponent implements OnInit {
 		this.tipNum = 0;
 		this.chartLabels = ["EJECUTADO " + this.porcejec + ' %', "NO EJECUTADO " + (100 - parseFloat(this.porcejec)) + ' %'];
 
-		switch (this.tipo) {
+		switch (this.tipo.toUpperCase()) {
 			case 'BENEFICIARIO':
 			this.tipNum = 4;
 			break;
@@ -85,11 +87,36 @@ export class ReportComponent implements OnInit {
 			this.tipNum = 1;
 			break;
 		}
+		this.serviciog.imagenes = [];
+		var formData = new FormData();
+		formData.append('keym',this.serviciog.actividad.keym);
+		formData.append('id_caracteristica',this.serviciog.actividad.id_caracteristica);
+		formData.append('id_usuario',this.serviciog.actividad.id_usuario);
+		formData.append('tipo',this.serviciog.tipo);
+
+		this.servicios.getMultimedia(formData)
+		.then(imagenes => {
+			if(imagenes){
+				this.serviciog.imagenes = imagenes;
+				imagenes.forEach(element => {
+					
+					this.images.push({ 'nombre': element.subtitulo , 'url' : element.val_configuracion+element.srcServ+element.nombre_archivo});
+					//val_configuracion+srcServ+nombre_archivo
+				});
+			}else{
+				this.serviciog.imagenes = []
+			}
+			alert(JSON.stringify(this.images));
+		});	
 	}
 
 	downloadReport() {
+
+		var anchor = event.target;
+		//anchor.href = document.getElementsByTagName('canvas')[0].toDataURL();
+		var imgReport : string = document.getElementsByTagName('canvas')[0].toDataURL('image/png')
 		this.msg = {
-			"tipo": this.tipo,
+			"tipo": this.tipo, 
 			"beneficiario": this.beneficiario,
 			"cedula": this.cedula,
 			"provincia": this.provincia,
@@ -104,20 +131,15 @@ export class ReportComponent implements OnInit {
 			"nombreApr": this.nombreApr,
 			"cargoApr": this.cargoApr,
 			"nombre": this.nombre,
-			"observaciones": this.observaciones
+			"observaciones": this.observaciones,
+			"grafica" : imgReport,
+			"imagenes" : this.images
 		};
-
 		console.log(this.msg);
 
-		//alert(JSON.stringify(this.observaciones));
-		//generar reporte
-		/*var formData = new FormData();
-		formData.append("msg", JSON.stringify(this.msg));
-		this.servicios.downloadReport(formData).then(message => {
-			alert(JSON.stringify(message));
-		});*/
 
 		var url;
+		var xml = new XMLHttpRequest();
 		url = 'http://localhost:81/downloadReport' + '?val1=' + JSON.stringify(this.msg);
 		window.open(url, '_blank');
 	}

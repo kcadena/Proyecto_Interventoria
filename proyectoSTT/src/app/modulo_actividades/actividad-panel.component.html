@@ -39,7 +39,7 @@
 
 				<div class="listaActividades">
 					<ul>
-						<li *ngFor="let activity of this.activityList" [class.selected]="activity === this.serviciog.actividad" (click)="onSelectActivity(activity)"
+						<li *ngFor="let activity of this.serviciog.actividades" [class.selected]="activity === this.serviciog.actividad" (click)="onSelectActivity(activity)"
 						 (dblclick)="entrarACtividad(activity)">
 							<a>{{activity.tipo}} {{activity.nom_act}}</a>
 						</li>
@@ -179,7 +179,8 @@
 						<div class="form-group">
 
 							<label for="nombre" class="lab">{{this.serviciog.actividad.tipo}}</label>
-							<input name="" type="text" id="nombre" class="form-control" name="nombres" [readonly]="!this.isEditar" [(ngModel)]="this.serviciog.actividad.nom_act">
+							<input *ngIf="this.serviciog.actividad.nom_act" name="" type="text" id="nombre" class="form-control" name="nombres" [readonly]="!this.isEditar" [(ngModel)]="this.serviciog.actividad.nom_act">
+							<input *ngIf="!this.serviciog.actividad.nom_act" name="" type="text" id="nombre" class="form-control" name="nombres" [readonly]="!this.isEditar" [(ngModel)]="this.serviciog.titulo">
 							<div *ngIf="this.serviciog.actividad.tipo === 'Beneficiario'">
 								<label for="descripción" class="lab">Identificacion del Beneficiario</label>
 								<input name="" type="text" id="ide_ben" class="form-control" name="identificacion_beneficiario" [readonly]="!this.isEditar"

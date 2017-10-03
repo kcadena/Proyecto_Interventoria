@@ -57,12 +57,15 @@
 			<td class="tg-yw4l" colspan="3">{{this.resguardo.toUpperCase()}}</td>
 		</tr>
 		<tr>
+			
+		</tr>
+		<tr>
 			<td class="tg-2nhx">FECHA DE INICIO DE OBRA</td>
 			<td class="tg-yw4l" colspan='3'>{{this.feciniobr.toUpperCase()}}</td>
 		</tr>
 	</table>
 	<!--tabla con observaciones y recomendaciones del proyecto-->
-	<table class="tg1" width="100%" id="tabobse">
+	<table *ngIf="this.observaciones != false"  class="tg1" width="100%" id="tabobse">
 		<tr>
 			<td class="tg-6qw1" colspan="3">OBSERVACIONES</td>
 		</tr>
@@ -107,6 +110,13 @@
 			</tr>
 		</table>
 		<div class="divfot ocultablePr ocultableVi ocultableMu ocultableRe" width="100%" id="regfot">
+			<div *ngFor="let item of this.images">
+				<br>
+				<img id="img" width="80%" height="40%" alt={{item.nombre}} src='{{item.url}}'/>
+				<br>
+				<p><b>{{item.nombre}}</b></p>
+			</div>
+			
 			<!--  {{#each imagenes}}
 				<br>
 				<img id="img" width="80%" height="40%" alt={{nombre}} src='{{url}}'/>
@@ -142,7 +152,7 @@
 			<td class="tg-baqh">{{this.cargoApr}}</td>
 		</tr>
 	</table>
-</div>
+</div>    
 <br>
 <br>
 <button style="position: relative;width: 200px;margin: auto;" class="btn btn-success center-block" (click)="downloadReport()">DESCARGAR</button>

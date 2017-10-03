@@ -710,50 +710,37 @@ router.post('/getTypes', (req, res, next) => {
 
 var client = require("jsreport-client")("http://indicadoresacademicos.udenar.edu.co:5488", 'admin', 'password');
 router.get('/downloadReport', function (req, res) {
-  console.log('\n\n\n\n\n\n\n\n =============   Download Report  =============\n\n' + JSON.stringify(req.query));
+  //console.log('\n\n\n\n\n\n\n\n =============   Download Report  =============\n\n' + JSON.stringify(req.query));
   try {
     //res.header("Access-Control-Allow-Origin", "*");
     // res.json("goal"); 
 
     var data = JSON.parse(req.query.val1);
-    console.log('\n\n\nOKI => ' + JSON.stringify(data));
-    //configuracion de template y datos a enviar al pdf 
-    client.render({
-      template: {
-        "shortid": "HyEDwVhjW"
-      },
-      "data": {
-        "tipo": data.tipo, // PROYECTO, PROVINCIA, MUNICIPIO, RESGUARDO, BENEFICIARIO
-        "beneficiario": data.beneficiario,
-        "cedula": data.cedula,
-        "provincia": data.provincia,
-        "municipio": data.municipio,
-        "resguardo": data.resguardo,
-        "feciniobr": data.feciniobr,
-        "observaciones": data.observaciones,
-        "porcejec": data.porcejec,
-        "nombre": data.nombre,
-        "grafica": "data:image/jpeg;base64,/9j/4AAQSkZJRgABAQAAAQABAAD/2wBDAAMCAgICAgMCAgIDAwMDBAYEBAQEBAgGBgUGCQgKCgkICQkKDA8MCgsOCwkJDRENDg8QEBEQCgwSExIQEw8QEBD/2wBDAQMDAwQDBAgEBAgQCwkLEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBD/wAARCACWASwDAREAAhEBAxEB/8QAHwAAAQUBAQEBAQEAAAAAAAAAAAECAwQFBgcICQoL/8QAtRAAAgEDAwIEAwUFBAQAAAF9AQIDAAQRBRIhMUEGE1FhByJxFDKBkaEII0KxwRVS0fAkM2JyggkKFhcYGRolJicoKSo0NTY3ODk6Q0RFRkdISUpTVFVWV1hZWmNkZWZnaGlqc3R1dnd4eXqDhIWGh4iJipKTlJWWl5iZmqKjpKWmp6ipqrKztLW2t7i5usLDxMXGx8jJytLT1NXW19jZ2uHi4+Tl5ufo6erx8vP09fb3+Pn6/8QAHwEAAwEBAQEBAQEBAQAAAAAAAAECAwQFBgcICQoL/8QAtREAAgECBAQDBAcFBAQAAQJ3AAECAxEEBSExBhJBUQdhcRMiMoEIFEKRobHBCSMzUvAVYnLRChYkNOEl8RcYGRomJygpKjU2Nzg5OkNERUZHSElKU1RVVldYWVpjZGVmZ2hpanN0dXZ3eHl6goOEhYaHiImKkpOUlZaXmJmaoqOkpaanqKmqsrO0tba3uLm6wsPExcbHyMnK0tPU1dbX2Nna4uPk5ebn6Onq8vP09fb3+Pn6/9oADAMBAAIRAxEAPwD8qqACgAoAKACgAoAKACgAoAKACgAoAKACgAoAKACgAoAKACgAoAKACgAoAKACgAoAKACgAoAKACgAoAKACgAoAKACgAoAKACgAoAKACgAoAKACgAoAKACgAoAKACgAoAKACgAoAKACgAoAKACgAoAKACgAoAKACgAoAKACgAoAKACgAoAKACgAoAKACgAoAKACgAoAKACgAoAKACgAoAKACgAoAKACgAoAKACgAoAKACgAoAKACgAoAKACgAoAKACgAoAKACgAoAKACgAoAKACgAoAKACgAoAKACgAoAKACgAoAKACgAoAKACgAoAKACgAoAKACgAoAKACgAoAKACgAoAKACgAoAKACgAoAKACgAoAKACgAoAKACgAoAKACgAoAKACgAoAKACgAoAKACgAoAKACgAoAKACgAoAKACgAoAKACgAoAKACgAoAKACgAoAKACgAoAKACgAoAKACgAoAKACgAoAKACgAoAKACgAoAKACgAoAKACgAoAKACgAoAKACgAoAKACgAoAKACgAoAKACgAoAKACgAoAKACgAoAKACgAoAKACgAoAKACgAoAKACgAoAKACgAoAKACgAoAKACgAoAKACgAoAKACgAoAKACgAoAKACgAoAKACgAoAKACgAoAKACgAoAKACgAoAKACgAoAKACgAoAKACgAoAKACgAoAKACgAoAKACgAoAKACgAoAKACgAoAKACgAoAKACgAoAKACgAoAKACgAoAKACgAoAKACgAoAKACgAoAKACgAoAKACgAoAKACgAoAKACgAoAKACgAoAKACgAoAKACgAoAKACgAoAKACgAoAKACgAoAKACgAoAKACgAoAKACgAoAKACgAoAKACgAoAKACgAoAKACgAoAKACgAoAKACgAoAKACgAoAKACgAoAKACgAoAKACgAoAKACgAoAKACgAoAKACgAoAKACgAoAKACgAoAKACgAoAKACgAoAKACgAoAKACgAoAKACgAoAKACgAoAKACgAoAKACgAoAKACgAoAKACgAoAKACgAoAKACgAoAKACgAoAKACgAoAKACgAoAKACgAoAKACgAoAKACgAoAKACgAoAKACgAoAKACgAoAKACgAoAKACgAoAKACgAoAKACgAoAKACgAoAKACgAoAKACgAoAKACgAoAKACgAoAKACgAoAKACgAoAKACgAoAKACgAoAKACgAoAKACgAoAKACgAoAKACgAoAKACgAoAKACgAoAKACgAoAKACgAoAKACgAoAKACgAoAKACgAoAKACgAoAKACgAoAKACgAoAKACgAoAKACgAoAKACgAoAKACgAoAKACgAoAKACgAoAKACgAoAKACgAoAKACgAoAKACgAoAKACgAoAKACgAoAKACgAoAKACgAoAKACgAoAKACgAoAKACgAoAKACgAoAKACgAoAKACgAoAKACgAoAKACgAoAKACgAoAKACgAoAKACgAoAKACgAoAKACgAoAKACgAoAKACgAoAKACgAoAKACgAoAKACgAoAKACgAoAKACgAoAKACgAoAKACgAoAKACgAoAKACgAoAKACgAoAKACgAoAKACgAoAKACgAoAKACgAoAKACgAoAKACgAoAKACgAoAKACgAoAKACgAoAKACgAoAKACgAoAKACgAoAKACgAoAKACgAoAKACgAoAKACgAoAKACgD//2Q==",
-        "imagenes": [{
-          "nombre": "Pasto",
-          "url": "https://upload.wikimedia.org/wikipedia/commons/thumb/2/20/Parque_Narino_Pasto.JPG/400px-Parque_Narino_Pasto.JPG"
-        }, {
-          "nombre": "udenar",
-          "url": "http://knower.udenar.edu.co:81/udenar%201.png"
-        }],
-        "firmaEla": "david e",
-        "nombreEla": "David Estrada",
-        "cargoEla": "Interventor",
-        "firmaApr": "kelvin c",
-        "nombreApr": "Kelvin Cadena",
-        "cargoApr": "Supervisor"
-      }
-    }, function (err, response) {
-      if (err) {
-        console.log(err);
-      }
-      response.pipe(res);
+
+    armJSONReport(data).then(x => {
+      console.log('\n\n\n\n\n\n\n\n\n\n'+JSON.stringify(x)+'\n\n\n\n\n\n\n\n\n\n');
+      //console.log('\n\n\nOKI => ' + JSON.stringify(data.grafica));
+      //configuracion de template y datos a enviar al pdf 
+      client.render({
+        template: {
+          "shortid": "HyEDwVhjW"
+        },
+
+        "data": x
+      }, function (err, response) {
+
+        if (err) {
+          console.log(err);
+        }
+        response.pipe(res);
+      });
+      console.log(client);
+    }).catch(x => {
+
     });
+
+
+
   } catch (e) {
     res.header("Access-Control-Allow-Origin", "*");
     res.json('error => ' + e);
@@ -762,6 +749,35 @@ router.get('/downloadReport', function (req, res) {
 });
 
 
-
+function armJSONReport(data) {
+  return new Promise((resolve, reject) => {
+   
+    var img = data.grafica;
+    img = img.replace(/ /g,'+');
+    
+    //console.log("\n\n\n\n\n\n\n\nOK   =>   " + img.length + '\n\n\n' + data.grafica.length);
+    var dat = {
+      "tipo": data.tipo, // PROYECTO, PROVINCIA, MUNICIPIO, RESGUARDO, BENEFICIARIO
+      "beneficiario": data.beneficiario,
+      "cedula": data.cedula,
+      "provincia": data.provincia,
+      "municipio": data.municipio,
+      "resguardo": data.resguardo,
+      "feciniobr": data.feciniobr,
+      "observaciones": data.observaciones,
+      "porcejec": data.porcejec,
+      "nombre": data.nombre,
+      "grafica": img,
+      "imagenes": data.imagenes,
+      "firmaEla": "david e",
+      "nombreEla": "David Estrada",
+      "cargoEla": "Interventor",
+      "firmaApr": "kelvin c",
+      "nombreApr": "Kelvin Cadena",
+      "cargoApr": "Supervisor"
+    }
+    resolve(dat);
+  });
+}
 
 module.exports = router;
