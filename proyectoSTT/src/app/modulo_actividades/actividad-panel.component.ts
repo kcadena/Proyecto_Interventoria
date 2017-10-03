@@ -517,7 +517,7 @@ export class ActividadPanel implements OnInit {
   c10() {
     this.serviGloAct.observaciones = [];
     this.serviGloAct.actOpt = 10;
-    alert(JSON.stringify(this.serviciog.actividad));
+    //alert(JSON.stringify(this.serviciog.actividad));
     if (this.isTitleSelected && this.serviciog.actividad == null)
       var dat = {
         keym: this.serviciog.proyecto.keym,

@@ -106,7 +106,7 @@ export class ReportComponent implements OnInit {
 			}else{
 				this.serviciog.imagenes = []
 			}
-			alert(JSON.stringify(this.images));
+			//alert(JSON.stringify(this.images));
 		});	
 	}
 
