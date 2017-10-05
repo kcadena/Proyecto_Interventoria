@@ -5,34 +5,41 @@ import { PersistenceService, StorageType } from 'angular-persistence';
 
 
 @Injectable()
-export class ServiciosGlobales {	
-	
-	
-	tree_name : string[] = [];
-	
-	
-	usuario:Usuario;
-	proyecto:any;
-	actividad:any;
-	actividades:any;
-	titulo:string;
-	isSelAct:boolean = false;
-	servidor:string = "http://localhost:81/";// URL to web api api/heroes http://10.42.0.1:81  10.0.0.64 http:///knower.udenar.edu.co:81
-	isSubActivity:any;	
-	tipo:string = 'img';
-	axActividades : any;
+export class ServiciosGlobales {
 
-	tipos_act = ['Proyecto','Proyecto','Provincia','Municipio','Resguardo','Beneficiario','Capitulo','Actividad'];
+	//datos para grafica total de beneficiarios por categorias mapa
+	public colors: any[] = [];
+	color : string [] = [];
+	public labels: string[] = [];
+	public data: number[] = [];
+	public types: string = "doughnut";
+	
 
-	constructor(private persistenceService:PersistenceService){}
+	tree_name: string[] = [];
+	listDatChart: any[] = [];
+	remarks: any = [];
+	usuario: Usuario;
+	proyecto: any;
+	actividad: any;
+	actividades: any;
+	titulo: string;
+	isSelAct: boolean = false;
+	servidor: string = "http://localhost:81/";// URL to web api api/heroes http://10.42.0.1:81  10.0.0.64 http:///knower.udenar.edu.co:81
+	isSubActivity: any;
+	tipo: string = 'img';
+	axActividades: any;
 
-	getUserSession(usuario:Usuario){
-		this.persistenceService.set('user',usuario,{type: StorageType.SESSION});
+	tipos_act = ['Proyecto', 'Proyecto', 'Provincia', 'Municipio', 'Resguardo', 'Beneficiario', 'Capitulo', 'Actividad'];
+
+	constructor(private persistenceService: PersistenceService) { }
+
+	getUserSession(usuario: Usuario) {
+		this.persistenceService.set('user', usuario, { type: StorageType.SESSION });
 		this.usuario = usuario;
 	}
 
 	imagenes: imagen[] = [
-	
+
 	]
 
 }
@@ -41,5 +48,5 @@ interface imagen {
 	titulo: string;
 	subtitulo: string;
 	url: string;
-	isViewMap:boolean;
+	isViewMap: boolean;
 }

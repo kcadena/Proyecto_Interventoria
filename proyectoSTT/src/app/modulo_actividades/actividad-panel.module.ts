@@ -19,7 +19,8 @@ import { ActivityTableComponent } from './component-activity-table/component-act
 import { AssignUserComponent } from './assign-user/assign-user.component';
 import { RemarksComponent } from './remarks/remarks.component';
 import { ReportComponent } from './report/report.component';
-import { ObservacionesComponent } from './observaciones/observaciones.component'
+import { ObservacionesComponent } from './observaciones/observaciones.component';
+import { ChartComponentComponent } from './chart-component/chart-component.component'
 
 
 
@@ -44,7 +45,8 @@ import { ObservacionesComponent } from './observaciones/observaciones.component'
   AssignUserComponent,
   RemarksComponent,
   ReportComponent,
-  ObservacionesComponent
+  ObservacionesComponent,
+  ChartComponentComponent
   ],
   providers: [  { provide: LOCALE_ID, useValue: "es-CO" },ServiciosGlobalesActividades ]
 })

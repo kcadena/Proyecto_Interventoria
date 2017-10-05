@@ -27,10 +27,27 @@ export class RegistroMultimedia{
 	
 	
 	onSubmitPro(multimediaForm:NgForm) {	
+		if (this.serviciog.actividad == null) {
+			var keym = this.serviciog.proyecto.keym;
+			var id_caracteristica = this.serviciog.proyecto.id_caracteristica;
+			var id_usuario = this.serviciog.proyecto.id_usuario;
+		}
+		else if (this.serviciog.actividad) {
+			var keym = this.serviciog.actividad.keym;
+			var id_caracteristica = this.serviciog.actividad.id_caracteristica;
+			var id_usuario = this.serviciog.actividad.id_usuario;
+		}
+		else {
+			var keym = this.serviciog.proyecto.keym;
+			var id_caracteristica = this.serviciog.proyecto.id_caracteristica;
+			var id_usuario = this.serviciog.proyecto.id_usuario;
+		};
+
+
 		var formData = new FormData();
-		this.archivo.keym = this.serviciog.actividad.keym;
-		this.archivo.id_usuario = this.serviciog.actividad.id_usuario;
-		this.archivo.id_caracteristica = this.serviciog.actividad.id_caracteristica;
+		this.archivo.keym = keym;
+		this.archivo.id_usuario = id_usuario;
+		this.archivo.id_caracteristica = id_caracteristica;
 
 		this.archivo.id_usuario_act = this.serviciog.usuario.id_usuario + '';
 		
@@ -46,9 +63,9 @@ export class RegistroMultimedia{
 			if(message){
 				var formData = new FormData();
 				//alert(JSON.stringify(this.serviciog.actividad));
-				formData.append('keym',this.serviciog.actividad.keym);
-				formData.append('id_caracteristica',this.serviciog.actividad.id_caracteristica);
-				formData.append('id_usuario',this.serviciog.actividad.id_usuario);
+				formData.append('keym',keym);
+				formData.append('id_caracteristica',id_caracteristica);
+				formData.append('id_usuario',id_usuario);
 				formData.append('tipo',this.serviciog.tipo);
 
 				this.servicios.getMultimedia(formData)

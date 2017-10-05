@@ -300,7 +300,6 @@ export class Mapa implements OnInit {
 		this.servicios.getActividad(keym, id_usuario, id_caracteristica)
 			.then(actividad => {
 				if (actividad) {
-					
 					this.serviciog.actividades = actividad;
 					this.serviciog.axActividades = actividad;
 					

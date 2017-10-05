@@ -256,10 +256,11 @@ router.post("/createFile", (req, res, next) => {
 
 //Service to get list of the files
 router.post("/getFileList", (req, res, next) => {
-  console.log("get file list   ==== >   " + JSON.stringify(req.body));
+  console.log("\n\n\n\n\n\n\n\n\n\n\nget file list   ==== >   " + JSON.stringify(req.body));
   var fls = File.getFileList(req.body);
   fls
     .then(x => {
+      console.log(JSON.stringify(x)+'\n\n\n\n\n\n\n\n\n\n');
       if (x != false) {
         console.log("Se ha registrado correctamente el punto");
         res.header("Access-Control-Allow-Origin", "*");
@@ -698,6 +699,22 @@ router.post('/getTypes', (req, res, next) => {
   car.then(x => {
     console.log('!!!!!!!!!!!!!Se ha creado exitosamente el proyecto!!!!!!!!!!!');
     console.log('\n\n\n Observaciones \n' + JSON.stringify(x));
+    res.header("Access-Control-Allow-Origin", "*");
+    res.json(x);
+
+  }).catch(x => {
+    console.log('ERROR al actualizar el porcentaje  =>  ' + x)
+    res.header("Access-Control-Allow-Origin", "*");
+    res.json(false);
+  });
+});
+
+router.post('/getDataChart', (req, res, next) => {
+  console.log(' <=====    Get DataChart      ==== >   ' + JSON.stringify(req.body));
+
+  var car = Characteristic.getDataChart(JSON.parse(req.body.caracteristica));
+  car.then(x => {
+    console.log('\n\n\n OK data chart \n' + JSON.stringify(x));
     res.header("Access-Control-Allow-Origin", "*");
     res.json(x);
 

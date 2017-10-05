@@ -80,7 +80,9 @@ export class Servicios {
 	}
 
 	getMultimedia(formData: FormData): Promise<any> {
-		return this.http.post(this.url + "getFileList", formData)
+		
+		return this.http
+			.post(this.url + "getFileList", formData)
 			.toPromise()
 			.then(response => response.json())
 			.catch(err => false);
@@ -219,6 +221,12 @@ export class Servicios {
 	}
 	getTypes(formData: FormData): Promise<any> {
 		return this.http.post(this.url + "getTypes", formData)
+			.toPromise()
+			.then(response => response.json())
+			.catch(err => false)
+	}
+	getDataChart(formData: FormData): Promise<any> {
+		return this.http.post(this.url + "getDataChart", formData)
 			.toPromise()
 			.then(response => response.json())
 			.catch(err => false)

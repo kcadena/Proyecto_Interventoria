@@ -16,7 +16,13 @@ import * as moment from 'moment';
 export class ReportComponent implements OnInit {
 
 	public today: number = Date.now();
-
+	images : any [] =[];
+	msg: any;
+	public chartLabels: string[] = ["EJECUTADO", "NO EJECUTADO"];
+	tipNum: number = 0;
+	public barColor: any[] = [
+		{ backgroundColor: ["rgba(15, 255, 0, 0.8)", "rgba(255, 9, 0, 0.81)"] }
+	];
 
 	@Input() doughnutChartData: string[] = [];
 	@Input() doughnutChartLabels: number[] = [];
@@ -48,17 +54,7 @@ export class ReportComponent implements OnInit {
 	@Input() nombreApr: string = '';
 	@Input() cargoApr: string = '';
 
-	images : any [] =[];
-
-	msg: any;
-
-	public chartLabels: string[] = ["EJECUTADO", "NO EJECUTADO"];
-
-	tipNum: number = 0;
-
-	public barColor: any[] = [
-		{ backgroundColor: ["rgba(15, 255, 0, 0.8)", "rgba(255, 9, 0, 0.81)"] }
-	];
+	
 
 
 	constructor(
@@ -73,6 +69,8 @@ export class ReportComponent implements OnInit {
 		this.tipNum = 0;
 		this.chartLabels = ["EJECUTADO " + this.porcejec + ' %', "NO EJECUTADO " + (100 - parseFloat(this.porcejec)) + ' %'];
 
+		
+  
 		switch (this.tipo.toUpperCase()) {
 			case 'BENEFICIARIO':
 			this.tipNum = 4;
@@ -87,11 +85,33 @@ export class ReportComponent implements OnInit {
 			this.tipNum = 1;
 			break;
 		}
+		if (this.isTitleSelected && this.serviciog.actividad == null)
+		var dat = {
+		  keym: this.serviciog.proyecto.keym,
+		  id_caracteristica: this.serviciog.proyecto.id_caracteristica,
+		  id_usuario: this.serviciog.proyecto.id_usuario,
+		  tipo: this.serviciog.proyecto.tipo
+		};
+	  else if (this.serviciog.actividad)
+		var dat = {
+		  keym: this.serviciog.actividad.keym,
+		  id_caracteristica: this.serviciog.actividad.id_caracteristica,
+		  id_usuario: this.serviciog.actividad.id_usuario,
+		  tipo: this.serviciog.actividad.tipo
+		};
+	  else
+		var dat = {
+		  keym: this.serviciog.proyecto.keym,
+		  id_caracteristica: this.serviciog.proyecto.id_caracteristica,
+		  id_usuario: this.serviciog.proyecto.id_usuario,
+		  tipo: this.serviciog.proyecto.tipo
+		};
+
 		this.serviciog.imagenes = [];
 		var formData = new FormData();
-		formData.append('keym',this.serviciog.actividad.keym);
-		formData.append('id_caracteristica',this.serviciog.actividad.id_caracteristica);
-		formData.append('id_usuario',this.serviciog.actividad.id_usuario);
+		formData.append('keym',dat.keym);
+		formData.append('id_caracteristica',dat.id_caracteristica);
+		formData.append('id_usuario',dat.id_usuario);
 		formData.append('tipo',this.serviciog.tipo);
 
 		this.servicios.getMultimedia(formData)
@@ -102,13 +122,14 @@ export class ReportComponent implements OnInit {
 					
 					this.images.push({ 'nombre': element.subtitulo , 'url' : element.val_configuracion+element.srcServ+element.nombre_archivo});
 					//val_configuracion+srcServ+nombre_archivo
+					
 				});
 			}else{
 				this.serviciog.imagenes = []
 			}
 			//alert(JSON.stringify(this.images));
 		});	
-	}
+	} 
 
 	downloadReport() {
 

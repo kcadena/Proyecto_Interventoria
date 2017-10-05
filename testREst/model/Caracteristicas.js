@@ -454,7 +454,7 @@ module.exports.getTypes = function (data) {
         var sequelize = sqlCon.configConnection();
 
         var query1 = `
-        select getTypes(`+ data.keym + `,`+ data.id_caracteristica + `,`+ data.id_usuario + `);  `;
+        select getTypes(`+ data.keym + `,` + data.id_caracteristica + `,` + data.id_usuario + `);  `;
 
         sequelize.query(query1, { type: sequelize.QueryTypes.SELECT })
             .then(x => {
@@ -636,6 +636,34 @@ module.exports.updateEtapa = function (data, etapa) {
                 resolve(true);
             }).catch(x => {
                 console.log('Error al actualizar etapa ' + x);
+                reject(false);
+            }).done(x => {
+                sequelize.close();
+                console.log('Se ha cerrado sesion de la conexion a la base de datos');
+            });
+    });
+}
+
+module.exports.getDataChart = function (data) {
+    console.log('===  Datos para diagrama de la cantidad de beneficiarios segun categoria mapa  === \n\n' + JSON.stringify(data));
+
+    var query1 = `select getTotalMarkersCategory(
+        `+ data.keym + `,
+        `+ data.id_caracteristica + `,
+        `+ data.id_usuario + `,
+        '`+ data.tipo.toUpperCase() + `'
+    );`;
+
+    return new Promise((resolve, reject) => {
+        console.log('getDataChart  ==>    ' + JSON.stringify(data));
+        var sequelize = sqlCon.configConnection();
+        console.log('\n\n' + query1);
+        sequelize.query(query1, { type: sequelize.QueryTypes.SELECT })
+            .then(x => {
+                console.log('ok');
+                resolve(x);
+            }).catch(x => {
+                console.log('Error al obtener los datos de los totales por categoria de mapas ' + x);
                 reject(false);
             }).done(x => {
                 sequelize.close();

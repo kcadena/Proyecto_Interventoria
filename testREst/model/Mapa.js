@@ -5,7 +5,7 @@ var router = express.Router();
 var Caracteristica = require("./Caracteristicas");
 
 //Service to regiter a new point
-module.exports.regPoint = function(data) {
+module.exports.regPoint = function (data) {
   console.log("REGPoint  ==>   " + JSON.stringify(data));
   var keym = data.keym;
   var id_caracteristica = data.id_caracteristica;
@@ -62,7 +62,7 @@ module.exports.regPoint = function(data) {
 };
 
 //Service to update marker point
-module.exports.updatePoint = function(data) {
+module.exports.updatePoint = function (data) {
   var sequelize = sqlCon.configConnection();
   var query1 =
     `
@@ -104,14 +104,13 @@ module.exports.updatePoint = function(data) {
 };
 
 //Servoce to get point list
-module.exports.getPointList = function(data) {
+module.exports.getPointList = function (data) {
   console.log("\n\n\n\nGEtPintList ===> " + JSON.stringify(data));
-  if(data.keym == null || data.keym == undefined )
-  {
+  if (data.keym == null || data.keym == undefined) {
     data.keym = data.keym_car;
     data.id_usuario = data.id_usuario_car;
     //data.keym = data.key_car;
-    console.log('MODIFY   =>   '+JSON.stringify(data));
+    console.log('MODIFY   =>   ' + JSON.stringify(data));
   }
   var sequelize = sqlCon.configConnection();
   switch (data.tipo) {
@@ -141,9 +140,9 @@ module.exports.getPointList = function(data) {
     case "Resguardo":
       var query1 = `select * from marcador m natural join caracteristicas c join beneficiarios b on b.cedula = c.cedula
         where b.cedula is not null
-        and c.keym_padre = `+data.keym+`
-        and c.id_caracteristica_padre = `+data.id_caracteristica+`
-        and c.id_usuario_padre = `+data.id_usuario+` ; `;
+        and c.keym_padre = `+ data.keym + `
+        and c.id_caracteristica_padre = `+ data.id_caracteristica + `
+        and c.id_usuario_padre = `+ data.id_usuario + ` ; `;
       break;
     case "Municipio":
       var query1 = `select * from caracteristicas c1 
@@ -151,9 +150,9 @@ module.exports.getPointList = function(data) {
         join marcador m on m.keym = c2.keym and m.id_caracteristica = c2.id_caracteristica and m.id_usuario = c2.id_usuario
         join beneficiarios b on b.cedula = c2.cedula
         where c2.cedula is not null
-        and c1.keym_padre = `+data.keym+`
-        and c1.id_caracteristica_padre = `+data.id_caracteristica+`
-        and c1.id_usuario_padre = `+data.id_usuario+` ; `;
+        and c1.keym_padre = `+ data.keym + `
+        and c1.id_caracteristica_padre = `+ data.id_caracteristica + `
+        and c1.id_usuario_padre = `+ data.id_usuario + ` ; `;
       break;
     case "Provincia":
       var query1 = `select * from caracteristicas c1 
@@ -162,9 +161,9 @@ module.exports.getPointList = function(data) {
       join marcador m on m.keym = c3.keym and m.id_caracteristica = c3.id_caracteristica and m.id_usuario = c3.id_usuario
       join beneficiarios b on b.cedula = c3.cedula
       where c3.cedula is not null
-      and c1.keym_padre = `+data.keym+`
-      and c1.id_caracteristica_padre = `+data.id_caracteristica+`
-      and c1.id_usuario_padre = `+data.id_usuario+` ; `;
+      and c1.keym_padre = `+ data.keym + `
+      and c1.id_caracteristica_padre = `+ data.id_caracteristica + `
+      and c1.id_usuario_padre = `+ data.id_usuario + ` ; `;
       break;
     case "Proyecto":
       var query1 = `select * from marcador natural join caracteristicas natural join beneficiarios b where cedula is not null`;

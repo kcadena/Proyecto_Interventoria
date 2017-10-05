@@ -17,7 +17,7 @@ export class ActividadPanel implements OnInit {
 
   nom_act_report: string[] = [];
 
-
+  listDatChart: any[] = [];
   isTitleSelected: boolean = false;
   act_ant: string = "";
 
@@ -31,7 +31,7 @@ export class ActividadPanel implements OnInit {
   flg: boolean = true;
   porcentaje_ejecutado: number;
   activityList: any = [];
-  listTypes : any[] =[];
+  listTypes: any[] = [];
 
 
   constructor(
@@ -71,6 +71,7 @@ export class ActividadPanel implements OnInit {
   public doughnutChartLabels: string[] = ["EJECUTADO", "NO EJECUTADO"];
   public doughnutChartData: number[] = [10, 20];
   public doughnutChartType: string = "doughnut";
+
 
 
 
@@ -172,6 +173,74 @@ export class ActividadPanel implements OnInit {
     var id_usuario = activity.id_usuario;
     var id_caracteristica = activity.id_caracteristica;
 
+    this.serviGloAct.actOpt = 1;
+    if (this.isTitleSelected && this.serviciog.actividad == null)
+      var dat = {
+        keym: this.serviciog.proyecto.keym,
+        id_caracteristica: this.serviciog.proyecto.id_caracteristica,
+        id_usuario: this.serviciog.proyecto.id_usuario,
+        tipo: this.serviciog.proyecto.tipo
+      };
+    else if (this.serviciog.actividad)
+      var dat = {
+        keym: this.serviciog.actividad.keym,
+        id_caracteristica: this.serviciog.actividad.id_caracteristica,
+        id_usuario: this.serviciog.actividad.id_usuario,
+        tipo: this.serviciog.actividad.tipo
+      };
+    else
+      var dat = {
+        keym: this.serviciog.proyecto.keym,
+        id_caracteristica: this.serviciog.proyecto.id_caracteristica,
+        id_usuario: this.serviciog.proyecto.id_usuario,
+        tipo: this.serviciog.proyecto.tipo
+      };
+
+    //alert(dat.tipo);
+    this.serviciog.colors = [];
+    this.serviciog.color = [];
+    this.serviciog.labels = [];
+    this.serviciog.data = [];
+    var formData = new FormData();
+    formData.append("caracteristica", JSON.stringify(dat));
+    this.servicios.getDataChart(formData).then(message => {
+      //alert(JSON.stringify(message));
+
+      this.serviciog.listDatChart = [];
+      this.serviciog.listDatChart = message;
+      var ax: any[] = [];
+      this.serviciog.listDatChart.forEach(element => {
+        ax.push(element.gettotalmarkerscategory);
+      });
+      this.serviciog.listDatChart = ax;
+      var val = 0;
+      this.serviciog.listDatChart.forEach(element => {
+        var x = element.split(',');
+        var num = parseInt(x[2]);
+        if (num)
+          val = val + num;
+      });
+      this.serviciog.listDatChart.forEach(element => {
+        element = element.replace('(', '');
+        element = element.replace(')', '');
+        var x = element.split(',');
+        this.serviciog.color.push(x[0]);
+
+        var num = parseInt(x[2]);
+        if (num) {
+          var z = num * 100 / val;
+          this.serviciog.data.push(z);
+          this.serviciog.labels.push(x[1].replace(/"/g, '') + ' : ' + z + ' %');
+        }
+        else {
+          this.serviciog.data.push(0);
+          this.serviciog.labels.push(x[1].replace(/"/g, '') + ' : 0 %');
+        }
+      });
+      this.serviciog.colors = [
+        { backgroundColor: this.serviciog.color }
+      ];
+    });
 
     this.servicios
       .getActividad(keym, id_usuario, id_caracteristica)
@@ -205,6 +274,7 @@ export class ActividadPanel implements OnInit {
   }
 
   tituloClick() {
+    
     //alert(JSON.stringify(this.serviciog.proyecto));
     this.isTitleSelected = true;
     this.serviciog.actividad = null;
@@ -219,11 +289,76 @@ export class ActividadPanel implements OnInit {
       this.serviciog.isSelAct = false;
       this.serviGloAct.actOpt = 0;
     } else {
+      this.serviGloAct.actOpt = 1;
       this.serviciog.actividad = this.serviciog.isSubActivity;
       //alert('Global act  ' + JSON.stringify(this.serviciog.isSubActivity));
-      this.serviciog.actividad.porcentaje_cumplido = this.serviciog.actividad * 1;
+      this.serviciog.actividad.porcentaje_cumplido = this.serviciog.actividad.porcentaje_cumplido * 1;
+      //alert(this.serviciog.actividad);
       this.slideval = this.serviciog.isSubActivity.porcentaje_cumplido * 1;
     }
+
+    if (this.isTitleSelected && this.serviciog.actividad == null)
+      var dat = {
+        keym: this.serviciog.proyecto.keym,
+        id_caracteristica: this.serviciog.proyecto.id_caracteristica,
+        id_usuario: this.serviciog.proyecto.id_usuario,
+        tipo: this.serviciog.proyecto.tipo
+      };
+    else if (this.serviciog.actividad)
+      var dat = {
+        keym: this.serviciog.actividad.keym,
+        id_caracteristica: this.serviciog.actividad.id_caracteristica,
+        id_usuario: this.serviciog.actividad.id_usuario,
+        tipo: this.serviciog.actividad.tipo
+      };
+    else
+      var dat = {
+        keym: this.serviciog.proyecto.keym,
+        id_caracteristica: this.serviciog.proyecto.id_caracteristica,
+        id_usuario: this.serviciog.proyecto.id_usuario,
+        tipo: this.serviciog.proyecto.tipo
+      };
+    this.serviciog.colors = [];
+    this.serviciog.color = [];
+    this.serviciog.labels = [];
+    this.serviciog.data = [];
+    var formData = new FormData();
+    formData.append("caracteristica", JSON.stringify(dat));
+    this.servicios.getDataChart(formData).then(message => {
+      //alert(JSON.stringify(message));
+      this.serviciog.listDatChart = [];
+      this.serviciog.listDatChart = message;
+      var ax: any[] = [];
+      this.serviciog.listDatChart.forEach(element => {
+        ax.push(element.gettotalmarkerscategory);
+      });
+      this.serviciog.listDatChart = ax;
+      var val = 0;
+      this.serviciog.listDatChart.forEach(element => {
+        var x = element.split(',');
+        var num = parseInt(x[2]);
+        if (num) val = val + num;
+      });
+      this.serviciog.listDatChart.forEach(element => {
+        element = element.replace('(', '');
+       element = element.replace(')', '');
+        var x = element.split(',');
+        this.serviciog.color.push(x[0]);
+
+        var num = parseInt(x[2]);
+        if (num) {
+          var z = num * 100 / val;
+          this.serviciog.data.push(z);
+          this.serviciog.labels.push(x[1].replace(/"/g, '') + ' : ' + z + ' %');
+        }
+        else {
+          this.serviciog.data.push(0);
+          this.serviciog.labels.push(x[1].replace(/"/g, '') + ' : 0 %');
+        }
+      });
+      this.serviciog.colors = [{ backgroundColor: this.serviciog.color }];
+    });
+
   }
 
   //actualiza los porcentajes de las  actividades hijas
@@ -296,6 +431,9 @@ export class ActividadPanel implements OnInit {
 
     this.serviciog.titulo = actividad.nom_act;
     this.serviGloAct.actOpt = 1;
+
+
+
 
     this.servicios
       .getActividad(keym, id_usuario, id_caracteristica)
@@ -374,31 +512,26 @@ export class ActividadPanel implements OnInit {
       alert(JSON.stringify(message));
     });
   }
-  // events
-  public chartClicked(e: any): void {
-    console.log(e);
-  }
 
-  public chartHovered(e: any): void {
-    //alert("HOver")
-    console.log(e);
-  }
-
+  //Detalles    =   Detalles del proyecto padre
   c0() {
     this.serviGloAct.actOpt = 0;
   }
 
+  //Detalles    =   Muestra informacion detallada del proyecto interno o actividad seleccionada
   c1() {
     this.serviGloAct.actOpt = 1;
+   
   }
-
+  //LISTA       =   Lista de actividades => cambia nombre segun proyecto municipios resguardos beneficiario etc. 
   c2() {
     this.serviGloAct.actOpt = 2;
   }
 
+  //Reporte
   c3() {
     this.serviGloAct.actOpt = 3;
-    this.listTypes=[];
+    this.listTypes = [];
     this.serviGloAct.observaciones = [];
     //alert(JSON.stringify(this.serviciog.actividad));
     if (this.isTitleSelected && this.serviciog.actividad == null)
@@ -438,7 +571,7 @@ export class ActividadPanel implements OnInit {
       });
     });
 
-    
+
 
     if (this.serviciog.isSelAct) {
       var numSi = this.serviciog.actividad.porcentaje_cumplido;
@@ -451,13 +584,15 @@ export class ActividadPanel implements OnInit {
     }
   }
 
+  //Multimedia
   c4() {
     this.serviGloAct.actOpt = 4;
   }
 
+  //Estadisticas  - Diagramas Charts
   c5() {
     this.serviGloAct.actOpt = 5;
-
+    //alert(JSON.stringify(this.serviciog.actividad));
     if (this.serviciog.isSelAct) {
       var numSi = this.serviciog.actividad.porcentaje_cumplido;
       var numNo = 100 - numSi;
@@ -469,18 +604,22 @@ export class ActividadPanel implements OnInit {
     }
   }
 
+  //mapa
   c6() {
     this.serviGloAct.actOpt = 6;
   }
 
+  //CATEGORIAS  -  Se Asignan las categorias de los mapas 
   c7() {
     this.serviGloAct.actOpt = 7;
   }
 
+  //PORCENTAJE  -  Cambian porcentajes a Actividades
   c8() {
     this.serviGloAct.actOpt = 8;
   }
 
+  //Recomendaciones
   c9() {
     this.serviGloAct.remarks = [];
     this.serviGloAct.actOpt = 9;
@@ -514,6 +653,7 @@ export class ActividadPanel implements OnInit {
     });
   }
 
+  //Observaciones
   c10() {
     this.serviGloAct.observaciones = [];
     this.serviGloAct.actOpt = 10;
@@ -554,8 +694,9 @@ export class ActividadPanel implements OnInit {
     this.miPorcentaje = 100 - this.porcentajeAsignado;
   }
 
+  //Realiza busqueda y filtro de las actividades que estan al lado izquierdo
   btnSearchAct(value: string) {
-    //alert(JSON.stringify(this.serviciog.actividades));
+    //alert(JSON.stringify(this.serviciog.actividades[0].tipo));
 
     if (this.serviciog.actividades[0].tipo !== "Beneficiario")
       this.activityList = this.serviciog.actividades.filter(item => {
@@ -574,9 +715,13 @@ export class ActividadPanel implements OnInit {
             .replace(/ /g, "")
             .indexOf(value.replace(/ /g, "").toLowerCase()) !== -1
         );
-      });
+      }
+      );
+    //alert(JSON.stringify(this.activityList));
+
   }
 
+  //actualiza el valor del porcentaje cumplido cunado se cambia el valor del slider
   slideValue(activity) {
     var perComp = activity.porcentaje_cumplido - this.slideval;
 
@@ -592,6 +737,7 @@ export class ActividadPanel implements OnInit {
     }
   }
 
+  //actualiza el valor del porcentaje cumplido cunado se cambia el valor en la caja de texto
   changeEtapa(etapa, tipo) {
     if (tipo = 'P') {
       if (etapa != this.serviciog.proyecto.estado) {
@@ -621,4 +767,14 @@ export class ActividadPanel implements OnInit {
 
   }
 
+
+  // events
+  public chartClicked(e: any): void {
+    console.log(e);
+  }
+
+  public chartHovered(e: any): void {
+    //alert("HOver")
+    console.log(e);
+  }
 }

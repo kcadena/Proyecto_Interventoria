@@ -18,10 +18,10 @@
 			<th class="tg-baqh" colspan="4">UNIVERSIDAD DE NARIÑO</th>
 		</tr>
 		<tr>
-			<td class="tg-baqh" colspan="4">INFORME GENERAL {{this.tipo.toUpperCase()}} {{this.nombre.toUpperCase()}} - UDENAR. 006D-2017</td>
+			<td class="tg-baqh" colspan="4">INFORME GENERAL {{this.tipo | uppercase}} {{this.nombre | uppercase}} - UDENAR. 006D-2017</td>
 		</tr>
 		<tr>
-			<td class="tg-2nhx" colspan="4">DATOS {{this.tipo.toUpperCase()}} {{this.nombre.toUpperCase()}}</td>
+			<td class="tg-2nhx" colspan="4">DATOS {{this.tipo | uppercase}} {{this.nombre | uppercase}}</td>
 		</tr>
 		<tr>
 			<td class="tg-2nhx">FECHA INFORME
@@ -38,7 +38,7 @@
 		</tr>
 		<tr *ngIf="this.tipNum==4" class="ocultablePr ocultableVi ocultableMu ocultableRe ">
 			<td class="tg-2nhx">BENEFICIARIO</td>
-			<td class="tg-yw4l">{{this.beneficiario.toUpperCase()}}</td>
+			<td class="tg-yw4l">{{this.beneficiario | uppercase}}</td>
 			<td class="tg-2nhx">No. CEDULA DE
 				<br>CIUDADANIA
 			</td>
@@ -46,22 +46,22 @@
 		</tr>
 		<tr *ngIf="this.tipNum>=1" class="ocultablePr">
 			<td class="tg-2nhx">PROVINCIA</td>
-			<td class="tg-yw4l" colspan="3">{{this.provincia.toUpperCase()}}</td>
+			<td class="tg-yw4l" colspan="3">{{this.provincia | uppercase}}</td>
 		</tr>
 		<tr *ngIf="this.tipNum>=2" class="ocultablePr ocultableVi ">
 			<td class="tg-2nhx">MUNICIPIO</td>
-			<td class="tg-yw4l" colspan="3">{{this.municipio.toUpperCase()}}</td>
+			<td class="tg-yw4l" colspan="3">{{this.municipio | uppercase}}</td>
 		</tr>
 		<tr *ngIf="this.tipNum>=3" class="ocultablePr ocultableVi ocultableMu">
 			<td class="tg-2nhx">RESGUARDO</td>
-			<td class="tg-yw4l" colspan="3">{{this.resguardo.toUpperCase()}}</td>
+			<td class="tg-yw4l" colspan="3">{{this.resguardo | uppercase}}</td>
 		</tr>
 		<tr>
 			
 		</tr>
 		<tr>
 			<td class="tg-2nhx">FECHA DE INICIO DE OBRA</td>
-			<td class="tg-yw4l" colspan='3'>{{this.feciniobr.toUpperCase()}}</td>
+			<td class="tg-yw4l" colspan='3'>{{this.feciniobr | uppercase}}</td>
 		</tr>
 	</table>
 	<!--tabla con observaciones y recomendaciones del proyecto-->
@@ -87,10 +87,13 @@
             </tr>
         {{/each}}  -->
 	</table>
+	
+	
+	
 	<!--tabla con grafica y porcentaje de cumplimiento-->
 	<table class="tg2" width="100%">
 		<tr>
-			<td class="tg-2nhx">PORCENTAJE DE EJECUCIÓN <b>{{this.tipo.toUpperCase()}}</b> <b>{{this.nombre.toUpperCase()}}</b> : <b>{{this.porcejec}} %</b></td>
+			<td class="tg-2nhx">PORCENTAJE DE EJECUCIÓN <b>{{this.tipo | uppercase}}</b> <b>{{this.nombre | uppercase}}</b> : <b>{{this.porcejec}} %</b></td>
 		</tr>
 	</table>
 	<div class="divfot" width="100%" id="grafEjec">
@@ -102,6 +105,30 @@
 			</div>
 		</div>
 	</div>
+	
+
+	<!--tabla con grafica y porcentaje de cumplimiento-->
+<div *ngIf="this.tipo.toUpperCase()!='BENEFICIARIO' && this.tipo.toUpperCase()!='CAPITULO' && this.tipo.toUpperCase()!='ACTIVIDAD'">
+	<table class="tg2" width="100%">
+		<tr>
+			<td class="tg-2nhx">Porcentaje del total de los beneficiarios del <b>{{this.tipo | uppercase}}</b> <b>{{this.nombre | uppercase}}</b></td>
+		</tr>
+	</table>
+	<div class="divfot" width="100%" id="grafEjec">
+		<div style="padding: 1px" class="form-inline form">
+			<div style="display: block; height: 350px; width: 350px" class="center-block">
+			  <canvas baseChart [data]="this.serviciog.data" [labels]="this.serviciog.labels" [chartType]="this.serviciog.types" [colors]="this.serviciog.colors"
+				(chartHover)="chartHovered($event)" (chartClick)="chartClicked($event)">
+			  </canvas>
+			</div>
+		  </div>
+	</div>
+</div>
+
+
+	
+	
+	
 	<!--tabla de registro fotografico-->
 	<div *ngIf="this.tipNum==4">
 		<table class="tg2 ocultablePr ocultableVi ocultableMu ocultableRe " width="100%">

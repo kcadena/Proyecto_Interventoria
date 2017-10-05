@@ -13,10 +13,9 @@ import { Servicios } from "../../services/servicios";
 })
 export class ObservacionesComponent implements OnInit {
 
-
   @Input() tipo_usuario: string = '';
   @Input() isTitleSelected: string = '';
-
+  @Input() observaciones : any[] = [];
 
   constructor(
     private serviciog: ServiciosGlobales,
@@ -60,7 +59,7 @@ export class ObservacionesComponent implements OnInit {
       .then(message => {
         //alert(JSON.stringify(message));
         var mark = { usuario: this.serviciog.usuario.nombre + ' ' + this.serviciog.usuario.apellido, observacion: cad };
-        this.serviGloAct.observaciones.push(mark);
+        this.observaciones.push(mark);
         //this.serviGloAct.remarks = message;
       })
   }

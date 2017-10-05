@@ -16,7 +16,8 @@ export class RemarksComponent implements OnInit {
 
   cad: string = '';
   @Input() tipo_usuario :string ='';
-
+  @Input() remarks : any[] = [];
+ 
   constructor(
     private serviciog: ServiciosGlobales,
     private serviGloAct: ServiciosGlobalesActividades,
@@ -40,7 +41,7 @@ export class RemarksComponent implements OnInit {
     .then(message =>{
       //alert(JSON.stringify(message));
       var mark = {usuario:this.serviciog.usuario.nombre +' '+this.serviciog.usuario.apellido , observacion:this.cad};
-      this.serviGloAct.remarks.push(mark);
+      this.remarks.push(mark);
       //this.serviGloAct.remarks = message;
     })
   }
