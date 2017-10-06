@@ -14,13 +14,10 @@ import { ServiciosGlobalesActividades } from "./servicios-globales-actividades";
 })
 export class ActividadPanel implements OnInit {
   public slideval: number = 0;
-
   nom_act_report: string[] = [];
-
   listDatChart: any[] = [];
   isTitleSelected: boolean = false;
   act_ant: string = "";
-
   miPorcentaje: number = 100;
   porcentajeAsignado: number = 0;
   flag: boolean = true;
@@ -32,16 +29,6 @@ export class ActividadPanel implements OnInit {
   porcentaje_ejecutado: number;
   activityList: any = [];
   listTypes: any[] = [];
-
-
-  constructor(
-    private serviciog: ServiciosGlobales,
-    private serviGloAct: ServiciosGlobalesActividades,
-    private router: Router,
-    private servicios: Servicios
-  ) { }
-
-
   public barChartOptions: any = {
     scaleShowVerticalLines: false,
     responsive: true
@@ -57,24 +44,24 @@ export class ActividadPanel implements OnInit {
   ];
   public barChartType: string = "bar";
   public barChartLegend: boolean = true;
-
   public barChartData: any[] = [
     { data: [65, 59, 80, 81, 56, 55, 40], label: "Categoria 1" },
     { data: [28, 48, 40, 19, 86, 27, 90], label: "Categoria 2" },
     { data: [28, 48, 40, 19, 86, 27, 92], label: "Categoria 3" }
   ];
-
   public barColor: any[] = [
     { backgroundColor: ["rgba(15, 255, 0, 0.8)", "rgba(255, 9, 0, 0.81)"] }
   ];
-
   public doughnutChartLabels: string[] = ["EJECUTADO", "NO EJECUTADO"];
   public doughnutChartData: number[] = [10, 20];
   public doughnutChartType: string = "doughnut";
 
-
-
-
+  constructor(
+    private serviciog: ServiciosGlobales,
+    private serviGloAct: ServiciosGlobalesActividades,
+    private router: Router,
+    private servicios: Servicios
+  ) { }
 
   ngOnInit(): void {
 
@@ -683,6 +670,29 @@ export class ActividadPanel implements OnInit {
       //alert(JSON.stringify(message));
       this.serviGloAct.observaciones = message;
     });
+  }
+
+  c11(){
+    this.serviGloAct.actOpt = 11;
+    //alert(JSON.stringify(this.serviciog.actividad));
+    if (this.isTitleSelected && this.serviciog.actividad == null)
+      var dat = {
+        keym: this.serviciog.proyecto.keym,
+        id_caracteristica: this.serviciog.proyecto.id_caracteristica,
+        id_usuario: this.serviciog.proyecto.id_usuario
+      };
+    else if (this.serviciog.actividad)
+      var dat = {
+        keym: this.serviciog.actividad.keym,
+        id_caracteristica: this.serviciog.actividad.id_caracteristica,
+        id_usuario: this.serviciog.actividad.id_usuario
+      };
+    else
+    var dat = {
+      keym: this.serviciog.proyecto.keym,
+      id_caracteristica: this.serviciog.proyecto.id_caracteristica,
+      id_usuario: this.serviciog.proyecto.id_usuario
+    };
   }
 
   calculateValue(actividades) {

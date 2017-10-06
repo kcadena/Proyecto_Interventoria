@@ -55,6 +55,7 @@
 		</div>
 
 		<div class="col-md-9" style="background-color: rgb(222,220,221);">
+			<!-- Opciones del Menu -->
 			<div class="menuActividades">
 				<ul style="font-size: 12px">
 					<li *ngIf="!this.serviciog.isSelAct" (click)="c0()" [class.itemSelected]="this.serviGloAct.actOpt===0">
@@ -70,7 +71,7 @@
 					<li (click)="c3()" [class.itemSelected]="this.serviGloAct.actOpt===3">
 						<a>Reporte</a>
 					</li>
-					<li  (click)="c4()" [class.itemSelected]="this.serviGloAct.actOpt===4">
+					<li (click)="c4()" [class.itemSelected]="this.serviGloAct.actOpt===4">
 						<a>Multimedia</a>
 					</li>
 					<li (click)="c5()" [class.itemSelected]="this.serviGloAct.actOpt===5">
@@ -86,13 +87,19 @@
 					<li (click)="c10()" [class.itemSelected]="this.serviGloAct.actOpt===10">
 						<a>Observaciones Supervisor</a>
 					</li>
+					<li (click)="c11()" [class.itemSelected]="this.serviGloAct.actOpt===11">
+						<a>Novedades</a>
+					</li>
 					<!--	<li (click)="c8()" [class.itemSelected]="this.serviGloAct.actOpt===8"><a>Porcentajes</a></li> -->
 				</ul>
 			</div>
+
+			<!-- Acciones de las opciones del Menu -->
 			<div style=" min-height: 80vh;">
 
 				<!-- Detalles - Pagina inicial de un proyecto padre -->
 				<div *ngIf="this.serviGloAct.actOpt === 0">
+					<div>{{ (9223372036854775807 + 9223372036854775807)/9223372036854775807}}</div>
 					<div *ngIf="this.serviciog.proyecto.tipo_caracteristica === 'P'">
 						<form #loginForm="ngForm" style="margin-right: 5%; margin-left: 5%;" enctype="multipart/form-data">
 							<div class="form-group">
@@ -380,6 +387,11 @@
 				<div *ngIf="this.serviGloAct.actOpt === 10">
 					<app-observaciones [observaciones]="this.serviGloAct.observaciones" [isTitleSelected]='this.isTitleSelected' [tipo_usuario]="this.serviciog.usuario.tipo_usuario"></app-observaciones>
 
+				</div>
+
+				<!--  Novedades  -->
+				<div *ngIf="this.serviGloAct.actOpt === 11">
+					Novedades
 				</div>
 			</div>
 		</div>
