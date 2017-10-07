@@ -87,10 +87,12 @@
 					<li (click)="c10()" [class.itemSelected]="this.serviGloAct.actOpt===10">
 						<a>Observaciones Supervisor</a>
 					</li>
-					<li (click)="c11()" [class.itemSelected]="this.serviGloAct.actOpt===11">
+					
+					<!--	
+						<li (click)="c11()" [class.itemSelected]="this.serviGloAct.actOpt===11">
 						<a>Novedades</a>
 					</li>
-					<!--	<li (click)="c8()" [class.itemSelected]="this.serviGloAct.actOpt===8"><a>Porcentajes</a></li> -->
+						<li (click)="c8()" [class.itemSelected]="this.serviGloAct.actOpt===8"><a>Porcentajes</a></li> -->
 				</ul>
 			</div>
 
@@ -389,10 +391,11 @@
 
 				</div>
 
-				<!--  Novedades  -->
+				<!--  Novedades 
 				<div *ngIf="this.serviGloAct.actOpt === 11">
-					Novedades
+					<app-news-component></app-news-component>
 				</div>
+				 -->
 			</div>
 		</div>
 	</div>

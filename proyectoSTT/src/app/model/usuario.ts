@@ -12,6 +12,7 @@ export class Usuario {
     public telefono: string,
     public entidad: string,
     public imagen: any,
-    public imagenName: string
+    public imagenName: string,
+    public usuario_superior:number
   ) {  } 
 }
