@@ -13,6 +13,7 @@ var File = require("../model/Archivos");
 var Marker = require("../model/Marcadores");
 var Characteristic = require("../model/Caracteristicas");
 var AuxModel = require("../model/AuxModel");
+var Novedades = require("../model/Novedades");
 //POST Services
 
 //Service for createa new User
@@ -661,7 +662,11 @@ router.post('/regObservacion', (req, res, next) => {
 router.post('/updateCompletePercentage', (req, res, next) => {
   console.log(' <=====    updateCompletePercentage     ==== >   ' + JSON.stringify(req.body));
 
-  var car = Characteristic.updateCompletePercentage(JSON.parse(req.body.actividad), JSON.parse(req.body.porcentaje_cumplido));
+  var car = Characteristic.updateCompletePercentage(
+    JSON.parse(req.body.actividad), JSON.parse(req.body.porcentaje_cumplido),
+    JSON.parse(req.body.usuario_superior),
+    JSON.parse(req.body.usuario_own)
+  );
   car.then(x => {
     console.log('!!!!!!!!!!!!!Se ha creado exitosamente el proyecto!!!!!!!!!!!');
     console.log('\n\n\n Percentage completed \n' + JSON.stringify(x));
@@ -765,6 +770,45 @@ router.get('/downloadReport', function (req, res) {
 
 });
 
+router.post('/getDataNovedades',(req,res)=>{
+  console.log(' <=====    get Data Novedades      ==== >   ' + JSON.stringify(req.body));
+  
+    var nov = Novedades.getDataNewsPercent(req.body);
+    nov.then(x => {
+      console.log('!!!!!!!!!!!!!Se ha retornado exitosamente las novedades!!!!!!!!!!!');
+      console.log('\n\n\n Novedades \n' + JSON.stringify(x));
+      res.header("Access-Control-Allow-Origin", "*");
+      res.json(x);
+  
+    }).catch(x => {
+      console.log('ERROR al btener novedades  =>  ' + x)
+      res.header("Access-Control-Allow-Origin", "*");
+      res.json(false);
+    });
+});
+
+router.post("/getFilesNovedades", (req, res, next) => {
+  console.log("\n\n\n\n\n\n\n\n\n\n\nget file list Novedades   ==== >   " + JSON.stringify(req.body.novedad));
+  var fls = File.getFileList(JSON.parse(req.body.novedad));
+  fls
+    .then(x => {
+      console.log(JSON.stringify(x)+'\n\n\n\n\n\n\n\n\n\n');
+      if (x != false) {
+        console.log("Se ha obtenido la lista de archivos");
+        res.header("Access-Control-Allow-Origin", "*");
+        res.send(x);
+      } else {
+        console.log("No se ha obtenido la lista de archivos");
+        res.header("Access-Control-Allow-Origin", "*");
+        res.json(false);
+      }
+    })
+    .catch(x => {
+      console.log("ERROR =>  " + x);
+      res.header("Access-Control-Allow-Origin", "*");
+      res.json(false);
+    });
+});
 
 function armJSONReport(data) {
   return new Promise((resolve, reject) => {

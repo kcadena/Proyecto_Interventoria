@@ -93,7 +93,9 @@ module.exports.createUser = function (data, files) {
 module.exports.sigIn = function (data) {
   var sequelize = sqlCon.configConnection();
   var query1 = `
-		select id_usuario,  e_mail, nombre, apellido, genero, cargo, telefono, entidad, imagen, tipo_usuario from usuarios
+    select 
+    id_usuario,  e_mail, nombre, apellido, genero, cargo, telefono, entidad, imagen, tipo_usuario,usuario_superior 
+    from usuarios
 		where e_mail like '`+ data.e_mail + `' and pass like '` + data.pass + `' limit 1;
 	`;
   return new Promise((resolve, reject) => {
