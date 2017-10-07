@@ -19,7 +19,7 @@ import { RouterModule } from '@angular/router';
 import { AppRoutingModule } from './routing/app-routing.module';
 import { ActividadModule } from './modulo_actividades/actividad-panel.module';
 import { ProyectoModule } from './modulo_proyectos/proyecto-panel.module';
-
+import { NewsComponentComponent } from './news-component/news-component.component';
 
 @NgModule({
   imports: [
@@ -29,7 +29,7 @@ import { ProyectoModule } from './modulo_proyectos/proyecto-panel.module';
     AppRoutingModule,
     PersistenceModule,
     ActividadModule,
-    ProyectoModule,
+    ProyectoModule,    
     AgmCoreModule.forRoot({
       apiKey: 'AIzaSyBOeLL07vQ6T4XPjzxkY1lpbm9Z0nAymN8 ',
       libraries: ["places"]
@@ -43,7 +43,8 @@ import { ProyectoModule } from './modulo_proyectos/proyecto-panel.module';
     Modallogin,
     ModalRegister,
     InicioView,
-    Mapa
+    Mapa,
+    NewsComponentComponent
   ],
   providers: [
     Servicios,

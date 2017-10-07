@@ -737,9 +737,13 @@ export class ActividadPanel implements OnInit {
 
     if (perComp != 0) {
       //alert(activity.porcentaje_cumplido+'   +   '+this.slideval +'  = '+perComp);
+
+
       var formData = new FormData();
       formData.append("actividad", JSON.stringify(activity));
       formData.append("porcentaje_cumplido", JSON.stringify(perComp));
+      formData.append("usuario_superior", this.serviciog.usuario.usuario_superior+"");
+      formData.append("usuario_own",this.serviciog.usuario.id_usuario+"");
       this.slideval = activity.porcentaje_cumplido;
       this.servicios.updateCompletePercentage(formData).then(message => {
         //alert(JSON.stringify(message));

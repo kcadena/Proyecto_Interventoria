@@ -231,5 +231,20 @@ export class Servicios {
 			.then(response => response.json())
 			.catch(err => false)
 	}
+	/*----Sevicios Novedades-----*/
+	getDataNovedades(formData: FormData){
+			return this.http.post(this.url + "getDataNovedades",formData)
+			.toPromise()
+			.then(response => response.json())
+			.catch(err => false)
+	}
+
+	getFilesNovedades(formData: FormData){
+		return this.http.post(this.url + "getFilesNovedades",formData)
+			.toPromise()
+			.then(response => response.json())
+			.catch(err => false)
+	}
+	/*---------------------------*/
 
 } 
