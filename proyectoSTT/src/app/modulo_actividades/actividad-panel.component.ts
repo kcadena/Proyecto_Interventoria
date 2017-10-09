@@ -8,8 +8,6 @@ import { Servicios } from "../services/servicios";
 import { ServiciosGlobalesActividades } from "./servicios-globales-actividades";
 
 
-import { NewsComponentComponent } from '../news-component/news-component.component';
-
 @Component({
   selector: "actividad-panel",
   templateUrl: "./actividad-panel.component.html",
@@ -64,8 +62,7 @@ export class ActividadPanel implements OnInit {
     private serviciog: ServiciosGlobales,
     private serviGloAct: ServiciosGlobalesActividades,
     private router: Router,
-    private servicios: Servicios,
-    private newsModule: NewsComponentComponent
+    private servicios: Servicios
   ) { }
 
   ngOnInit(): void {
