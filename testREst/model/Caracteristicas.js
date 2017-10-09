@@ -592,38 +592,47 @@ function getIdCharacteristic(keym, id_usuario, id_caracteristica, type_char) {
     });
 }
 
-module.exports.updateCompletePercentage = function (data, porcentaje_cumplido, usuario_superior,usuario_own) {
+module.exports.updateCompletePercentage = function (data, porcentaje_cumplido, usuario_novedad, usuario_own) {
     console.log('updatePercentage  ==>    ' + JSON.stringify(data) + '\n' + porcentaje_cumplido);
     return new Promise((resolve, reject) => {
         var sequelize = sqlCon.configConnection();
 
         var date = new Date();
-        var f= date;
+        var f = date;
 
         // Se aplica en otros casos -> interventoria necesita aprobacion antes de actualizar porcentaje_cumplido
-        var query1 = `
-        select updatePercent(
-            `+ data.keym + `,
-            ` + data.id_caracteristica + `,
-            ` + data.id_usuario + `,
-            ` + porcentaje_cumplido + `
-        );`;
-        
-        
-        var query1 =`
+        /* var query1 = `
+         select updatePercent(
+             `+ data.keym + `,
+             ` + data.id_caracteristica + `,
+             ` + data.id_usuario + `,
+             ` + porcentaje_cumplido + `
+         );`;
+         */
+
+        /*var query1 = `
             insert into novedades 
             (id_novedad,keym,id_caracteristica,id_usuario,tipo,fecha_creacion,porcentaje_cambio,usuario_novedad,usuario_own)
             values (
-                '`+date+`',
-                `+data.keym+`,
-                `+data.id_caracteristica+`,
-                `+data.id_usuario+`,
+                '`+ date + `',
+                `+ data.keym + `,
+                `+ data.id_caracteristica + `,
+                `+ data.id_usuario + `,
                 'POR',
-                '`+date+`',
-                `+porcentaje_cumplido+`,
-                `+usuario_superior+`,
-                `+usuario_own+`
+                '`+ date + `',
+                `+ porcentaje_cumplido + `,
+                `+ usuario_superior + `,
+                `+ usuario_own + `
             )
+        `;*/
+
+        var query1 = `
+            SELECT regNovedades(
+                `+data.keym+`,`+data.id_caracteristica+`,`+data.id_usuario+`,
+                `+usuario_own+`,`+usuario_novedad+`,
+                `+porcentaje_cumplido+`,
+                '`+date+`'
+            );
         `;
 
 

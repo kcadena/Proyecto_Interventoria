@@ -732,7 +732,7 @@ export class ActividadPanel implements OnInit {
   }
 
   //actualiza el valor del porcentaje cumplido cunado se cambia el valor del slider
-  slideValue(activity) {
+  slideValue(activity,value) {
     var perComp = activity.porcentaje_cumplido - this.slideval;
 
     if (perComp != 0) {
@@ -741,7 +741,7 @@ export class ActividadPanel implements OnInit {
 
       var formData = new FormData();
       formData.append("actividad", JSON.stringify(activity));
-      formData.append("porcentaje_cumplido", JSON.stringify(perComp));
+      formData.append("porcentaje_cumplido", JSON.stringify(value));
       formData.append("usuario_superior", this.serviciog.usuario.usuario_superior+"");
       formData.append("usuario_own",this.serviciog.usuario.id_usuario+"");
       this.slideval = activity.porcentaje_cumplido;

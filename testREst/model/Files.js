@@ -8,7 +8,7 @@ var repository = 'files/';
 
 
 module.exports.imageProfileUpload = function (files, path) {
- 
+
 	var file;
 
 	var result = '-1';
@@ -21,7 +21,7 @@ module.exports.imageProfileUpload = function (files, path) {
 		file = files.file;
 
 		//var fina = file.name.replace(/\s/g, "");
-		var fina = file.name = 'profile'+getExtension(file.name);
+		var fina = file.name = 'profile' + getExtension(file.name);
 
 		file.mv(path + fina, function (err) {
 			if (err) console.log("error " + err.toString());
@@ -33,9 +33,9 @@ module.exports.imageProfileUpload = function (files, path) {
 
 module.exports.fileUpload = function (files, path) {
 	var file;
-	var  name;
+	var name;
 	var result = '-1';
-console.log('REPOSITORY   ' + path);
+	console.log('REPOSITORY   ' + path);
 	if (!files) {
 		result = '0';
 		console.log("no existe archivo");
@@ -43,7 +43,7 @@ console.log('REPOSITORY   ' + path);
 	else {
 		file = files.file;
 		//var fina = file.name.replace(/\s/g, "");
-		var fina = 'project-'+file.name+getExtension(file.name);
+		var fina = 'project-' + file.name + getExtension(file.name);
 		file.mv(path + fina, function (err) {
 			if (err) console.log("error " + err.toString());
 			else console.log("carga exitosa");
@@ -52,7 +52,7 @@ console.log('REPOSITORY   ' + path);
 	}
 }
 
-function getExtension(dat){
-	var cad  = dat.split('.');
+function getExtension(dat) {
+	var cad = dat.split('.');
 	return cad[cad.length - 1];
 }

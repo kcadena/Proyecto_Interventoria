@@ -48,7 +48,8 @@ import { NewsComponentComponent } from './news-component/news-component.componen
   ],
   providers: [
     Servicios,
-    ServiciosGlobales
+    ServiciosGlobales,
+    ActividadModule
   ],
   bootstrap: [AppComponent]
 })

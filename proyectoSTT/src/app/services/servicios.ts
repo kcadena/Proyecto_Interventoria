@@ -245,6 +245,13 @@ export class Servicios {
 			.then(response => response.json())
 			.catch(err => false)
 	}
+
+	approvalPercentage(formData: FormData){
+		return this.http.post(this.url + "approvalPercentage",formData)
+			.toPromise()
+			.then(response => response.json())
+			.catch(err => false)
+	}
 	/*---------------------------*/
 
 } 

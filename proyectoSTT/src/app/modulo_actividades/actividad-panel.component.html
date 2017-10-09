@@ -87,7 +87,7 @@
 					<li (click)="c10()" [class.itemSelected]="this.serviGloAct.actOpt===10">
 						<a>Observaciones Supervisor</a>
 					</li>
-					
+
 					<!--	
 						<li (click)="c11()" [class.itemSelected]="this.serviGloAct.actOpt===11">
 						<a>Novedades</a>
@@ -101,7 +101,6 @@
 
 				<!-- Detalles - Pagina inicial de un proyecto padre -->
 				<div *ngIf="this.serviGloAct.actOpt === 0">
-					<div>{{ (9223372036854775807 + 9223372036854775807)/9223372036854775807}}</div>
 					<div *ngIf="this.serviciog.proyecto.tipo_caracteristica === 'P'">
 						<form #loginForm="ngForm" style="margin-right: 5%; margin-left: 5%;" enctype="multipart/form-data">
 							<div class="form-group">
@@ -230,8 +229,12 @@
 									<div class="form-control" style="margin-left: 4px;width: 300px">{{this.serviciog.actividad.nombre_cat}} </div>
 									<div class="form-control" id="cld" [style.background-color]='this.serviciog.actividad.color_cat' style="height:30px;width:50px"></div>
 								</div>
-								<!--  Grafica del total de beneficiarios por categoria  -->
-								<app-chart-component></app-chart-component>
+								<div *ngIf="this.serviciog.actividad.tipo !== 'Beneficiario' && this.serviciog.actividad.tipo !== 'Capitulo' && this.serviciog.actividad.tipo !== 'Actividad'"
+								 style="padding: 1px" class="form-inline form">
+									<!--  Grafica del total de beneficiarios por categoria  -->
+									<app-chart-component></app-chart-component>
+
+								</div>
 
 							</div>
 							<div *ngIf="this.serviciog.actividad.tipo != 'Actividad'">
@@ -252,13 +255,14 @@
 							<p style="display: inline-block;">0% </p>
 
 							<input #slide style="width: 450px;display: inline-block;" id="slider2" type="range" min="0" max="100" step="1" value="{{this.serviciog.actividad.porcentaje_cumplido}}"
-							 [(ngModel)]="this.serviciog.actividad.porcentaje_cumplido" (mouseup)="slideValue(this.serviciog.actividad)" />
+							 [(ngModel)]="this.serviciog.actividad.porcentaje_cumplido" (mouseup)="slideValue(this.serviciog.actividad,slide.value)"
+							/>
 
 							<p style="display: inline-block;">100% </p>
 
 							<input style="display: inline-block;margin-left: 40px;text-align: center;" type="number" name="slider" value="{{this.serviciog.actividad.porcentaje_cumplido}}"
-							 [(ngModel)]="this.serviciog.actividad.porcentaje_cumplido" max="100" min="0" (keyup)="slideValue(this.serviciog.actividad)"
-							 (mouseup)="slideValue(this.serviciog.actividad)"> % Ejecutado
+							 [(ngModel)]="this.serviciog.actividad.porcentaje_cumplido" max="100" min="0" (keyup)="slideValue(this.serviciog.actividad,slide.value)"
+							 (mouseup)="slideValue(this.serviciog.actividad,slide.value)"> % Ejecutado
 						</div>
 					</div>
 					<div *ngIf="this.serviciog.usuario.tipo_usuario != 'sup'" style="width: 80%;margin-left: 10%;margin-top: 10px">

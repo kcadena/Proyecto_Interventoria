@@ -261,7 +261,7 @@ router.post("/getFileList", (req, res, next) => {
   var fls = File.getFileList(req.body);
   fls
     .then(x => {
-      console.log(JSON.stringify(x)+'\n\n\n\n\n\n\n\n\n\n');
+      console.log(JSON.stringify(x) + '\n\n\n\n\n\n\n\n\n\n');
       if (x != false) {
         console.log("Se ha registrado correctamente el punto");
         res.header("Access-Control-Allow-Origin", "*");
@@ -660,7 +660,7 @@ router.post('/regObservacion', (req, res, next) => {
 });
 
 router.post('/updateCompletePercentage', (req, res, next) => {
-  console.log(' <=====    updateCompletePercentage     ==== >   ' + JSON.stringify(req.body));
+  console.log('\n\n\n\n\n\n\n <=====    updateCompletePercentage     ==== >   ' + JSON.stringify(req.body));
 
   var car = Characteristic.updateCompletePercentage(
     JSON.parse(req.body.actividad), JSON.parse(req.body.porcentaje_cumplido),
@@ -740,7 +740,7 @@ router.get('/downloadReport', function (req, res) {
     var data = JSON.parse(req.query.val1);
 
     armJSONReport(data).then(x => {
-      console.log('\n\n\n\n\n\n\n\n\n\n'+JSON.stringify(x)+'\n\n\n\n\n\n\n\n\n\n');
+      console.log('\n\n\n\n\n\n\n\n\n\n' + JSON.stringify(x) + '\n\n\n\n\n\n\n\n\n\n');
       //console.log('\n\n\nOKI => ' + JSON.stringify(data.grafica));
       //configuracion de template y datos a enviar al pdf 
       client.render({
@@ -770,31 +770,31 @@ router.get('/downloadReport', function (req, res) {
 
 });
 
-router.post('/getDataNovedades',(req,res)=>{
-  console.log(' <=====    get Data Novedades      ==== >   ' + JSON.stringify(req.body));
-  
-    var nov = Novedades.getDataNewsPercent(req.body);
-    nov.then(x => {
-      console.log('!!!!!!!!!!!!!Se ha retornado exitosamente las novedades!!!!!!!!!!!');
-      console.log('\n\n\n Novedades \n' + JSON.stringify(x));
-      res.header("Access-Control-Allow-Origin", "*");
-      res.json(x);
-  
-    }).catch(x => {
-      console.log('ERROR al btener novedades  =>  ' + x)
-      res.header("Access-Control-Allow-Origin", "*");
-      res.json(false);
-    });
+router.post('/getDataNovedades', (req, res) => {
+  console.log('\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\ <=====    get Data Novedades      ==== >   ' + JSON.stringify(req.body));
+
+  var nov = Novedades.getDataNewsPercent(req.body);
+  nov.then(x => {
+    console.log('!!!!!!!!!!!!!Se ha retornado exitosamente las novedades!!!!!!!!!!!');
+    console.log('\n\n\n Novedades \n' + JSON.stringify(x));
+    res.header("Access-Control-Allow-Origin", "*");
+    res.json(x);
+
+  }).catch(x => {
+    console.log('ERROR al btener novedades  =>  ' + x)
+    res.header("Access-Control-Allow-Origin", "*");
+    res.json(false);
+  });
 });
 
 router.post("/getFilesNovedades", (req, res, next) => {
-  console.log("\n\n\n\n\n\n\n\n\n\n\nget file list Novedades   ==== >   " + JSON.stringify(req.body.novedad));
-  var fls = File.getFileList(JSON.parse(req.body.novedad));
+  //console.log("\n\n\n\n\n\n\n\n\n\n\nget file list Novedades   ==== >   " + JSON.stringify(req.body));
+  var fls = File.getFilesNovedades(req.body);
   fls
     .then(x => {
-      console.log(JSON.stringify(x)+'\n\n\n\n\n\n\n\n\n\n');
+      //console.log(JSON.stringify(x)+'\n\n\n\n\n\n\n\n\n\n');
       if (x != false) {
-        console.log("Se ha obtenido la lista de archivos");
+        //console.log("Se ha obtenido la lista de archivos");
         res.header("Access-Control-Allow-Origin", "*");
         res.send(x);
       } else {
@@ -810,12 +810,28 @@ router.post("/getFilesNovedades", (req, res, next) => {
     });
 });
 
+router.post("/approvalPercentage", (req, res, next) => {
+  console.log("\n\n\n\n\n\n\n\n\n\n\n approval Percentage OKOKOK   ==== >   " + req.body.novedad);
+  var nov = Novedades.approvalPercentage(JSON.parse(req.body.novedad));
+  nov
+    .then(x => {
+        console.log("Se ha obtenido la lista de archivos");
+        res.header("Access-Control-Allow-Origin", "*");
+        res.json(x);
+    })
+    .catch(x => {
+      console.log("ERROR =>  " + x);
+      res.header("Access-Control-Allow-Origin", "*");
+      res.json(false);
+    });
+});
+
 function armJSONReport(data) {
   return new Promise((resolve, reject) => {
-   
+
     var img = data.grafica;
-    img = img.replace(/ /g,'+');
-    
+    img = img.replace(/ /g, '+');
+
     //console.log("\n\n\n\n\n\n\n\nOK   =>   " + img.length + '\n\n\n' + data.grafica.length);
     var dat = {
       "tipo": data.tipo, // PROYECTO, PROVINCIA, MUNICIPIO, RESGUARDO, BENEFICIARIO

@@ -121,6 +121,7 @@ module.exports.getFileList = function (data) {
 
 //service to get files for show novedades/news
 module.exports.getFilesNovedades = function (data) {
+    //console.log('data  >  '+JSON.stringify(data));
     var keym = data.keym;
     var id_caracteristica = data.id_caracteristica;
     var id_usuario = data.id_usuario;
@@ -135,10 +136,10 @@ module.exports.getFilesNovedades = function (data) {
             and id_usuario_car = `+ id_usuario + `
             and tipo = '`+data.tipo+`' and a.visto = false ;
         `;
-        console.log(query1);
+        //console.log(query1);
         sequelize.query(query1, { type: sequelize.QueryTypes.SELECT }).
             then(x => {
-                console.log('RESPONDE =======>    ' + JSON.stringify(x))
+                //console.log('RESPONDE =======>    ' + JSON.stringify(x))
                 resolve(x);
             }).catch(x => {
                 resolve(false);
