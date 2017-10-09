@@ -179,6 +179,7 @@ export class Mapa implements OnInit {
 			
 		}*/
 	}
+	
 
 	buscarLugar() {
 		//this.setCurrentPosition();		

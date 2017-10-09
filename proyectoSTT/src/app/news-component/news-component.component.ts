@@ -38,6 +38,7 @@ export class NewsComponentComponent implements OnInit {
 	cambio($event) {
 		this.getArchivo();
 	}
+<<<<<<< HEAD
 
 	getArchivo() {
 		this.archivos = [];
@@ -108,4 +109,30 @@ export class NewsComponentComponent implements OnInit {
 			})
 	}
 
+=======
+	cambio($event){
+ 		this.getArchivo();
+ 	}
+
+ 	getArchivo(){
+ 		this.archivos=[];
+ 		var formData = new FormData();
+
+ 		formData.append('keym',this.novedad.keym);
+ 		formData.append('id_caracteristica',this.novedad.id_caracteristica);
+ 		formData.append('id_usuario',this.novedad.id_usuario);
+ 		formData.append('tipo',this.tipo);
+
+ 		this.servicios.getMultimedia(formData)
+ 		.then(archivos => {
+ 			if(archivos){
+ 				this.archivos = archivos
+ 			}
+ 		});
+ 	}
+
+ 	public testMetod(){
+		alert("Funciona!!!!!");	
+	}
+>>>>>>> 42f95b26cac29f1807329e4e0aad495793c5ccc6
 }
