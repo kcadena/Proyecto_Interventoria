@@ -38,7 +38,7 @@ export class NewsComponentComponent implements OnInit {
 	cambio($event) {
 		this.getArchivo();
 	}
-<<<<<<< HEAD
+
 
 	getArchivo() {
 		this.archivos = [];
@@ -65,13 +65,11 @@ export class NewsComponentComponent implements OnInit {
 		formData.append('novedad', JSON.stringify(novedad));
 		this.servicios.approvalPercentage(formData)
 			.then(message => {
-				for (var i=0; i<this.novedades.length; i++)
-				{
+				for (var i = 0; i < this.novedades.length; i++) {
 					if (this.novedades[i].keym == this.novedad.keym &&
 						this.novedades[i].id_caracteristica == this.novedad.id_caracteristica &&
-						this.novedades[i].id_usuario == this.novedad.id_usuario)
-					{
-						this.novedades.splice(i,1);
+						this.novedades[i].id_usuario == this.novedad.id_usuario) {
+						this.novedades.splice(i, 1);
 						return this.novedades;
 					}
 				}
@@ -95,13 +93,11 @@ export class NewsComponentComponent implements OnInit {
 		this.servicios.regRemarks(formData)
 			.then(message => {
 				//alert(JSON.stringify(message));
-				for (var i=0; i<this.novedades.length; i++)
-				{
+				for (var i = 0; i < this.novedades.length; i++) {
 					if (this.novedades[i].keym == this.novedad.keym &&
 						this.novedades[i].id_caracteristica == this.novedad.id_caracteristica &&
-						this.novedades[i].id_usuario == this.novedad.id_usuario)
-					{
-						this.novedades.splice(i,1);
+						this.novedades[i].id_usuario == this.novedad.id_usuario) {
+						this.novedades.splice(i, 1);
 						return this.novedades;
 					}
 				}
@@ -109,30 +105,4 @@ export class NewsComponentComponent implements OnInit {
 			})
 	}
 
-=======
-	cambio($event){
- 		this.getArchivo();
- 	}
-
- 	getArchivo(){
- 		this.archivos=[];
- 		var formData = new FormData();
-
- 		formData.append('keym',this.novedad.keym);
- 		formData.append('id_caracteristica',this.novedad.id_caracteristica);
- 		formData.append('id_usuario',this.novedad.id_usuario);
- 		formData.append('tipo',this.tipo);
-
- 		this.servicios.getMultimedia(formData)
- 		.then(archivos => {
- 			if(archivos){
- 				this.archivos = archivos
- 			}
- 		});
- 	}
-
- 	public testMetod(){
-		alert("Funciona!!!!!");	
-	}
->>>>>>> 42f95b26cac29f1807329e4e0aad495793c5ccc6
 }
