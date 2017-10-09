@@ -7,11 +7,15 @@ import { ServiciosGlobales } from "../services/servicios-globales";
 import { Servicios } from "../services/servicios";
 import { ServiciosGlobalesActividades } from "./servicios-globales-actividades";
 
+
+import { NewsComponentComponent } from '../news-component/news-component.component';
+
 @Component({
   selector: "actividad-panel",
   templateUrl: "./actividad-panel.component.html",
   styleUrls: ["./actividad-panel.component.css"]
 })
+
 export class ActividadPanel implements OnInit {
   public slideval: number = 0;
   nom_act_report: string[] = [];
@@ -60,7 +64,8 @@ export class ActividadPanel implements OnInit {
     private serviciog: ServiciosGlobales,
     private serviGloAct: ServiciosGlobalesActividades,
     private router: Router,
-    private servicios: Servicios
+    private servicios: Servicios,
+    private newsModule: NewsComponentComponent
   ) { }
 
   ngOnInit(): void {

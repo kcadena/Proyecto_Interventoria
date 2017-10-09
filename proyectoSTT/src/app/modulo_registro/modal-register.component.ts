@@ -23,7 +23,7 @@ export class ModalRegister {
 		) {};
 
 
-	usuario = new Usuario(null,'','','','','','','','','','','');	
+	usuario = new Usuario(null,'','','','','','','','','','','',null);	
 	imagenName:string = "Imagen de Perfil";		
 	submit:boolean = false;
 	files:any;	

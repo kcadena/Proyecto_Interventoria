@@ -50,7 +50,10 @@ export class NewsComponentComponent implements OnInit {
  			if(archivos){
  				this.archivos = archivos
  			}
- 		})
-
+ 		});
  	}
+
+ 	public testMetod(){
+		alert("Funciona!!!!!");	
+	}
 }
