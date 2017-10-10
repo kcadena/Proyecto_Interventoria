@@ -826,6 +826,23 @@ router.post("/approvalPercentage", (req, res, next) => {
     });
 });
 
+router.post('/getTotalMessage', (req, res) => {
+  console.log('\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\ <=====    Get Total Message      ==== >   ' + JSON.stringify(req.body));
+
+  var nov = Novedades.getDataNew(req.body);
+  nov.then(x => {
+    console.log('!!!!!!!!!!!!!Se ha retornado exitosamente las novedades!!!!!!!!!!!');
+    console.log('\n\n\n Novedades \n' + JSON.stringify(x));
+    res.header("Access-Control-Allow-Origin", "*");
+    res.json(x);
+
+  }).catch(x => {
+    console.log('ERROR al btener novedades  =>  ' + x)
+    res.header("Access-Control-Allow-Origin", "*");
+    res.json(false);
+  });
+});
+
 function armJSONReport(data) {
   return new Promise((resolve, reject) => {
 

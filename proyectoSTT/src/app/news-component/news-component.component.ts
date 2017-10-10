@@ -65,6 +65,8 @@ export class NewsComponentComponent implements OnInit {
 		formData.append('novedad', JSON.stringify(novedad));
 		this.servicios.approvalPercentage(formData)
 			.then(message => {
+				this.serviciog.totalMessage = this.serviciog.totalMessage -1 ;
+				this.serviciog.messageList['percentage'] = this.serviciog.messageList['percentage'] - 1;
 				for (var i = 0; i < this.novedades.length; i++) {
 					if (this.novedades[i].keym == this.novedad.keym &&
 						this.novedades[i].id_caracteristica == this.novedad.id_caracteristica &&

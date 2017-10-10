@@ -77,3 +77,30 @@ module.exports.approvalPercentage = function (data) {
             });
     });
 }
+
+module.exports.getDataNew = function (data) {
+    var sequelize = sqlCon.configConnection();
+    console.log(data);
+    var query1 = `
+        select * from
+        (select count(id_novedad) percentage from novedades where estado = 'WAI' and visto = false) t1,
+        (select count(id_archivo) files from archivos where visto = false ) t2;
+    `;
+
+    return new Promise((resolve, reject) => {
+        sequelize
+            .query(query1, { type: sequelize.QueryTypes.SELECT })
+            .then(x => {
+                console.log("Se encontro correctamente la lista de novedades\n\n\n" + JSON.stringify(x));
+                resolve(x[0]);
+            })
+            .catch(x => {
+                console.log("NO se encontro correctamente la lista de novedades " + x);
+                reject(false);
+            })
+            .done(x => {
+                sequelize.close();
+                console.log("Se ha cerrado sesion de la conexion a la base de datos");
+            });
+    });
+}

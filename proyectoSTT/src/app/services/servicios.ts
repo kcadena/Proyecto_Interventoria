@@ -252,6 +252,16 @@ export class Servicios {
 			.then(response => response.json())
 			.catch(err => false)
 	}
+
+	//-----------  MESSAGE   -------------//
+
+	getTotalMessage(formData: FormData){
+		return this.http.post(this.url + "getTotalMessage",formData)
+			.toPromise()
+			.then(response => response.json())
+			.catch(err => false)
+	}
+
 	/*---------------------------*/
 
 } 

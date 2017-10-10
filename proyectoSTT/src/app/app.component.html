@@ -40,7 +40,7 @@
           <a class="nav-link dropdown-toggle mr-lg-2" id="alertsDropdown" href="#" data-toggle="dropdown" aria-haspopup="true" aria-expanded="true">
            
             <span style="font-size: 22px;margin-top: -2px;" class="glyphicon glyphicon-bell"> </span>
-            <span style="margin-top: -23px;padding-bottom: 5px;font-size: 12px;" class="badge badge-pill badge-warning">6</span>
+            <span *ngIf="this.serviciog.totalMessage > 0" style="margin-top: -23px;padding-bottom: 5px;font-size: 12px;" class="badge badge-pill badge-warning">{{this.serviciog.totalMessage}}</span>
             <span class="caret"></span>
             <span class="indicator text-warning d-none d-lg-block">
               <i class="fa fa-fw fa-circle"></i>
@@ -49,8 +49,24 @@
 
 
           <ul class="dropdown-menu">
-            <li><a href="#">Action</a></li>
-            <li><a href="#">Another action</a></li>
+            <li>
+              <a href="/novedades">
+                Novedades  
+                <span *ngIf="this.serviciog.totalMessage > 0" style="    margin-left: 11px;margin-top: 0px;padding-bottom: 5px;font-size: 12px;" 
+                  class="badge badge-pill badge-warning alrt">
+                  {{this.serviciog.messageList.percentage}}   
+                </span>
+              </a>
+            </li>
+            <li>
+              <a href="#">
+                Multimedia 
+                <span *ngIf="this.serviciog.totalMessage > 0" style="    margin-left: 11px;margin-top: 0px;padding-bottom: 5px;font-size: 12px;" 
+                  class="badge badge-pill badge-warning alrt">
+                  {{this.serviciog.messageList.files}}   
+                </span>
+              </a>
+            </li>
             <li><a href="#">Something else here</a></li>
             <li role="separator" class="divider"></li>
             <li><a href="#">Separated link</a></li>

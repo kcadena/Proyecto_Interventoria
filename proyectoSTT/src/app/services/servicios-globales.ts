@@ -14,7 +14,10 @@ export class ServiciosGlobales {
 	public data: number[] = [];
 	public types: string = "doughnut";
 	
-
+	
+	messageList: any[] = [];	//Tiene la lista discriminada de cuales son las novedades
+	totalMessage: number = 0;	//Muestra en la campana el total de novedaeds
+	
 	tree_name: string[] = [];
 	listDatChart: any[] = [];
 	remarks: any = [];
@@ -28,7 +31,7 @@ export class ServiciosGlobales {
 	isSubActivity: any;
 	tipo: string = 'img';
 	axActividades: any;
-
+ 
 	tipos_act = ['Proyecto', 'Proyecto', 'Provincia', 'Municipio', 'Resguardo', 'Beneficiario', 'Capitulo', 'Actividad'];
 
 	constructor(private persistenceService: PersistenceService) { }

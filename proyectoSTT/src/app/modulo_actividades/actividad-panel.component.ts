@@ -263,7 +263,7 @@ export class ActividadPanel implements OnInit {
   }
 
   tituloClick() {
-    
+
     //alert(JSON.stringify(this.serviciog.proyecto));
     this.isTitleSelected = true;
     this.serviciog.actividad = null;
@@ -330,7 +330,7 @@ export class ActividadPanel implements OnInit {
       });
       this.serviciog.listDatChart.forEach(element => {
         element = element.replace('(', '');
-       element = element.replace(')', '');
+        element = element.replace(')', '');
         var x = element.split(',');
         this.serviciog.color.push(x[0]);
 
@@ -510,7 +510,7 @@ export class ActividadPanel implements OnInit {
   //Detalles    =   Muestra informacion detallada del proyecto interno o actividad seleccionada
   c1() {
     this.serviGloAct.actOpt = 1;
-   
+
   }
   //LISTA       =   Lista de actividades => cambia nombre segun proyecto municipios resguardos beneficiario etc. 
   c2() {
@@ -674,7 +674,7 @@ export class ActividadPanel implements OnInit {
     });
   }
 
-  c11(){
+  c11() {
     this.serviGloAct.actOpt = 11;
     //alert(JSON.stringify(this.serviciog.actividad));
     if (this.isTitleSelected && this.serviciog.actividad == null)
@@ -690,11 +690,11 @@ export class ActividadPanel implements OnInit {
         id_usuario: this.serviciog.actividad.id_usuario
       };
     else
-    var dat = {
-      keym: this.serviciog.proyecto.keym,
-      id_caracteristica: this.serviciog.proyecto.id_caracteristica,
-      id_usuario: this.serviciog.proyecto.id_usuario
-    };
+      var dat = {
+        keym: this.serviciog.proyecto.keym,
+        id_caracteristica: this.serviciog.proyecto.id_caracteristica,
+        id_usuario: this.serviciog.proyecto.id_usuario
+      };
   }
 
   calculateValue(actividades) {
@@ -734,7 +734,7 @@ export class ActividadPanel implements OnInit {
   }
 
   //actualiza el valor del porcentaje cumplido cunado se cambia el valor del slider
-  slideValue(activity,value) {
+  slideValue(activity, value) {
     var perComp = activity.porcentaje_cumplido - this.slideval;
 
     if (perComp != 0) {
@@ -744,8 +744,8 @@ export class ActividadPanel implements OnInit {
       var formData = new FormData();
       formData.append("actividad", JSON.stringify(activity));
       formData.append("porcentaje_cumplido", JSON.stringify(value));
-      formData.append("usuario_superior", this.serviciog.usuario.usuario_superior+"");
-      formData.append("usuario_own",this.serviciog.usuario.id_usuario+"");
+      formData.append("usuario_superior", this.serviciog.usuario.usuario_superior + "");
+      formData.append("usuario_own", this.serviciog.usuario.id_usuario + "");
       this.slideval = activity.porcentaje_cumplido;
       this.servicios.updateCompletePercentage(formData).then(message => {
         //alert(JSON.stringify(message));
