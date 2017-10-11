@@ -50,7 +50,7 @@
 
           <ul class="dropdown-menu">
             <li>
-              <a href="/novedades">
+              <a href="/novedades" class="listNovedades">
                 Novedades  
                 <span *ngIf="this.serviciog.totalMessage > 0" style="    margin-left: 11px;margin-top: 0px;padding-bottom: 5px;font-size: 12px;" 
                   class="badge badge-pill badge-warning alrt">
@@ -59,7 +59,7 @@
               </a>
             </li>
             <li>
-              <a href="#">
+              <a (click)="goToActividadesMultimedia()" class="listNovedades" >
                 Multimedia 
                 <span *ngIf="this.serviciog.totalMessage > 0" style="    margin-left: 11px;margin-top: 0px;padding-bottom: 5px;font-size: 12px;" 
                   class="badge badge-pill badge-warning alrt">

@@ -13,10 +13,6 @@ import { Servicios } from './services/servicios';
 })
 
 export class AppComponent implements OnInit {
-
-	
-	
-
 	constructor(private servicios: Servicios, private serviciog: ServiciosGlobales, private persistenceService: PersistenceService, private router: Router) { }
 
 	ngOnInit() {
@@ -34,6 +30,10 @@ export class AppComponent implements OnInit {
 					this.serviciog.totalMessage = this.serviciog.totalMessage + parseInt(messages[prop]);
 				}
 			})
+	}
+	goToActividadesMultimedia(){
+		let link = ['actividades'];
+		this.router.navigate(link);
 	}
 
 	logout() {

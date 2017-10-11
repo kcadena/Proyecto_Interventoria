@@ -15,6 +15,7 @@ export class NewsComponentComponent implements OnInit {
 	archivos: any;
 	cad: string = '';
 	tipo: string = "img";
+	opcion:string = "porc";
 	constructor(private serviciog: ServiciosGlobales,
 		private servicios: Servicios) { }
 
@@ -38,7 +39,6 @@ export class NewsComponentComponent implements OnInit {
 	cambio($event) {
 		this.getArchivo();
 	}
-
 
 	getArchivo() {
 		this.archivos = [];
