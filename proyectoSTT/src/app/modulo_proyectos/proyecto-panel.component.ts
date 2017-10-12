@@ -21,7 +21,10 @@ export class ProyectoPanel implements OnInit{
 		){ };
 
 	ngOnInit():void { 
-		if(this.serviciog.usuario.tipo_usuario === 'sup' || [4,7].indexOf(this.serviciog.usuario.id_usuario) ){
+		
+		var id:number= Number(this.serviciog.usuario.id_usuario);
+		if([4,5,6,7,8,9,10].indexOf(id) !== -1 ){
+			
 			this.servicios.getProyecto( [5 , this.serviciog.usuario.id_usuario ] + '')
 			.then(cadena => {
 				this.serviciog.proyecto = cadena;
