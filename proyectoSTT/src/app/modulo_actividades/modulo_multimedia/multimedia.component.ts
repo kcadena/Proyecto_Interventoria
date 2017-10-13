@@ -35,7 +35,7 @@ export class Multimedia implements OnInit {
 	) { };
 
 	ngOnInit(): void {
-
+		this.serviciog.imagenes = []
 		var formData = new FormData();
 
 
@@ -64,7 +64,10 @@ export class Multimedia implements OnInit {
 		this.servicios.getMultimedia(formData)
 			.then(imagenes => {
 				if (imagenes) {
-					this.serviciog.imagenes = imagenes
+					var cad = JSON.stringify(imagenes);
+					//cad = cad.replace(/=/g,'/');
+
+					this.serviciog.imagenes = imagenes;
 				} else {
 					this.serviciog.imagenes = []
 				}

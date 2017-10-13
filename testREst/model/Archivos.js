@@ -105,12 +105,14 @@ module.exports.getFileList = function (data) {
         and id_usuario_car = `+ id_usuario + `
         and tipo = '`+data.tipo+`'  ;
                 `;
-                console.log(query1);
+                //console.log(query1);
                 sequelize.query(query1, { type: sequelize.QueryTypes.SELECT }).
                 then(x => {
-                    //console.log('RESPONDE =======>    ' + JSON.stringify(x))
+                    
                     var cad = JSON.stringify(x);
-                    resolve(    x    );
+                    cad = cad.replace(/\//g,'=');
+                    console.log('RESPONDE =======>    ' + JSON.stringify(x))
+                    resolve(x);
                 }).catch(x => {
                     reject(false);
                 }).done(x => {
