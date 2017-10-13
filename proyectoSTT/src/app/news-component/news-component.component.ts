@@ -49,6 +49,17 @@ export class NewsComponentComponent implements OnInit {
 					});
 				break;
 			case 'mul':
+				this.novedades = [];
+				var formData = new FormData();
+				formData.append("id_usuario", this.serviciog.usuario.id_usuario + "");
+				this.servicios.getDataNewRemarks(formData)
+					.then(novedades => {
+						if (novedades) {
+							alert(JSON.stringify(novedades));
+							console.log(novedades);
+							this.novedades = novedades;
+						}
+					});
 				break;
 			case 'rec':
 				this.novedades = [];
@@ -57,10 +68,12 @@ export class NewsComponentComponent implements OnInit {
 				this.servicios.getDataNewRemarks(formData)
 					.then(novedades => {
 						if (novedades) {
+							alert(JSON.stringify(novedades));
 							console.log(novedades);
 							this.novedades = novedades;
 						}
 					});
+
 				break;
 			case 'obs':
 				this.novedades = [];
@@ -77,11 +90,11 @@ export class NewsComponentComponent implements OnInit {
 		}
 	}
 
-
 	getMultimediaNovedad(novedad) {
 		this.novedad = novedad;
 		this.getArchivo();
 	}
+
 	cambio($event) {
 		this.getArchivo();
 	}

@@ -257,26 +257,26 @@ router.post("/createFile", (req, res, next) => {
 
 //Service to get list of the files
 router.post("/getFileList", (req, res, next) => {
-  console.log("\n\n\n\n\n\n\n\n\n\n\nget file list   ==== >   " + JSON.stringify(req.body));
-  var fls = File.getFileList(req.body);
-  fls
-    .then(x => {
-      console.log(JSON.stringify(x) + '\n\n\n\n\n\n\n\n\n\n');
-      if (x != false) {
-        console.log("Se ha registrado correctamente el punto");
-        res.header("Access-Control-Allow-Origin", "*");
+  console.log("\n\n\n\n\n\n\n\n============ get file list   ==== >   " + JSON.stringify(req.body));
+  res.header("Access-Control-Allow-Origin", "*");
+  
+  try{
+    var fls = File.getFileList(req.body);
+    fls.then(x => {
+      
+        console.log("\n\n\n\nSe ha obtenido los archivos  ==>   "+JSON.stringify(x));
+        
         res.send(x);
-      } else {
-        console.log("No se ha registrado el punto");
-        res.header("Access-Control-Allow-Origin", "*");
-        res.json(false);
-      }
+     
     })
     .catch(x => {
-      console.log("ERROR =>  " + x);
-      res.header("Access-Control-Allow-Origin", "*");
+      //console.log("ERROR =>  " + x);
+      //res.header("Access-Control-Allow-Origin", "*");
       res.json(false);
     });
+  }catch(e){
+    console.log("Revisar   "+e);
+  }
 });
 
 //Service to update the file information

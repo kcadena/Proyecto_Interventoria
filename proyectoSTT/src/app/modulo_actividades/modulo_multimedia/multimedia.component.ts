@@ -23,6 +23,7 @@ export class Multimedia implements OnInit {
 	archivoShow: any;
 	urlShow: SafeResourceUrl;
 	url: string;
+	
 	//current_url: SafeResourceUrl;
 	//tipo:string = "img";
 

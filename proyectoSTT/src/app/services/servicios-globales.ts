@@ -18,6 +18,9 @@ export class ServiciosGlobales {
 	messageList: any[] = [];	//Tiene la lista discriminada de cuales son las novedades
 	totalMessage: number = 0;	//Muestra en la campana el total de novedaeds
 	
+	http_str :string ='http://';
+	
+
 	tree_name: string[] = [];
 	listDatChart: any[] = [];
 	remarks: any = [];

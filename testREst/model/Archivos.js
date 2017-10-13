@@ -90,31 +90,33 @@ module.exports.create_file = function (data, files) {
 
 //Service to get files
 module.exports.getFileList = function (data) {
+    console.log('OK ');
+    var sequelize = sqlCon.configConnection();
     var keym = data.keym;
     var id_caracteristica = data.id_caracteristica;
     var id_usuario = data.id_usuario;
-
+    console.log('OK '+keym +'  '+id_caracteristica+ '  '+id_usuario);
     return new Promise((resolve, reject) => {
-        var sequelize = sqlCon.configConnection();
+        
         var query1 = `
-
-            select * from archivos a, (select val_configuracion from configuracion_inicial where id = 1) as t1
-            where keym_car = `+ keym + ` 
-            and id_caracteristica = `+ id_caracteristica + ` 
-            and id_usuario_car = `+ id_usuario + `
-            and tipo = '`+data.tipo+`'  ;
-        `;
-        console.log(query1);
-        sequelize.query(query1, { type: sequelize.QueryTypes.SELECT }).
-            then(x => {
-                console.log('RESPONDE =======>    ' + JSON.stringify(x))
-                resolve(x);
-            }).catch(x => {
-                resolve(false);
-            }).done(x => {
-                sequelize.close();
-                console.log('Se ha cerrado sesion de la conexion a la base de datos');
-            });;
+        select * from archivos a, (select val_configuracion from configuracion_inicial where id = 1) t1
+        where keym_car = `+ keym + ` 
+        and id_caracteristica = `+ id_caracteristica + ` 
+        and id_usuario_car = `+ id_usuario + `
+        and tipo = '`+data.tipo+`'  ;
+                `;
+                console.log(query1);
+                sequelize.query(query1, { type: sequelize.QueryTypes.SELECT }).
+                then(x => {
+                    //console.log('RESPONDE =======>    ' + JSON.stringify(x))
+                    var cad = JSON.stringify(x);
+                    resolve(    x    );
+                }).catch(x => {
+                    reject(false);
+                }).done(x => {
+                    sequelize.close();
+                    console.log('Se ha cerrado sesion de la conexion a la base de datos');
+                });;
     });
 
 }
