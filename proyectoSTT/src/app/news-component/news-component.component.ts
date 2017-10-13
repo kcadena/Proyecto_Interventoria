@@ -15,15 +15,16 @@ export class NewsComponentComponent implements OnInit {
 	archivos: any;
 	cad: string = '';
 	tipo: string = "img";
-	opcion:string = "porc";
+	opcion: string = "por";
 	constructor(private serviciog: ServiciosGlobales,
 		private servicios: Servicios) { }
 
 	ngOnInit() {
+		this.novedades = [];
 		console.log(this.serviciog.usuario);
 		var formData = new FormData();
 		formData.append("id_usuario", this.serviciog.usuario.id_usuario + "");
-		this.servicios.getDataNovedades(formData)
+		this.servicios.getDataNewChangePercent(formData)
 			.then(novedades => {
 				if (novedades) {
 					console.log(novedades);
@@ -31,6 +32,51 @@ export class NewsComponentComponent implements OnInit {
 				}
 			});
 	}
+
+	changeOption(option) {
+		//alert(option);
+		switch (option) {
+			case 'por':
+				this.novedades = [];
+				var formData = new FormData();
+				formData.append("id_usuario", this.serviciog.usuario.id_usuario + "");
+				this.servicios.getDataNewChangePercent(formData)
+					.then(novedades => {
+						if (novedades) {
+							console.log(novedades);
+							this.novedades = novedades;
+						}
+					});
+				break;
+			case 'mul':
+				break;
+			case 'rec':
+				this.novedades = [];
+				var formData = new FormData();
+				formData.append("id_usuario", this.serviciog.usuario.id_usuario + "");
+				this.servicios.getDataNewRemarks(formData)
+					.then(novedades => {
+						if (novedades) {
+							console.log(novedades);
+							this.novedades = novedades;
+						}
+					});
+				break;
+			case 'obs':
+				this.novedades = [];
+				var formData = new FormData();
+				formData.append("id_usuario", this.serviciog.usuario.id_usuario + "");
+				this.servicios.getDataNewObservations(formData)
+					.then(novedades => {
+						if (novedades) {
+							console.log(novedades);
+							this.novedades = novedades;
+						}
+					});
+				break;
+		}
+	}
+
 
 	getMultimediaNovedad(novedad) {
 		this.novedad = novedad;
@@ -58,6 +104,27 @@ export class NewsComponentComponent implements OnInit {
 
 	}
 
+	approvalObservation(novedad: any, state: boolean) {
+		this.novedad = novedad;
+		var formData = new FormData();
+		var dat: any = {};
+		dat.id_observacion = novedad.id_observacion;
+		dat.stateApproval = state;
+		formData.append('novedad', JSON.stringify(dat));
+		alert(JSON.stringify(dat));
+		this.servicios.approvalObservation(formData)
+			.then(message => {
+				this.serviciog.totalMessage = this.serviciog.totalMessage - 1;
+				this.serviciog.messageList['percentage'] = this.serviciog.messageList['percentage'] - 1;
+				for (var i = 0; i < this.novedades.length; i++) {
+					if (this.novedades[i].id_observacion == this.novedad.id_observacion) {
+						this.novedades.splice(i, 1);
+						return this.novedades;
+					}
+				}
+			})
+	}
+
 	approvalPercentage(novedad: any, state: boolean) {
 		this.novedad = novedad;
 		var formData = new FormData();
@@ -65,7 +132,7 @@ export class NewsComponentComponent implements OnInit {
 		formData.append('novedad', JSON.stringify(novedad));
 		this.servicios.approvalPercentage(formData)
 			.then(message => {
-				this.serviciog.totalMessage = this.serviciog.totalMessage -1 ;
+				this.serviciog.totalMessage = this.serviciog.totalMessage - 1;
 				this.serviciog.messageList['percentage'] = this.serviciog.messageList['percentage'] - 1;
 				for (var i = 0; i < this.novedades.length; i++) {
 					if (this.novedades[i].keym == this.novedad.keym &&
@@ -106,5 +173,7 @@ export class NewsComponentComponent implements OnInit {
 				//this.serviGloAct.remarks = message;
 			})
 	}
+
+
 
 }

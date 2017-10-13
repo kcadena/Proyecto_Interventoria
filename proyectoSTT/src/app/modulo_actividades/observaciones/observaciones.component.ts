@@ -34,7 +34,8 @@ export class ObservacionesComponent implements OnInit {
         id_caracteristica: this.serviciog.proyecto.id_caracteristica,
         id_usuario: this.serviciog.proyecto.id_usuario,
         usu_observacion: this.serviciog.usuario.id_usuario,
-        observacion: cad
+        observacion: cad,
+        usu_sup: this.serviciog.usuario.usuario_superior
       };
     else if (this.serviciog.actividad)
       var dat = {
@@ -42,7 +43,8 @@ export class ObservacionesComponent implements OnInit {
         id_caracteristica: this.serviciog.actividad.id_caracteristica,
         id_usuario: this.serviciog.actividad.id_usuario,
         usu_observacion: this.serviciog.usuario.id_usuario,
-        observacion: cad
+        observacion: cad,
+        usu_sup: this.serviciog.usuario.usuario_superior
       };
     else
       var dat = {
@@ -50,7 +52,8 @@ export class ObservacionesComponent implements OnInit {
         id_caracteristica: this.serviciog.proyecto.id_caracteristica,
         id_usuario: this.serviciog.proyecto.id_usuario,
         usu_observacion: this.serviciog.usuario.id_usuario,
-        observacion: cad
+        observacion: cad,
+        usu_sup: this.serviciog.usuario.usuario_superior
       };
     var formData = new FormData();
     formData.append("observacion", JSON.stringify(dat));

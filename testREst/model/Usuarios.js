@@ -154,7 +154,7 @@ module.exports.getUserList = function (data) {
 		`;
   else
     query1 = `
-		SELECT * FROM usuarios;
+		SELECT * FROM usuarios where id_usuario != 3;
 	`;
   return new Promise((resolve, reject) => {
     sequelize.query(query1, { type: sequelize.QueryTypes.SELECT })

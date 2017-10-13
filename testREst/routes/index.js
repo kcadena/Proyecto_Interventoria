@@ -594,7 +594,7 @@ router.post("/insertMarker", (req, res, next) => {
 router.post('/getRemarks', (req, res, next) => {
   console.log(' <=====    Get Remarks      ==== >   ' + JSON.stringify(req.body));
 
-  var car = Characteristic.getRemarks(JSON.parse(req.body.caracteristica), false);
+  var car = Characteristic.getRemarks(JSON.parse(req.body.caracteristica), false, false);
   car.then(x => {
     console.log('!!!!!!!!!!!!!Se ha creado exitosamente el proyecto!!!!!!!!!!!');
     console.log('\n\n\nREMARKS\n' + JSON.stringify(x));
@@ -609,9 +609,9 @@ router.post('/getRemarks', (req, res, next) => {
 });
 
 router.post('/getObservaciones', (req, res, next) => {
-  console.log(' <=====    Get Observaciones      ==== >   ' + JSON.stringify(req.body));
+  console.log(' <=====    Get All Observaciones      ==== >   ' + JSON.stringify(req.body));
 
-  var car = Characteristic.getRemarks(JSON.parse(req.body.caracteristica), true);
+  var car = Characteristic.getRemarks(JSON.parse(req.body.caracteristica), true, false);
   car.then(x => {
     console.log('!!!!!!!!!!!!!Se ha creado exitosamente el proyecto!!!!!!!!!!!');
     console.log('\n\n\n Observaciones \n' + JSON.stringify(x));
@@ -624,6 +624,24 @@ router.post('/getObservaciones', (req, res, next) => {
     res.json(false);
   });
 });
+
+router.post('/getObservacionesReport', (req, res, next) => {
+  console.log(' <=====    Get Observaciones For Report     ==== >   ' + JSON.stringify(req.body));
+
+  var car = Characteristic.getRemarks(JSON.parse(req.body.caracteristica), true, true);
+  car.then(x => {
+    console.log('!!!!!!!!!!!!!Se ha creado exitosamente el proyecto!!!!!!!!!!!');
+    console.log('\n\n\n Observaciones \n' + JSON.stringify(x));
+    res.header("Access-Control-Allow-Origin", "*");
+    res.json(x);
+
+  }).catch(x => {
+    console.log('ERROR al actualizar el porcentaje  =>  ' + x)
+    res.header("Access-Control-Allow-Origin", "*");
+    res.json(false);
+  });
+});
+
 
 router.post('/regRemarks', (req, res, next) => {
   console.log(' <=====    reg Remarks      ==== >   ' + JSON.stringify(req.body));
@@ -770,10 +788,47 @@ router.get('/downloadReport', function (req, res) {
 
 });
 
-router.post('/getDataNovedades', (req, res) => {
+router.post('/getDataNewChangePercent', (req, res) => {
   console.log('\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\ <=====    get Data Novedades      ==== >   ' + JSON.stringify(req.body));
 
-  var nov = Novedades.getDataNewsPercent(req.body);
+  var nov = Novedades.getDataNewChangePercent(req.body);
+  nov.then(x => {
+    console.log('!!!!!!!!!!!!!Se ha retornado exitosamente las novedades!!!!!!!!!!!');
+    console.log('\n\n\n Novedades \n' + JSON.stringify(x));
+    res.header("Access-Control-Allow-Origin", "*");
+    res.json(x);
+
+  }).catch(x => {
+    console.log('ERROR al btener novedades  =>  ' + x)
+    res.header("Access-Control-Allow-Origin", "*");
+    res.json(false);
+  });
+});
+
+
+//trae todas las nuevas observaciones que correspondan a un usuario
+router.post('/getDataNewObservations', (req, res) => {
+  console.log('\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\ <=====    get Data Novedades      ==== >   ' + JSON.stringify(req.body));
+
+  var nov = Novedades.getDataNewObservations(req.body,true);
+  nov.then(x => {
+    console.log('!!!!!!!!!!!!!Se ha retornado exitosamente las novedades!!!!!!!!!!!');
+    console.log('\n\n\n Novedades \n' + JSON.stringify(x));
+    res.header("Access-Control-Allow-Origin", "*");
+    res.json(x);
+
+  }).catch(x => {
+    console.log('ERROR al btener novedades  =>  ' + x)
+    res.header("Access-Control-Allow-Origin", "*");
+    res.json(false);
+  });
+});
+
+//trae todas los nuevos comentarios que correspondan a un usuario
+router.post('/getDataNewRemarks', (req, res) => {
+  console.log('\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\ <=====    get Data Novedades      ==== >   ' + JSON.stringify(req.body));
+
+  var nov = Novedades.getDataNewObservations(req.body,false);
   nov.then(x => {
     console.log('!!!!!!!!!!!!!Se ha retornado exitosamente las novedades!!!!!!!!!!!');
     console.log('\n\n\n Novedades \n' + JSON.stringify(x));
@@ -815,9 +870,25 @@ router.post("/approvalPercentage", (req, res, next) => {
   var nov = Novedades.approvalPercentage(JSON.parse(req.body.novedad));
   nov
     .then(x => {
-        console.log("Se ha obtenido la lista de archivos");
-        res.header("Access-Control-Allow-Origin", "*");
-        res.json(x);
+      console.log("Se ha obtenido la lista de archivos");
+      res.header("Access-Control-Allow-Origin", "*");
+      res.json(x);
+    })
+    .catch(x => {
+      console.log("ERROR =>  " + x);
+      res.header("Access-Control-Allow-Origin", "*");
+      res.json(false);
+    });
+});
+
+router.post("/approvalObservation", (req, res, next) => {
+  console.log("\n\n\n\n\n\n\n\n\n\n\n approval Percentage OKOKOK   ==== >   " + req.body.novedad);
+  var nov = Novedades.approvalObservation(JSON.parse(req.body.novedad));
+  nov
+    .then(x => {
+      console.log("Se ha obtenido la lista de archivos");
+      res.header("Access-Control-Allow-Origin", "*");
+      res.json(x);
     })
     .catch(x => {
       console.log("ERROR =>  " + x);
@@ -873,5 +944,6 @@ function armJSONReport(data) {
     resolve(dat);
   });
 }
+
 
 module.exports = router;

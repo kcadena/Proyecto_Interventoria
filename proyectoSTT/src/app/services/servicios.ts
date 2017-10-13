@@ -80,7 +80,7 @@ export class Servicios {
 	}
 
 	getMultimedia(formData: FormData): Promise<any> {
-		
+
 		return this.http
 			.post(this.url + "getFileList", formData)
 			.toPromise()
@@ -185,6 +185,12 @@ export class Servicios {
 			.then(response => response.json())
 			.catch(err => false)
 	}
+	getObservacionesReport(formData: FormData): Promise<any> {
+		return this.http.post(this.url + "getObservacionesReport", formData)
+			.toPromise()
+			.then(response => response.json())
+			.catch(err => false)
+	}
 
 	regRemarks(formData: FormData): Promise<any> {
 		return this.http.post(this.url + "regRemarks", formData)
@@ -232,22 +238,49 @@ export class Servicios {
 			.catch(err => false)
 	}
 	/*----Sevicios Novedades-----*/
-	getDataNovedades(formData: FormData){
-			return this.http.post(this.url + "getDataNovedades",formData)
+
+	//Envia la aceptacion o no del cambio del porcentaje que el supervisor realiza
+	approvalPercentage(formData: FormData) {
+		return this.http.post(this.url + "approvalPercentage", formData)
+			.toPromise()
+			.then(response => response.json())
+			.catch(err => false)
+	}
+	//Envia la aceptacion o no de la observacion que hace el supervisor
+	approvalObservation(formData: FormData) {
+		return this.http.post(this.url + "approvalObservation", formData)
 			.toPromise()
 			.then(response => response.json())
 			.catch(err => false)
 	}
 
-	getFilesNovedades(formData: FormData){
-		return this.http.post(this.url + "getFilesNovedades",formData)
+	//trae las lista de las actividades que cambian de porcentaje
+	getDataNewChangePercent(formData: FormData) {
+		return this.http.post(this.url + "getDataNewChangePercent", formData)
 			.toPromise()
 			.then(response => response.json())
 			.catch(err => false)
 	}
+	
+	//trae las nuevas observaciones  segun flag que tiene el usuario
+	getDataNewObservations(formData: FormData) {
+		return this.http.post(this.url + "getDataNewObservations", formData)
+			.toPromise()
+			.then(response => response.json())
+			.catch(err => false)
+	}
+	//trae las nuevas recomendaciones segun flag que tiene el usuario
+	getDataNewRemarks(formData: FormData) {
+		return this.http.post(this.url + "getDataNewRemarks", formData)
+			.toPromise()
+			.then(response => response.json())
+			.catch(err => false)
+	}
+	
 
-	approvalPercentage(formData: FormData){
-		return this.http.post(this.url + "approvalPercentage",formData)
+	//trae la multimedia archivos que tiene una actividad la cual se cambia de porcentaje
+	getFilesNovedades(formData: FormData) {
+		return this.http.post(this.url + "getFilesNovedades", formData)
 			.toPromise()
 			.then(response => response.json())
 			.catch(err => false)
@@ -255,8 +288,8 @@ export class Servicios {
 
 	//-----------  MESSAGE   -------------//
 
-	getTotalMessage(formData: FormData){
-		return this.http.post(this.url + "getTotalMessage",formData)
+	getTotalMessage(formData: FormData) {
+		return this.http.post(this.url + "getTotalMessage", formData)
 			.toPromise()
 			.then(response => response.json())
 			.catch(err => false)

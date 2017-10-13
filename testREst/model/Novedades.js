@@ -4,7 +4,7 @@ var sqlCon = require('../config/connectionDb');
 var router = express.Router();
 
 
-module.exports.getDataNewsPercent = function (data) {
+module.exports.getDataNewChangePercent = function (data) {
     var sequelize = sqlCon.configConnection();
     console.log(data);
     var query1 = `
@@ -78,6 +78,36 @@ module.exports.approvalPercentage = function (data) {
     });
 }
 
+module.exports.approvalObservation = function (data) {
+    console.log('\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n  DATA ====>    '+JSON.stringify(data));
+    var sequelize = sqlCon.configConnection();
+    var fec = new Date().toLocaleString();
+    var query1 = `
+        update observaciones set visto = true, fecha_aprovacion = '`+fec+`', aprobado = `+data.stateApproval+` 
+        where id_observacion = `+data.id_observacion+`
+    `;
+
+
+    console.log('\n\n\n\n\n  query1 ====>    '+query1+'\n\n\n');
+
+    return new Promise((resolve, reject) => {
+        sequelize
+            .query(query1, { type: sequelize.QueryTypes.SELECT })
+            .then(x => {
+                console.log("Se aprobo correctamente la observacion => " + JSON.stringify(x));
+                resolve(true);
+            })
+            .catch(x => {
+                console.log("NO se aprobo correctamente la observacion => " + x);
+                reject(false);
+            })
+            .done(x => {
+                sequelize.close();
+                console.log("Se ha cerrado sesion de la conexion a la base de datos");
+            });
+    });
+}
+
 module.exports.getDataNew = function (data) {
     var sequelize = sqlCon.configConnection();
     console.log(data);
@@ -96,6 +126,42 @@ module.exports.getDataNew = function (data) {
             })
             .catch(x => {
                 console.log("NO se encontro correctamente la lista de novedades " + x);
+                reject(false);
+            })
+            .done(x => {
+                sequelize.close();
+                console.log("Se ha cerrado sesion de la conexion a la base de datos");
+            });
+    });
+}
+
+//Trae los datos de las observaciones que hace el subordinado => supervisor para luego ser aceptadas o no
+module.exports.getDataNewObservations = function (data,reporte) {
+    var sequelize = sqlCon.configConnection();
+    console.log(data);
+    var query1 = `
+        select 
+        o.id_observacion,o.keym,o.id_caracteristica,o.id_usuario,
+        o.observacion,fecha_creacion,act.nombre nom_act,
+        act.descripcion des_act,u.nombre usu_nom, u.apellido usu_ape,u.cargo usu_cargo
+        from observaciones o left join actividades act
+        on o.keym = act.keym_car
+        and o.id_caracteristica = act.id_caracteristica
+        and o.id_usuario = act.id_usuario_car
+        join usuarios u
+        on o.usuario_own_observacion = u.id_usuario
+        where o.visto = false  and o.usu_observacion = `+data.id_usuario+` and o.reporte = `+reporte+`
+    ;`;
+
+    return new Promise((resolve, reject) => {
+        sequelize
+            .query(query1, { type: sequelize.QueryTypes.SELECT })
+            .then(x => {
+                console.log("\n\n\n\nSe encontro correctamente la lista de observaciones\n\n\n" + JSON.stringify(x));
+                resolve(x);
+            })
+            .catch(x => {
+                console.log("NO se encontro correctamente la lista de observaciones " + x);
                 reject(false);
             })
             .done(x => {
