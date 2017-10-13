@@ -170,3 +170,30 @@ module.exports.getDataNewObservations = function (data,reporte) {
             });
     });
 }
+
+
+//Trae los datos de las observaciones que hace el subordinado => supervisor para luego ser aceptadas o no
+module.exports.traerArchivos = function (data,reporte) {
+    var sequelize = sqlCon.configConnection();
+    console.log(data);
+    var query1 = `
+        select * from archivos where reporte = true;
+    ;`;
+
+    return new Promise((resolve, reject) => {
+        sequelize
+            .query(query1, { type: sequelize.QueryTypes.SELECT })
+            .then(x => {
+                console.log("\n\n\n\nSe encontro correctamente la lista de observaciones\n\n\n" + JSON.stringify(x));
+                resolve(x);
+            })
+            .catch(x => {
+                console.log("NO se encontro correctamente la lista de observaciones " + x);
+                reject(false);
+            })
+            .done(x => {
+                sequelize.close();
+                console.log("Se ha cerrado sesion de la conexion a la base de datos");
+            });
+    });
+}
