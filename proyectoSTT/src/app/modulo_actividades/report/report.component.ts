@@ -134,9 +134,12 @@ export class ReportComponent implements OnInit {
 	downloadReport() {
 		var anchor = event.target;
 		//anchor.href = document.getElementsByTagName('canvas')[0].toDataURL();
-		var imgReport : string = document.getElementsByTagName('canvas')[0].toDataURL('image/png')
-		var imgReport2 : string = document.getElementsByTagName('canvas')[1].toDataURL('image/png')
-		
+		var imgReport : string = document.getElementsByTagName('canvas')[0].toDataURL('image/png');
+		var imgReport2 : string = '';
+		try{
+			imgReport2 = document.getElementsByTagName('canvas')[1].toDataURL('image/png');
+		}catch(e){}
+		alert('OK');
 		this.msg = {
 			"tipo": this.tipo, 
 			"beneficiario": this.beneficiario,
