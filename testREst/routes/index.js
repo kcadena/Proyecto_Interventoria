@@ -750,7 +750,7 @@ router.post('/getDataChart', (req, res, next) => {
 
 var client = require("jsreport-client")("http://indicadoresacademicos.udenar.edu.co:5488", 'admin', 'password');
 router.get('/downloadReport', function (req, res) {
-  //console.log('\n\n\n\n\n\n\n\n =============   Download Report  =============\n\n' + JSON.stringify(req.query));
+  console.log('\n\n\n\n\n\n\n\n =============   Download Report  =============\n\n' + JSON.stringify(req.query));
   try {
     //res.header("Access-Control-Allow-Origin", "*");
     // res.json("goal"); 
@@ -914,11 +914,57 @@ router.post('/getTotalMessage', (req, res) => {
   });
 });
 
+/* inicio updateImageEditView*/
+router.post('/updateImageEditView', (req, res, next) => {
+  var data = JSON.parse(JSON.stringify(req.body));
+  // console.log('llama'+JSON.stringify(data));
+  // res.header("Access-Control-Allow-Origin", "*");
+  // res.json(true);
+  var fil = File.updateImageEditView((data));
+  fil.then(x => {;
+    res.header("Access-Control-Allow-Origin", "*");
+    res.json(x);
+
+  }).catch(x => {
+    res.header("Access-Control-Allow-Origin", "*");
+    res.json(false);
+  });
+});
+/* fin */
+
+
+
+/* inicio  getDataNewChangeFile*/
+router.post('/getDataNewChangeFile', (req, res) => {
+  // console.log('\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\ <=====    get Data Novedades      ==== >   ' + JSON.stringify(req.body));
+
+  var nov = Novedades.getDataNewChangeFile(req.body,true);
+  nov.then(x => {
+    // console.log('!!!!!!!!!!!!!Se ha retornado exitosamente las novedades!!!!!!!!!!!');
+    // console.log('\n\n\n Novedades \n' + JSON.stringify(x));
+    res.header("Access-Control-Allow-Origin", "*");
+    res.json(x);
+
+  }).catch(x => {
+    // console.log('ERROR al btener novedades  =>  ' + x)
+    res.header("Access-Control-Allow-Origin", "*");
+    res.json(false);
+  });
+  // console.log("\n\n\n\n\n\n\nesto es de juan:"+JSON.stringify(req.body))
+
+});
+
+/* fin */
+
+
+
 function armJSONReport(data) {
   return new Promise((resolve, reject) => {
 
     var img = data.grafica;
+    var img2 = data.grafica2;
     img = img.replace(/ /g, '+');
+    img2 = img2.replace(/ /g, '+');
 
     //console.log("\n\n\n\n\n\n\n\nOK   =>   " + img.length + '\n\n\n' + data.grafica.length);
     var dat = {
@@ -933,6 +979,7 @@ function armJSONReport(data) {
       "porcejec": data.porcejec,
       "nombre": data.nombre,
       "grafica": img,
+      "grafica2": img2,
       "imagenes": data.imagenes,
       "firmaEla": "david e",
       "nombreEla": "David Estrada",
@@ -959,19 +1006,3 @@ module.exports = router;
 
 
 
-router.post('/traerArchivos', (req, res) => {
-  console.log('\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\ <=====    get Data Novedades      ==== >   ' + JSON.stringify(req.body));
-
-  var nov = Novedades.traerArchivos(req.body);
-  nov.then(x => {
-    console.log('!!!!!!!!!!!!!Se ha retornado exitosamente las novedades!!!!!!!!!!!');
-    console.log('\n\n\n Novedades \n' + JSON.stringify(x));
-    res.header("Access-Control-Allow-Origin", "*");
-    res.json(x);
-
-  }).catch(x => {
-    console.log('ERROR al btener novedades  =>  ' + x)
-    res.header("Access-Control-Allow-Origin", "*");
-    res.json(false);
-  });
-});

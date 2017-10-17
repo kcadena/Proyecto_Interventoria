@@ -173,27 +173,47 @@ module.exports.getDataNewObservations = function (data,reporte) {
 
 
 //Trae los datos de las observaciones que hace el subordinado => supervisor para luego ser aceptadas o no
-module.exports.traerArchivos = function (data,reporte) {
+module.exports.getDataNewChangeFile = function (data,reporte) {
     var sequelize = sqlCon.configConnection();
     console.log(data);
     var query1 = `
-        select * from archivos where reporte = true;
+    select 
+    ar.id_archivo,
+    ar.nombre_archivo,
+    ar.titulo,
+    ar.descripcion,
+    ar.fecha_creacion,
+    ar."srcServ", 
+    act.nombre nom_act,
+    act.descripcion des_act,
+    u.nombre usu_nom, 
+    u.apellido usu_ape,
+    u.cargo usu_cargo,
+    concat('http://localhost:81/',ar."srcServ",ar.nombre_archivo) link
+    from archivos ar 
+    left join actividades act
+    on ar.keym_car = act.keym_car
+    and ar.id_caracteristica = act.id_caracteristica
+    and ar.id_usuario_car = act.id_usuario_car
+    join usuarios u
+    on ar.id_usuario_arc= u.id_usuario
+    where ar.visto = false  and ar.id_usuario_arc = `+data.id_usuario+ ` and ar.reporte = `+reporte+` 
     ;`;
 
     return new Promise((resolve, reject) => {
         sequelize
             .query(query1, { type: sequelize.QueryTypes.SELECT })
             .then(x => {
-                console.log("\n\n\n\nSe encontro correctamente la lista de observaciones\n\n\n" + JSON.stringify(x));
+                // console.log("\n\n\n\nSe encontro correctamente la lista de observaciones\n\n\n" + JSON.stringify(x));
                 resolve(x);
             })
             .catch(x => {
-                console.log("NO se encontro correctamente la lista de observaciones " + x);
+                // console.log("NO se encontro correctamente la lista de observaciones " + x);
                 reject(false);
             })
             .done(x => {
                 sequelize.close();
-                console.log("Se ha cerrado sesion de la conexion a la base de datos");
+                // console.log("Se ha cerrado sesion de la conexion a la base de datos");
             });
     });
 }

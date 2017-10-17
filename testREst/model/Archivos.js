@@ -95,30 +95,30 @@ module.exports.getFileList = function (data) {
     var keym = data.keym;
     var id_caracteristica = data.id_caracteristica;
     var id_usuario = data.id_usuario;
-    console.log('OK '+keym +'  '+id_caracteristica+ '  '+id_usuario);
+    console.log('OK ' + keym + '  ' + id_caracteristica + '  ' + id_usuario);
     return new Promise((resolve, reject) => {
-        
+
         var query1 = `
         select * from archivos a, (select val_configuracion from configuracion_inicial where id = 1) t1
         where keym_car = `+ keym + ` 
         and id_caracteristica = `+ id_caracteristica + ` 
         and id_usuario_car = `+ id_usuario + `
-        and tipo = '`+data.tipo+`'  ;
+        and tipo = '`+ data.tipo + `'  ;
                 `;
-                //console.log(query1);
-                sequelize.query(query1, { type: sequelize.QueryTypes.SELECT }).
-                then(x => {
-                    
-                    var cad = JSON.stringify(x);
-                    cad = cad.replace(/\//g,'=');
-                    console.log('RESPONDE =======>    ' + JSON.stringify(x))
-                    resolve(x);
-                }).catch(x => {
-                    reject(false);
-                }).done(x => {
-                    sequelize.close();
-                    console.log('Se ha cerrado sesion de la conexion a la base de datos');
-                });;
+        //console.log(query1);
+        sequelize.query(query1, { type: sequelize.QueryTypes.SELECT }).
+            then(x => {
+
+                var cad = JSON.stringify(x);
+                cad = cad.replace(/\//g, '=');
+                console.log('RESPONDE =======>    ' + JSON.stringify(x))
+                resolve(x);
+            }).catch(x => {
+                reject(false);
+            }).done(x => {
+                sequelize.close();
+                console.log('Se ha cerrado sesion de la conexion a la base de datos');
+            });;
     });
 
 }
@@ -138,7 +138,7 @@ module.exports.getFilesNovedades = function (data) {
             where keym_car = `+ keym + ` 
             and id_caracteristica = `+ id_caracteristica + ` 
             and id_usuario_car = `+ id_usuario + `
-            and tipo = '`+data.tipo+`' and a.visto = false ;
+            and tipo = '`+ data.tipo + `' and a.visto = false ;
         `;
         //console.log(query1);
         sequelize.query(query1, { type: sequelize.QueryTypes.SELECT }).
@@ -212,6 +212,7 @@ module.exports.fileUpload = function (files, path, nom) {
 }
 
 
+
 //===========     Auxiliar Funcions     =================//
 
 // Join IDs to create the name
@@ -260,3 +261,41 @@ function getIdFreeFile(keym, id_usuario, nombre) {
             });
     });
 }
+
+/* ------------updateImageEditView---------- */
+module.exports.updateImageEditView = function (data) {
+    var sequelize = sqlCon.configConnection();
+    var d = JSON.parse(data.img_edit) 
+    console.log('\n\n\n\nasasas >>>>> '+ JSON.stringify(d[0]));
+    var q ='';
+    for (var i = 0; i< d.length; i++) {
+        var query1 = `
+        UPDATE archivos SET 
+        reporte = TRUE
+        WHERE keym_arc = `+ d[i].keym_arc +
+            ` AND id_archivo =  ` + d[i].id_archivo +
+            ` AND id_usuario_arc = ` + d[i].id_usuario_arc + `;
+        `;
+        q=q+query1;
+    }
+    
+
+    console.log('query >>>>>>>>>>>> '+ q)
+    return new Promise((resolve, reject) => {
+        sequelize
+            .query(q, { type: sequelize.QueryTypes.SELECT })
+            .then(x => {
+                console.log("\n\n\n\nSe encontro correctamente la lista de observaciones\n\n\n" + JSON.stringify(x));
+                resolve(x);
+            })
+            .catch(x => {
+                console.log("NO se encontro correctamente la lista de observaciones " + x);
+                reject(false);
+            })
+            .done(x => {
+                sequelize.close();
+                console.log("Se ha cerrado sesion de la conexion a la base de datos");
+            });
+    }); 
+}
+/* -------------------------------------- */

@@ -261,7 +261,16 @@ export class Servicios {
 			.then(response => response.json())
 			.catch(err => false)
 	}
-	
+
+	/* inicio metodo para traer los archivo mostrar */
+	getDataNewChangeFile(formData: FormData) {
+		return this.http.post(this.url + "getDataNewChangeFile", formData)
+			.toPromise()
+			.then(response => response.json())
+			.catch(err => false)
+	}
+	/* end metodo files  */
+
 	//trae las nuevas observaciones  segun flag que tiene el usuario
 	getDataNewObservations(formData: FormData) {
 		return this.http.post(this.url + "getDataNewObservations", formData)
@@ -297,4 +306,14 @@ export class Servicios {
 
 	/*---------------------------*/
 
+	/* --------------update report en archivo----------------- */
+	updateImageEditView(formData: FormData) {
+		// alert('si invoca')
+		return this.http.post(this.url + "updateImageEditView", formData)
+			.toPromise()
+			.then(response => response.json())
+			.catch(err => false)
+	}
+
+	/* ---------------------------------------- */
 } 

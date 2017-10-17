@@ -132,10 +132,11 @@ export class ReportComponent implements OnInit {
 	} 
 
 	downloadReport() {
-
 		var anchor = event.target;
 		//anchor.href = document.getElementsByTagName('canvas')[0].toDataURL();
 		var imgReport : string = document.getElementsByTagName('canvas')[0].toDataURL('image/png')
+		var imgReport2 : string = document.getElementsByTagName('canvas')[1].toDataURL('image/png')
+		
 		this.msg = {
 			"tipo": this.tipo, 
 			"beneficiario": this.beneficiario,
@@ -154,6 +155,7 @@ export class ReportComponent implements OnInit {
 			"nombre": this.nombre,
 			"observaciones": this.observaciones,
 			"grafica" : imgReport,
+			"grafica2" : imgReport2,
 			"imagenes" : this.images
 		};
 		console.log(this.msg);
@@ -163,6 +165,7 @@ export class ReportComponent implements OnInit {
 		var xml = new XMLHttpRequest();
 		url = 'http://localhost:81/downloadReport' + '?val1=' + JSON.stringify(this.msg);
 		window.open(url, '_blank');
-	}
 
+	}	
+		
 }

@@ -48,19 +48,21 @@ export class NewsComponentComponent implements OnInit {
 						}
 					});
 				break;
+			/* se realiza en caso de que la opcion sea multimedia */
 			case 'mul':
-				this.novedades = [];
-				var formData = new FormData();
-				formData.append("id_usuario", this.serviciog.usuario.id_usuario + "");
-				this.servicios.getDataNewRemarks(formData)
-					.then(novedades => {
-						if (novedades) {
-							alert(JSON.stringify(novedades));
-							console.log(novedades);
-							this.novedades = novedades;
+				this.novedades = []; /* arreglo que contendra todos los archivos a traer */
+				var formData = new FormData(); /* variable que contendra todos los datos a enviarse al server */
+				formData.append("id_usuario", this.serviciog.usuario.id_usuario + "");/* se carga formData  */
+				this.servicios.getDataNewChangeFile(formData) /* llamdo al metodo que se conectara con el server */
+					.then(files => {
+						if (files) {
+							alert(JSON.stringify(files));
+							// console.log(files);
+							this.novedades = files;
 						}
 					});
 				break;
+			/* end multimedia */
 			case 'rec':
 				this.novedades = [];
 				var formData = new FormData();

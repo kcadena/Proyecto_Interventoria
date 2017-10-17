@@ -56,6 +56,9 @@ export class Multimedia implements OnInit {
 		};
 		var tipo = 'img';
 
+		var id = this.serviciog.usuario;
+		// alert(id);
+
 		formData.append('keym', keym);
 		formData.append('id_caracteristica', id_caracteristica);
 		formData.append('id_usuario', id_usuario);
@@ -65,7 +68,7 @@ export class Multimedia implements OnInit {
 			.then(imagenes => {
 				if (imagenes) {
 					var cad = JSON.stringify(imagenes);
-					//cad = cad.replace(/=/g,'/');
+					// cad = cad.replace(/=/g,'/');
 
 					this.serviciog.imagenes = imagenes;
 				} else {
@@ -80,11 +83,12 @@ export class Multimedia implements OnInit {
 		img.isViewMap = !img.isViewMap;
 		var sss = this.imagenEditView.findIndex(x => x === img);
 
-		if (sss => 0) {
+		if (sss >= 0) {
 			this.imagenEditView.splice(sss, 1)
 		} else {
 			this.imagenEditView.push(img);
 		}
+
 
 	}
 
@@ -134,8 +138,18 @@ export class Multimedia implements OnInit {
 	envioCambios() {
 		this.isMapSelected = false;
 		this.isRepSelected = false;
+		// alert('aaaaaaaaaaa >>>>>>'+ this.imagenEditView.length);
 		if (this.imagenEditView.length > 0) {
-			alert("Cambios Actualizados");
+			// alert(JSON.stringify(this.imagenEditView))
+			var formData = new FormData(); /* variable que contendra todos los datos a enviarse al server */
+			formData.append("img_edit", JSON.stringify(this.imagenEditView));/* se carga formData  */
+			this.servicios.updateImageEditView(formData) /* llamdo al metodo que se conectara con el server */
+				.then(x => {
+					if (x) {  
+						alert("Cambios Actualizados");
+					}
+				});
+			
 		} else {
 			alert("No se realizaron Cambios");
 		}
