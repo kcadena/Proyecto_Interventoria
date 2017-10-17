@@ -197,7 +197,7 @@ module.exports.getDataNewChangeFile = function (data,reporte) {
     and ar.id_usuario_car = act.id_usuario_car
     join usuarios u
     on ar.id_usuario_arc= u.id_usuario
-    where ar.visto = false  and ar.id_usuario_arc = `+data.id_usuario+ ` and ar.reporte = `+reporte+` 
+    where ar.visto = false  and u.usuario_superior = `+data.id_usuario+ ` and ar.reporte = false 
     ;`;
 
     return new Promise((resolve, reject) => {

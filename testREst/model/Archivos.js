@@ -56,7 +56,7 @@ module.exports.create_file = function (data, files) {
                         '`+ subtitulo + `',
                         '`+ descripcion + `',
                         '`+ contenido + `',
-                        '`+ fecha_creacion + `',
+                        now(),
                         '`+ fecha_ultima_modificacion + `',
                         `+ publicacion + `,
                         '`+ tipo + `',

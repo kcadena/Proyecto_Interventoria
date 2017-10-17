@@ -56,8 +56,9 @@ export class NewsComponentComponent implements OnInit {
 				this.servicios.getDataNewChangeFile(formData) /* llamdo al metodo que se conectara con el server */
 					.then(files => {
 						if (files) {
-							alert(JSON.stringify(files));
-							// console.log(files);
+							//alert(JSON.stringify(files));
+							//alert(JSON.stringify(files));
+							 console.log(files);
 							this.novedades = files;
 						}
 					});
@@ -70,7 +71,7 @@ export class NewsComponentComponent implements OnInit {
 				this.servicios.getDataNewRemarks(formData)
 					.then(novedades => {
 						if (novedades) {
-							alert(JSON.stringify(novedades));
+							//alert(JSON.stringify(novedades));
 							console.log(novedades);
 							this.novedades = novedades;
 						}
