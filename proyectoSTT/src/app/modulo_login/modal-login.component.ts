@@ -40,6 +40,7 @@ export class Modallogin {
 			usuario =>
 			{
 				if(usuario){
+					this.serviciog.socket.emit('newUser',usuario.id_usuario);
 					this.serviciog.getUserSession(usuario);
 					let link = ['administrador'];
 					this.router.navigate(link);
