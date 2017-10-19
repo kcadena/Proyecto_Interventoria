@@ -10,6 +10,7 @@ import { RemarksComponent } from '../modulo_actividades/remarks/remarks.componen
 
 })
 export class NewsComponentComponent implements OnInit {
+	pic : string = '';
 	novedades: any;
 	novedad: any;
 	archivos: any;
@@ -189,7 +190,5 @@ export class NewsComponentComponent implements OnInit {
 				//this.serviGloAct.remarks = message;
 			})
 	}
-
-
 
 }

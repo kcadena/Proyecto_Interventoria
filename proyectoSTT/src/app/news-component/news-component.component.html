@@ -44,8 +44,8 @@
 		<table *ngIf="this.opcion == 'mul'" class="tableBodyScroll  table table-striped ">
 			<thead>
 				<tr>
-					<th style="width: 20%">Titulo</th>
-					<th style="width: 30%">Descripción</th>
+					<th style="width: 30%">Nombre</th>
+					<th style="width: 20%">Nombre Archivo</th>
 					<th style="width: 10%">Fecha de Carga</th>
 					<th style="width: 15%">Usuario</th>
 					<th style="width: 25%"></th>
@@ -54,13 +54,16 @@
 
 			<tbody>
 				<tr *ngFor="let novedad of this.novedades" class="fila">
-					<td style="width: 20%" data-toggle="modal" data-target="#mod-mul-map">{{novedad.titulo}}</td>
-					<td style="width: 30%">{{novedad.descripcion}}</td>
+					<td style="width: 30%">{{novedad.nombre}}</td>
+					<td style="width: 20%">{{novedad.titulo}}</td>
 					<td style="width: 10%">{{novedad.fecha_creacion | date:'fullDate' | uppercase}}</td>
 					<td style="width: 15%">{{novedad.usu_nom | uppercase}} {{novedad.usu_ape | uppercase}}</td>
 					<td style="width: 25%">
 						<!-- <a href={{novedad.link}} target="_blank">{{novedad.nombre_archivo}}</a> -->
-						<img alt='img'  class="img-responsive" style="margin-top:-10px;width:100px;height:100px" src= {{novedad.link}}>
+						<img alt='img'  class="img-responsive" 
+						style="margin-top:0px;width:100px;height:100px" 
+						data-toggle="modal" data-target="#mod-pic-map"
+						src= {{novedad.link}} (click)='this.pic=novedad.link'>
 					</td>
 				</tr>
 			</tbody>
@@ -257,6 +260,26 @@
 							<h3>Otros Archivos</h3>
 						</div>
 
+
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+
+	<!-- Modal que muestra la imagen ampliada  -->
+	<div id="mod-pic-map" class="modal fade" role="dialog">
+		<div class="modal-dialog" style="vertical-align: middle;width: 95%;margin-top: 50px;">
+			<!-- Modal content-->
+			<div class="modal-content" style="min-height: 87vh;">
+				<div class="modal-body" style="height:auto">
+
+					<div style="margin-top:10px;margin-right:20px">
+						<button type="button" class="close" data-dismiss="modal">×</button>
+					</div>
+					<div style="width:90%" class="center-block">
+
+						<img alt={{this.pic}}  class="img-responsive" style="position: relative;margin-top:5%;width:90%;height:90%" src= {{this.pic}}>
 
 					</div>
 				</div>
