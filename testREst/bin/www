@@ -37,18 +37,23 @@ io.on('connection',(socket) =>{
   });
   //nuevo usuario
   socket.on('newUser',(idUser) => {
-    if(idUser in userList){
+    userList[idUser]=socket; //guarda usuarios
+    console.log(userList);
 
-    }else{
-      userList[idUser]=socket; //guarda usuarios
-    }
   });
-  //
+  //enviar novedad
   socket.on('sendSocketNovedad',(data) => {
     userSend = data.userSend;
     tipo = data.tipo;
     socket1 = userList[userSend];
-    socket1.emit('alert',tipo);
+    if(socket1)
+      socket1.emit('alert',tipo);
+  });
+  //delete users
+  socket.on('delUser',(idUser) => {
+    userList[idUser]=null; //guarda usuarios
+    console.log(userList);
+
   });
   //desconectar
   socket.on('disconnect',() => {

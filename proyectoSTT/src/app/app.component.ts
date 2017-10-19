@@ -16,11 +16,17 @@ export class AppComponent implements OnInit {
 	constructor(private servicios: Servicios, private serviciog: ServiciosGlobales, private persistenceService: PersistenceService, private router: Router) { }
 
 	ngOnInit() {
+		
 		/* comumir socket service */
 		this.serviciog.socket.on('Hello',(data) => {
 			// alert(JSON.stringify(data));
 		});
 		this.serviciog.socket.on('alert',(data) => {
+			//alert(JSON.stringify(data));
+			var audio = new Audio();
+			audio.src = '../assets/campana.mp3'
+			audio.load();
+			audio.play();
 			alert(JSON.stringify(data));
 		});
 		
@@ -50,5 +56,6 @@ export class AppComponent implements OnInit {
 		this.serviciog.usuario = this.persistenceService.get('user', StorageType.SESSION);
 		let link = [''];
 		this.router.navigate(link);
+		this.serviciog.socket.emit('delUser',this.serviciog.usuario.id_usuario);
 	}
 }
