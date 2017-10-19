@@ -76,6 +76,9 @@ export class ActividadPanel implements OnInit {
     this.serviGloAct.actOpt = 0;
     this.serviciog.tree_name = [];
 
+    this.listTypes = [];
+    this.serviGloAct.observaciones = [];
+
     if (this.serviciog.usuario.tipo_usuario === "sup") this.flg = false;
 
 

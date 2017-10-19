@@ -44,15 +44,15 @@
 			</td>
 			<td class="tg-yw4l">{{this.cedula}}</td>
 		</tr>
-		<tr *ngIf="this.tipNum>=1" class="ocultablePr">
+		<tr *ngIf="this.tipNum>1" class="ocultablePr">
 			<td class="tg-2nhx">PROVINCIA</td>
 			<td class="tg-yw4l" colspan="3">{{this.provincia | uppercase}}</td>
 		</tr>
-		<tr *ngIf="this.tipNum>=2" class="ocultablePr ocultableVi ">
+		<tr *ngIf="this.tipNum>2" class="ocultablePr ocultableVi ">
 			<td class="tg-2nhx">MUNICIPIO</td>
 			<td class="tg-yw4l" colspan="3">{{this.municipio | uppercase}}</td>
 		</tr>
-		<tr *ngIf="this.tipNum>=3" class="ocultablePr ocultableVi ocultableMu">
+		<tr *ngIf="this.tipNum>3" class="ocultablePr ocultableVi ocultableMu">
 			<td class="tg-2nhx">RESGUARDO</td>
 			<td class="tg-yw4l" colspan="3">{{this.resguardo | uppercase}}</td>
 		</tr>

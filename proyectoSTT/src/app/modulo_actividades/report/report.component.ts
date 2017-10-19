@@ -16,7 +16,7 @@ import * as moment from 'moment';
 export class ReportComponent implements OnInit {
 
 	public today: number = Date.now();
-	images : any [] =[];
+	images: any[] = [];
 	msg: any;
 	public chartLabels: string[] = ["EJECUTADO", "NO EJECUTADO"];
 	tipNum: number = 0;
@@ -54,7 +54,7 @@ export class ReportComponent implements OnInit {
 	@Input() nombreApr: string = '';
 	@Input() cargoApr: string = '';
 
-	
+
 
 
 	constructor(
@@ -69,76 +69,76 @@ export class ReportComponent implements OnInit {
 		this.tipNum = 0;
 		this.chartLabels = ["EJECUTADO " + this.porcejec + ' %', "NO EJECUTADO " + (100 - parseFloat(this.porcejec)) + ' %'];
 
-		
-  
+
+
 		switch (this.tipo.toUpperCase()) {
 			case 'BENEFICIARIO':
-			this.tipNum = 4;
-			break;
+				this.tipNum = 4;
+				break;
 			case 'RESGUARDO':
-			this.tipNum = 3;
-			break;
+				this.tipNum = 3;
+				break;
 			case 'MUNICIPIO':
-			this.tipNum = 2;
-			break;
+				this.tipNum = 2;
+				break;
 			case 'PROVINCIA':
-			this.tipNum = 1;
-			break;
+				this.tipNum = 1;
+				break;
 		}
 		if (this.isTitleSelected && this.serviciog.actividad == null)
-		var dat = {
-		  keym: this.serviciog.proyecto.keym,
-		  id_caracteristica: this.serviciog.proyecto.id_caracteristica,
-		  id_usuario: this.serviciog.proyecto.id_usuario,
-		  tipo: this.serviciog.proyecto.tipo
-		};
-	  else if (this.serviciog.actividad)
-		var dat = {
-		  keym: this.serviciog.actividad.keym,
-		  id_caracteristica: this.serviciog.actividad.id_caracteristica,
-		  id_usuario: this.serviciog.actividad.id_usuario,
-		  tipo: this.serviciog.actividad.tipo
-		};
-	  else
-		var dat = {
-		  keym: this.serviciog.proyecto.keym,
-		  id_caracteristica: this.serviciog.proyecto.id_caracteristica,
-		  id_usuario: this.serviciog.proyecto.id_usuario,
-		  tipo: this.serviciog.proyecto.tipo
-		};
+			var dat = {
+				keym: this.serviciog.proyecto.keym,
+				id_caracteristica: this.serviciog.proyecto.id_caracteristica,
+				id_usuario: this.serviciog.proyecto.id_usuario,
+				tipo: this.serviciog.proyecto.tipo
+			};
+		else if (this.serviciog.actividad)
+			var dat = {
+				keym: this.serviciog.actividad.keym,
+				id_caracteristica: this.serviciog.actividad.id_caracteristica,
+				id_usuario: this.serviciog.actividad.id_usuario,
+				tipo: this.serviciog.actividad.tipo
+			};
+		else
+			var dat = {
+				keym: this.serviciog.proyecto.keym,
+				id_caracteristica: this.serviciog.proyecto.id_caracteristica,
+				id_usuario: this.serviciog.proyecto.id_usuario,
+				tipo: this.serviciog.proyecto.tipo
+			};
 
 		this.serviciog.imagenes = [];
 		var formData = new FormData();
-		formData.append('keym',dat.keym);
-		formData.append('id_caracteristica',dat.id_caracteristica);
-		formData.append('id_usuario',dat.id_usuario);
-		formData.append('tipo',this.serviciog.tipo);
+		formData.append('keym', dat.keym);
+		formData.append('id_caracteristica', dat.id_caracteristica);
+		formData.append('id_usuario', dat.id_usuario);
+		formData.append('tipo', this.serviciog.tipo);
 
 		this.servicios.getMultimedia(formData)
-		.then(imagenes => {
-			if(imagenes){
-				this.serviciog.imagenes = imagenes;
-				imagenes.forEach(element => {
-					
-					this.images.push({ 'nombre': element.subtitulo , 'url' : element.val_configuracion+element.srcServ+element.nombre_archivo});
-					//val_configuracion+srcServ+nombre_archivo
-					
-				});
-			}else{
-				this.serviciog.imagenes = []
-			}
-			//alert(JSON.stringify(this.images));
-		});	
-	} 
+			.then(imagenes => {
+				if (imagenes) {
+					this.serviciog.imagenes = imagenes;
+					imagenes.forEach(element => {
+
+						this.images.push({ 'nombre': element.subtitulo, 'url': element.val_configuracion + element.srcServ + element.nombre_archivo });
+						//val_configuracion+srcServ+nombre_archivo
+
+					});
+				} else {
+					this.serviciog.imagenes = []
+				}
+				//alert(JSON.stringify(this.images));
+			});
+	}
 
 	downloadReport() {
 		var anchor = event.target;
 		//anchor.href = document.getElementsByTagName('canvas')[0].toDataURL();
-		var imgReport : string = document.getElementsByTagName('canvas')[0].toDataURL('image/png')
-		var imgReport2 : string = document.getElementsByTagName('canvas')[1].toDataURL('image/png')
-		
+		var imgReport: string = document.getElementsByTagName('canvas')[0].toDataURL('image/png')
+		var imgReport2: string = document.getElementsByTagName('canvas')[1].toDataURL('image/png')
+
 		this.msg = {
-			"tipo": this.tipo, 
+			"tipo": this.tipo,
 			"beneficiario": this.beneficiario,
 			"cedula": this.cedula,
 			"provincia": this.provincia,
@@ -154,9 +154,9 @@ export class ReportComponent implements OnInit {
 			"cargoApr": this.cargoApr,
 			"nombre": this.nombre,
 			"observaciones": this.observaciones,
-			"grafica" : imgReport,
-			"grafica2" : imgReport2,
-			"imagenes" : this.images
+			"grafica": imgReport,
+			"grafica2": imgReport2,
+			"imagenes": this.images
 		};
 		console.log(this.msg);
 
@@ -166,6 +166,6 @@ export class ReportComponent implements OnInit {
 		url = 'http://localhost:81/downloadReport' + '?val1=' + JSON.stringify(this.msg);
 		window.open(url, '_blank');
 
-	}	
-		
+	}
+
 }

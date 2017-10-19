@@ -265,22 +265,22 @@ function getIdFreeFile(keym, id_usuario, nombre) {
 /* ------------updateImageEditView---------- */
 module.exports.updateImageEditView = function (data) {
     var sequelize = sqlCon.configConnection();
-    var d = JSON.parse(data.img_edit) 
-    console.log('\n\n\n\nasasas >>>>> '+ JSON.stringify(d[0]));
-    var q ='';
-    for (var i = 0; i< d.length; i++) {
+    var d = JSON.parse(data.img_edit)
+    console.log('\n\n\n\nasasas >>>>> ' + JSON.stringify(d[0]));
+    var q = '';
+    for (var i = 0; i < d.length; i++) {
         var query1 = `
         UPDATE archivos SET 
-        reporte = TRUE
+        reporte =` + d[i].reporte + `
         WHERE keym_arc = `+ d[i].keym_arc +
             ` AND id_archivo =  ` + d[i].id_archivo +
             ` AND id_usuario_arc = ` + d[i].id_usuario_arc + `;
         `;
-        q=q+query1;
+        q = q + query1;
     }
-    
 
-    console.log('query >>>>>>>>>>>> '+ q)
+
+    console.log('query >>>>>>>>>>>> ' + q)
     return new Promise((resolve, reject) => {
         sequelize
             .query(q, { type: sequelize.QueryTypes.SELECT })
@@ -296,6 +296,6 @@ module.exports.updateImageEditView = function (data) {
                 sequelize.close();
                 console.log("Se ha cerrado sesion de la conexion a la base de datos");
             });
-    }); 
+    });
 }
 /* -------------------------------------- */
