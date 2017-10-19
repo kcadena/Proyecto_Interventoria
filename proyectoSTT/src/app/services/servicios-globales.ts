@@ -1,7 +1,7 @@
 import { Injectable } from '@angular/core';
 import { Usuario } from '../model/usuario';
 import { PersistenceService, StorageType } from 'angular-persistence';
-
+import * as io from 'socket.io-client';
 
 
 @Injectable()
@@ -34,6 +34,10 @@ export class ServiciosGlobales {
 	isSubActivity: any;
 	tipo: string = 'img';
 	axActividades: any;
+
+	/* variables del soket */
+	socket = io.connect(this.servidor);
+	/* ---------------------------- */
  
 	tipos_act = ['Proyecto', 'Proyecto', 'Provincia', 'Municipio', 'Resguardo', 'Beneficiario', 'Capitulo', 'Actividad'];
 

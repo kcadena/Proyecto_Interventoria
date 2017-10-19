@@ -16,6 +16,11 @@ export class AppComponent implements OnInit {
 	constructor(private servicios: Servicios, private serviciog: ServiciosGlobales, private persistenceService: PersistenceService, private router: Router) { }
 
 	ngOnInit() {
+		/* comumir socket service */
+		this.serviciog.socket.on('Hello',(data) => {
+			alert(JSON.stringify(data));
+		});
+		/* --------------------- */
 		this.serviciog.usuario = this.persistenceService.get('user', StorageType.SESSION);
 		//get Number Total Messages 
 		var formData = new FormData();
