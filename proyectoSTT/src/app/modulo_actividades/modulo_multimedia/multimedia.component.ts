@@ -19,11 +19,12 @@ export class Multimedia implements OnInit {
 
 	isMapSelected: boolean = false;
 	isRepSelected: boolean = false;
-	imagenEditView: any[] = [];
+	imagenEditView: any[] = []; // arreglo imagenes a agregar al reporte
+	imagenEditViewDel: any[] = []; //arreglo imagenes a eliminar del reporte
 	archivoShow: any;
 	urlShow: SafeResourceUrl;
 	url: string;
-	
+
 	//current_url: SafeResourceUrl;
 	//tipo:string = "img";
 
@@ -67,6 +68,7 @@ export class Multimedia implements OnInit {
 		this.servicios.getMultimedia(formData)
 			.then(imagenes => {
 				if (imagenes) {
+					alert(JSON.stringify(imagenes))
 					var cad = JSON.stringify(imagenes);
 					// cad = cad.replace(/=/g,'/');
 
@@ -78,18 +80,16 @@ export class Multimedia implements OnInit {
 	}
 
 	checked(imagen) {
-		var img = imagen;
+		// var img = imagen;
 
-		img.isViewMap = !img.isViewMap;
-		var sss = this.imagenEditView.findIndex(x => x === img);
-
+		imagen.reporte = !imagen.reporte;
+		var sss = this.imagenEditView.findIndex(x => x === imagen);
+		alert(sss);
 		if (sss >= 0) {
 			this.imagenEditView.splice(sss, 1)
 		} else {
-			this.imagenEditView.push(img);
+			this.imagenEditView.push(imagen);
 		}
-
-
 	}
 
 	show(imagen) {
@@ -145,11 +145,11 @@ export class Multimedia implements OnInit {
 			formData.append("img_edit", JSON.stringify(this.imagenEditView));/* se carga formData  */
 			this.servicios.updateImageEditView(formData) /* llamdo al metodo que se conectara con el server */
 				.then(x => {
-					if (x) {  
+					if (x) {
 						alert("Cambios Actualizados");
 					}
 				});
-			
+
 		} else {
 			alert("No se realizaron Cambios");
 		}

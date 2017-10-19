@@ -259,23 +259,23 @@ router.post("/createFile", (req, res, next) => {
 router.post("/getFileList", (req, res, next) => {
   console.log("\n\n\n\n\n\n\n\n============ get file list   ==== >   " + JSON.stringify(req.body));
   res.header("Access-Control-Allow-Origin", "*");
-  
-  try{
+
+  try {
     var fls = File.getFileList(req.body);
     fls.then(x => {
-      
-        console.log("\n\n\n\nSe ha obtenido los archivos  ==>   "+JSON.stringify(x));
-        
-        res.send(x);
-     
+
+      console.log("\n\n\n\nSe ha obtenido los archivos  ==>   " + JSON.stringify(x));
+
+      res.send(x);
+
     })
-    .catch(x => {
-      //console.log("ERROR =>  " + x);
-      //res.header("Access-Control-Allow-Origin", "*");
-      res.json(false);
-    });
-  }catch(e){
-    console.log("Revisar   "+e);
+      .catch(x => {
+        //console.log("ERROR =>  " + x);
+        //res.header("Access-Control-Allow-Origin", "*");
+        res.json(false);
+      });
+  } catch (e) {
+    console.log("Revisar   " + e);
   }
 });
 
@@ -810,7 +810,7 @@ router.post('/getDataNewChangePercent', (req, res) => {
 router.post('/getDataNewObservations', (req, res) => {
   console.log('\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\ <=====    get Data Novedades      ==== >   ' + JSON.stringify(req.body));
 
-  var nov = Novedades.getDataNewObservations(req.body,true);
+  var nov = Novedades.getDataNewObservations(req.body, true);
   nov.then(x => {
     console.log('!!!!!!!!!!!!!Se ha retornado exitosamente las novedades!!!!!!!!!!!');
     console.log('\n\n\n Novedades \n' + JSON.stringify(x));
@@ -828,7 +828,7 @@ router.post('/getDataNewObservations', (req, res) => {
 router.post('/getDataNewRemarks', (req, res) => {
   console.log('\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\ <=====    get Data Novedades      ==== >   ' + JSON.stringify(req.body));
 
-  var nov = Novedades.getDataNewObservations(req.body,false);
+  var nov = Novedades.getDataNewObservations(req.body, false);
   nov.then(x => {
     console.log('!!!!!!!!!!!!!Se ha retornado exitosamente las novedades!!!!!!!!!!!');
     console.log('\n\n\n Novedades \n' + JSON.stringify(x));
@@ -921,7 +921,8 @@ router.post('/updateImageEditView', (req, res, next) => {
   // res.header("Access-Control-Allow-Origin", "*");
   // res.json(true);
   var fil = File.updateImageEditView((data));
-  fil.then(x => {;
+  fil.then(x => {
+    ;
     res.header("Access-Control-Allow-Origin", "*");
     res.json(x);
 
@@ -938,7 +939,7 @@ router.post('/updateImageEditView', (req, res, next) => {
 router.post('/getDataNewChangeFile', (req, res) => {
   // console.log('\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\ <=====    get Data Novedades      ==== >   ' + JSON.stringify(req.body));
 
-  var nov = Novedades.getDataNewChangeFile(req.body,true);
+  var nov = Novedades.getDataNewChangeFile(req.body, true);
   nov.then(x => {
     // console.log('!!!!!!!!!!!!!Se ha retornado exitosamente las novedades!!!!!!!!!!!');
     // console.log('\n\n\n Novedades \n' + JSON.stringify(x));
@@ -994,15 +995,3 @@ function armJSONReport(data) {
 
 
 module.exports = router;
-
-
-
-
-
-
-
-
-
-
-
-
