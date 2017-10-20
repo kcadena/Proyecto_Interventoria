@@ -39,7 +39,7 @@ io.on('connection',(socket) =>{
   socket.on('newUser',(idUser) => {
     userList[idUser]=socket; //guarda usuarios
     console.log(userList);
-
+// ----------------------------------- /// 
   });
   //enviar novedad
   socket.on('sendSocketNovedad',(data) => {
